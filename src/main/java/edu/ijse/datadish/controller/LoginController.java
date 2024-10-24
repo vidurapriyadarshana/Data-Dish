@@ -33,6 +33,7 @@ public class LoginController {
 
     @FXML
     void LogInAction(ActionEvent event) {
+        System.out.println("button clicked");
         String userName = txtUserName.getText();
         String password = txtpassword.getText();
 

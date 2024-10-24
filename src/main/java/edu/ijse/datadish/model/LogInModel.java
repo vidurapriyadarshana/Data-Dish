@@ -11,7 +11,7 @@ public class LogInModel {
 
     public boolean cheakLogin(LogInDto logInDto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "SELECT UserName, Password FROM user WHERE UserName = ? AND Password = ?";
+        String sql = "SELECT * FROM user WHERE UserName = ? AND Password = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -21,6 +21,7 @@ public class LogInModel {
         System.out.println("initialized");
 
         int result = statement.executeUpdate();
+        System.out.println(result + " rows affected");
         return result > 0;
     }
 }
