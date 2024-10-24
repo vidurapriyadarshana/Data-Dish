@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Appinitializer extends Application {
@@ -15,7 +16,9 @@ public class Appinitializer extends Application {
     public void start(Stage stage) throws Exception {
         Parent load = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
         stage.setScene(new Scene(load));
-        stage.setTitle("Restuarent Managemen System");
+        Image icon = new Image(getClass().getResourceAsStream("/assests/logo.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("DataDish");
         stage.show();
     }
 }

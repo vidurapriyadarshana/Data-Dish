@@ -1,0 +1,28 @@
+#mainAnchor {
+    -fx-background-color: #FFFFFF;
+}
+
+#userNAme{
+    -fx-background-color: transparent;
+    -fx-border-color: #b4b4b8;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+}
+
+#password{
+    -fx-background-color: transparent;
+    -fx-border-color: #b4b4b8;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+}
+
+#btnLogIn {
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#btnLogIn:hover {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
