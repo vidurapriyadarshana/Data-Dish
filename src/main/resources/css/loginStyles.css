@@ -2,14 +2,14 @@
     -fx-background-color: #FFFFFF;
 }
 
-#userNAme{
+#txtUserName{
     -fx-background-color: transparent;
     -fx-border-color: #b4b4b8;
     -fx-border-width: 0 0 2px 0;
     -fx-text-fill: black;
 }
 
-#password{
+#txtpassword{
     -fx-background-color: transparent;
     -fx-border-color: #b4b4b8;
     -fx-border-width: 0 0 2px 0;

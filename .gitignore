@@ -1,6 +1,7 @@
 # Ignore .class files
 *.class
 *.java~
+*.css~
 
 # Maven wrapper files
 target/

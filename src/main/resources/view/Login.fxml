@@ -23,8 +23,8 @@
             <Font name="Corbel Light" size="42.0" />
          </font>
       </Label>
-      <TextField fx:id="userNAme" layoutX="591.0" layoutY="208.0" prefHeight="30.0" prefWidth="230.0" promptText="User Name" />
-      <PasswordField fx:id="password" layoutX="591.0" layoutY="265.0" prefHeight="30.0" prefWidth="230.0" promptText="Password" />
+      <TextField fx:id="txtUserName" layoutX="591.0" layoutY="208.0" prefHeight="30.0" prefWidth="230.0" promptText="User Name" />
+      <PasswordField fx:id="txtpassword" layoutX="591.0" layoutY="265.0" prefHeight="30.0" prefWidth="230.0" promptText="Password" />
       <Button fx:id="btnLogIn" layoutX="591.0" layoutY="360.0" mnemonicParsing="false" onAction="#LogInAction" prefHeight="30.0" prefWidth="230.0" text="Log In" />
       <Label layoutX="706.0" layoutY="322.0" onMouseClicked="#forgotPassAction" text="forget password?" textFill="#0066ff">
          <font>
