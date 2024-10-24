@@ -5,6 +5,7 @@ import edu.ijse.datadish.dto.LogInDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LogInModel {
@@ -20,8 +21,16 @@ public class LogInModel {
 
         System.out.println("initialized");
 
-        int result = statement.executeUpdate();
-        System.out.println(result + " rows affected");
-        return result > 0;
+        ResultSet result = statement.executeQuery();
+
+        System.out.println("got result set");
+
+        if (!result.next()) {
+            return false;
+        }
+        String role = result.getString("Role");
+        logInDto.setRole(role);
+        logInDto.setEmail(result.getString("Email"));
+        return true;
     }
 }
