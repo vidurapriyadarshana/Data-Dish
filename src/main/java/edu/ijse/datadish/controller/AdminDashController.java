@@ -2,8 +2,11 @@ package edu.ijse.datadish.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class AdminDashController {
 
@@ -24,8 +27,9 @@ public class AdminDashController {
     }
 
     @FXML
-    void navigateToHomePage(ActionEvent event) {
-
+    void navigateToHomePage(ActionEvent event) throws IOException {
+        loadPageAnchor.getChildren().clear();
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/HomePage.fxml")));
     }
 
     @FXML

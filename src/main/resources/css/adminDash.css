@@ -4,12 +4,10 @@
 
 #menuAnchor{
     -fx-background-color: #F9F6F7;
-    -fx-border-color: #FF971D;
-    -fx-border-width: 0 2px 0 0;
 }
 
 #loadPageAnchor{
-    -fx-background-color: #FFE8D6;
+    -fx-background-color: #F9F6F7;
 }
 
 #btnHome, #btnResavtion, #btnReports, #btnInventory ,#btnEmployee , #btnAddItem{

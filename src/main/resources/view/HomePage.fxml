@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="789.0" stylesheets="@../css/homePage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.HomePageController">
+   <children>
+      <AnchorPane fx:id="menuAnchor" prefHeight="600.0" prefWidth="600.0" />
+      <AnchorPane fx:id="itemAnchor" layoutX="593.0" prefHeight="600.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
