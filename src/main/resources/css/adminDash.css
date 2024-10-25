@@ -44,3 +44,14 @@
     -fx-border-color: black;
     -fx-text-fill: black;
 }
+
+#btnLogOut{
+    -fx-background-color: transparent;
+    -fx-border-color: #e74c3c;
+    -fx-text-fill: black;
+}
+
+#btnLogOut:hover {
+    -fx-border-color: #e74c3c;
+    -fx-text-fill: #e74c3c;
+}

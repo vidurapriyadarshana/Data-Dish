@@ -41,6 +41,15 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="btnLogOut" layoutX="55.0" layoutY="537.0" mnemonicParsing="false" onAction="#navigateToLogInPage" prefHeight="36.0" prefWidth="112.0" text="Log Out">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="loadPageAnchor" layoutX="211.33333333333334" prefHeight="600.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
