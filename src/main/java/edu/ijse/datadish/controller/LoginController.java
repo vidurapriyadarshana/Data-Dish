@@ -3,6 +3,7 @@ package edu.ijse.datadish.controller;
 import edu.ijse.datadish.dto.LogInDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -11,8 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import edu.ijse.datadish.model.LogInModel;
-
-import java.security.spec.RSAOtherPrimeInfo;
 
 public class LoginController {
 
@@ -42,13 +41,13 @@ public class LoginController {
 
         try {
             boolean isLoggedIn = logInModel.cheakLogin(logInDto);
-            if (isLoggedIn) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login Successful");
-                System.out.println("Successful");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Login Failed");
+            String role = logInDto.getRole();
+            if (isLoggedIn && role.equals("Admin")) {
+                System.out.println("Successful Admin");
+                mainAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/AdminDash.fxml")));
+            }else if(isLoggedIn && role.equals("Employee")){
+                System.out.println("Successful Employee");
+            }else {
                 System.out.println("Unsuccessful");
             }
         } catch (Exception e) {
@@ -61,5 +60,4 @@ public class LoginController {
     void forgotPassAction(MouseEvent event) {
 
     }
-
 }

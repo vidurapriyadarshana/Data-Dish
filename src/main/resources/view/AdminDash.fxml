@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/adminDash.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AdminDashController">
+   <children>
+      <AnchorPane fx:id="menuAnchor" prefHeight="600.0" prefWidth="211.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="211.0" layoutX="5.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnHome" layoutX="53.0" layoutY="142.0" mnemonicParsing="false" onAction="#navigateToHomePage" prefHeight="36.0" prefWidth="112.0" text="   Home">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnResavtion" layoutX="53.0" layoutY="198.0" mnemonicParsing="false" onAction="#navigateToResavtionPage" prefHeight="36.0" prefWidth="112.0" text="  Resavation">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/table.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnReports" layoutX="55.0" layoutY="257.0" mnemonicParsing="false" onAction="#navigateToReportsPage" prefHeight="36.0" prefWidth="112.0" text=" Reports">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/report.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="loadPageAnchor" layoutX="211.33333333333334" prefHeight="600.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

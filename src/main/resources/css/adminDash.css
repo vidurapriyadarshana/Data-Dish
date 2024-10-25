@@ -1,0 +1,46 @@
+#mainAnchor{
+    -fx-background-color: #FFFFFF;
+}
+
+#menuAnchor{
+    -fx-background-color: #F9F6F7;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 2px 0 0;
+}
+
+#loadPageAnchor{
+    -fx-background-color: #FFE8D6;
+}
+
+#btnHome {
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#btnHome:hover {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+
+#btnResavtion{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#btnResavtion:hover {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+
+#btnReports{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#btnReports:hover {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
