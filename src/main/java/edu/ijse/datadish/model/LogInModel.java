@@ -28,9 +28,17 @@ public class LogInModel {
         if (!result.next()) {
             return false;
         }
+
         String role = result.getString("Role");
+        String email = result.getString("Email");
+        logInDto.setEmail(email);
         logInDto.setRole(role);
-        logInDto.setEmail(result.getString("Email"));
+
+        System.out.println(logInDto.getUserName());
+        System.out.println(logInDto.getPassword());
+        System.out.println(logInDto.getRole());
+        System.out.println(logInDto.getEmail());
+
         return true;
     }
 }
