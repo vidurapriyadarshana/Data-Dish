@@ -38,8 +38,9 @@ public class AdminDashController {
     }
 
     @FXML
-    void navigateToLogInPage(ActionEvent event) {
-
+    void navigateToLogInPage(ActionEvent event) throws IOException {
+        mainAnchor.getChildren().clear();
+        mainAnchor.getChildren().add(FXMLLoader.    load(getClass().getResource("/view/LogIn.fxml")));
     }
 
     @FXML

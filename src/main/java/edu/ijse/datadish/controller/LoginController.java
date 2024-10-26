@@ -31,6 +31,12 @@ public class LoginController {
     private LogInDto logInDto = new LogInDto();
 
     @FXML
+    public void initialize() {
+        txtUserName.setOnAction(event -> txtpassword.requestFocus());
+        txtpassword.setOnAction(this::LogInAction);
+    }
+
+    @FXML
     void LogInAction(ActionEvent event) {
         System.out.println("button clicked");
         String userName = txtUserName.getText();
@@ -49,11 +55,19 @@ public class LoginController {
                 System.out.println("Successful Employee");
             }else {
                 System.out.println("Unsuccessful");
+                showAlert("Login Failed", "Invalid username or password.");
             }
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error" + e.getMessage());
+            showAlert("Error", "An error occurred: " + e.getMessage());
         }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
