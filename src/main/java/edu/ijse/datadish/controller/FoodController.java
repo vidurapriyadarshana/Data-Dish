@@ -15,8 +15,4 @@ public class FoodController {
     @FXML
     private Label foodPrice;
 
-    private void setData(String foodName,String foodPrice,String foodImage) {
-        
-    }
-
 }
