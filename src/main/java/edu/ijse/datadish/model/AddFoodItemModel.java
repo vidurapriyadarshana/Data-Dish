@@ -33,4 +33,32 @@ public class AddFoodItemModel {
 
         return true;
     }
+
+    public static String generateNextID() {
+        String nextID = null;
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            String query = "SELECT MenuItemID FROM MenuItem ORDER BY MenuItemID DESC LIMIT 1";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String lastID = resultSet.getString("MenuItemID");
+                int number = Integer.parseInt(lastID);
+                nextID = String.format("M%03d", number + 1);
+            } else {
+                nextID = "M001";
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return nextID;
+    }
+
 }

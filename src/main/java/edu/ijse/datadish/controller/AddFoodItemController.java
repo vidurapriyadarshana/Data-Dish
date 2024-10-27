@@ -4,6 +4,7 @@ import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.model.AddFoodItemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.sql.SQLException;
 
-public class AddFoodItemController {
+public class AddFoodItemController{
 
     @FXML
     private Button btAddItem;
@@ -50,7 +51,9 @@ public class AddFoodItemController {
 
     @FXML
     void addItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        foodDto.setFoodId(lblId.getText());
+        String id = AddFoodItemModel.generateNextID();
+        lblId.setText(id);
+        foodDto.setFoodId(id);
         foodDto.setFoodName(txtName.getText());
         foodDto.setFoodDescription(txtDesc.getText());
         foodDto.setFoodPrice(Double.parseDouble(txtPrice.getText()));
@@ -60,7 +63,20 @@ public class AddFoodItemController {
 
         System.out.println("Food Item Added: " + foodDto.getFoodName());
 
-        addFoodItemModel.addItem(foodDto);
+
+
+        try {
+            boolean isLoggedIn = addFoodItemModel.addItem(foodDto);
+            if (isLoggedIn) {
+                System.out.println("Successful");
+                showAlert("Add Item", "Item Added Successfully");
+            } else {
+                System.out.println("Unsuccessful");
+                showAlert("Add Item", "Item Added Unsuccessfully");
+            }
+        } catch (Exception e) {
+            showAlert("Error", "An error occurred: " + e.getMessage());
+        }
 
         System.out.println("Food Item Added: " + foodDto.getFoodName());
 
@@ -82,4 +98,11 @@ public class AddFoodItemController {
         }
     }
 
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
