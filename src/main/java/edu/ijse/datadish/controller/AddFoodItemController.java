@@ -51,7 +51,9 @@ public class AddFoodItemController{
 
     @FXML
     void addItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        System.out.println("add item action");
         String id = AddFoodItemModel.generateNextID();
+        System.out.println("id genarated" + id);
         lblId.setText(id);
         foodDto.setFoodId(id);
         foodDto.setFoodName(txtName.getText());
@@ -61,13 +63,15 @@ public class AddFoodItemController{
         foodDto.setFoodAvailability("Available");
         foodDto.setFoodImage(imageView.getImage());
 
+        System.out.println("initialized");
+
         System.out.println("Food Item Added: " + foodDto.getFoodName());
 
 
 
         try {
-            boolean isLoggedIn = addFoodItemModel.addItem(foodDto);
-            if (isLoggedIn) {
+            boolean isAdded = addFoodItemModel.addItem(foodDto);
+            if (isAdded) {
                 System.out.println("Successful");
                 showAlert("Add Item", "Item Added Successfully");
             } else {
@@ -91,10 +95,13 @@ public class AddFoodItemController{
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
 
         File selectedFile = fileChooser.showOpenDialog(mainAnchor.getScene().getWindow());
+        System.out.println("choose file");
         if (selectedFile != null) {
             Image image = new Image(((File) selectedFile).toURI().toString());
             imageView.setImage(image);
+            System.out.println("image choosed");
             foodDto.setFoodImage(image);
+            System.out.println("image set");
         }
     }
 
