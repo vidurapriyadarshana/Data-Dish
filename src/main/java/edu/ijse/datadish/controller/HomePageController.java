@@ -6,6 +6,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomePageController {
 
     @FXML
@@ -25,5 +28,7 @@ public class HomePageController {
 
     @FXML
     private TextField searchField;
+
+    List<FoodController> foodControllers = new ArrayList<>();
 
 }

@@ -17,8 +17,9 @@ public class AdminDashController {
     private AnchorPane loadPageAnchor,mainAnchor,menuAnchor;
 
     @FXML
-    void navigateToAddItemPage(ActionEvent event) {
-
+    void navigateToAddItemPage(ActionEvent event) throws IOException {
+        loadPageAnchor.getChildren().clear();
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/AddItem.fxml")));
     }
 
     @FXML
