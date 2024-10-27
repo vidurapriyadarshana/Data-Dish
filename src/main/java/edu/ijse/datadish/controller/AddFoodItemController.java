@@ -52,8 +52,11 @@ public class AddFoodItemController{
     @FXML
     void addItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         System.out.println("add item action");
+
         String id = AddFoodItemModel.generateNextID();
+
         System.out.println("id genarated" + id);
+
         lblId.setText(id);
         foodDto.setFoodId(id);
         foodDto.setFoodName(txtName.getText());
@@ -66,8 +69,6 @@ public class AddFoodItemController{
         System.out.println("initialized");
 
         System.out.println("Food Item Added: " + foodDto.getFoodName());
-
-
 
         try {
             boolean isAdded = addFoodItemModel.addItem(foodDto);
@@ -106,7 +107,7 @@ public class AddFoodItemController{
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
