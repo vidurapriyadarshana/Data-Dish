@@ -1,9 +1,13 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.model.AddItemModel;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -13,8 +17,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AddItemController {
+public class AddItemController implements Initializable {
 
     @FXML
     private AnchorPane addItemAnchor;
@@ -64,4 +70,17 @@ public class AddItemController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<FoodDto> foodItems = new AddItemModel().loadTable();
+
+        itemMenuTable.setItems(foodItems);
+
+        colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodId()));
+        colName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodName()));
+        colDesc.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodDescription()));
+        colPrice.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getFoodPrice())));
+        colCategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodCategory()));
+        colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodAvailability()));
+    }
 }

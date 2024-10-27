@@ -1,28 +1,41 @@
 package edu.ijse.datadish.db;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static DBConnection  dBConnection;
-
+    private static DBConnection dBConnection;
     private Connection connection;
 
-    private DBConnection() throws SQLException, ClassNotFoundException{
+    private DBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurantdb", "root", "Vidura999@");
     }
 
-    public static DBConnection getInstance() throws SQLException, ClassNotFoundException{
-        if(dBConnection == null){
+    public static DBConnection getInstance() throws SQLException, ClassNotFoundException {
+        if (dBConnection == null) {
             dBConnection = new DBConnection();
         }
         return dBConnection;
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() throws SQLException {
+        // Check if the connection is closed and reconnect if necessary
+        if (connection == null || connection.isClosed()) {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurantdb", "root", "Vidura999@");
+        }
         return connection;
+    }
+
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("Connection closed.");
+            } catch (SQLException e) {
+                System.out.println("Error closing connection: " + e.getMessage());
+            }
+        }
     }
 }

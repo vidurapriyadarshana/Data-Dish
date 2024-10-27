@@ -10,30 +10,35 @@ import java.sql.SQLException;
 
 public class AddFoodItemModel {
     public boolean addItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        System.out.println("Connected to the database.");
-
         String sql = "INSERT INTO MenuItem (MenuItemID, Name, Description, Price, Category, Availability) VALUES (?,?,?,?,?,?)";
         System.out.println("Query prepared.");
 
-        PreparedStatement statement = connection.prepareStatement(sql);
-        System.out.println("Statement initialized.");
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        statement.setString(1, foodDto.getFoodId());
-        statement.setString(2, foodDto.getFoodName());
-        statement.setString(3, foodDto.getFoodDescription());
-        statement.setDouble(4, foodDto.getFoodPrice());
-        statement.setString(5, foodDto.getFoodCategory());
-        statement.setString(6, foodDto.getFoodAvailability());
+            System.out.println("Connected to the database.");
 
-        System.out.println("Parameters set.");
+            statement.setString(1, foodDto.getFoodId());
+            statement.setString(2, foodDto.getFoodName());
+            statement.setString(3, foodDto.getFoodDescription());
+            statement.setDouble(4, foodDto.getFoodPrice());
+            statement.setString(5, foodDto.getFoodCategory());
+            statement.setString(6, foodDto.getFoodAvailability());
 
-        int rowsAffected = statement.executeUpdate();
+            System.out.println("Parameters set.");
 
-        System.out.println("Insert operation executed.");
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Insert operation executed.");
 
-        return rowsAffected > 0;
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            return false;
+        }
     }
+
+
 
 
     public static String generateNextID() {
@@ -42,6 +47,12 @@ public class AddFoodItemModel {
         try {
             System.out.println("Generating ID...");
             Connection connection = DBConnection.getInstance().getConnection();
+
+            if (connection == null) {
+                System.out.println("Database connection failed.");
+                return null;
+            }
+
             System.out.println("Connected to database.");
 
             String query = "SELECT MenuItemID FROM MenuItem ORDER BY MenuItemID DESC LIMIT 1";
@@ -57,13 +68,16 @@ public class AddFoodItemModel {
                 nextID = "M001";
                 System.out.println("No entries found, starting with ID: " + nextID);
             }
-            resultSet.close();
-            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
         } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
             e.printStackTrace();
         }
 
         return nextID;
     }
+
 
 }
