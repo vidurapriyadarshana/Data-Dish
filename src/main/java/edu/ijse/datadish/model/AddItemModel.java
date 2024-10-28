@@ -50,9 +50,21 @@ public class AddItemModel {
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            return false;  // Return false on failure
+            return false;
         }
     }
 
 
+    public boolean updateFoodAvailability(String id, String availability) {
+        String sql = "UPDATE menuitem SET Availability = ? WHERE MenuItemID = ?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, availability);
+            statement.setString(2, id);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

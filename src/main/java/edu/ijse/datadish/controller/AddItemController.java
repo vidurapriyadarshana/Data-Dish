@@ -78,13 +78,16 @@ public class AddItemController implements Initializable {
                 return new TableCell<>() {
                     private final Button editButton = new Button("Edit");
                     private final Button deleteButton = new Button("Delete");
+                    private final Button availableButton = new Button("Available");
 
                     {
                         editButton.setId("btnEdit");
                         deleteButton.setId("btnDelete");
+                        availableButton.setId("btnAvailable");
 
                         editButton.setStyle("-fx-background-color: transparent; -fx-border-color: #00FF9C; -fx-text-fill: black;");
                         deleteButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
+                        availableButton.setStyle("-fx-background-color: transparent; -fx-border-color: #FFD700; -fx-text-fill: black;");
 
                         editButton.setOnAction(event -> {
                             FoodDto food = getTableView().getItems().get(getIndex());
@@ -95,6 +98,11 @@ public class AddItemController implements Initializable {
                             FoodDto food = getTableView().getItems().get(getIndex());
                             deleteFoodItem(food);
                         });
+
+                        availableButton.setOnAction(event -> {
+                            FoodDto food = getTableView().getItems().get(getIndex());
+                            toggleAvailability(food); // Call a method to change availability
+                        });
                     }
 
                     @Override
@@ -103,13 +111,27 @@ public class AddItemController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox hbox = new HBox(10, editButton, deleteButton);
+                            HBox hbox = new HBox(10, editButton, deleteButton, availableButton); // Add availableButton here
                             setGraphic(hbox);
                         }
                     }
                 };
             }
         });
+    }
+
+    private void toggleAvailability(FoodDto food) {
+        boolean isAvailable = "Available".equals(food.getFoodAvailability());
+        food.setFoodAvailability(isAvailable ? "Unavailable" : "Available");
+
+        boolean updateResult = addItemModel.updateFoodAvailability(food.getFoodId(), food.getFoodAvailability());
+        if (updateResult) {
+            showAlert("Update Availability", "Item availability updated successfully.");
+            itemMenuTable.setItems(addItemModel.loadTable());
+        } else {
+            showAlert("Update Availability", "Failed to update item availability.");
+        }
+        System.out.println("Toggled availability for item: " + food.getFoodName());
     }
 
     private void editFoodItem(FoodDto food) {
