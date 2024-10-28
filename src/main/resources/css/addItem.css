@@ -1,15 +1,3 @@
-#btnAddItem , #btUpdateItem {
-    -fx-background-color: transparent;
-    -fx-border-color: #00FF9C;
-    -fx-text-fill: black;
-}
-
-#btDeleteItem{
-    -fx-background-color: transparent;
-    -fx-border-color: #F95454;
-    -fx-text-fill: black;
-}
-
 #btUpdateItem {
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
