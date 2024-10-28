@@ -29,9 +29,6 @@ public class AddItemController implements Initializable {
     private TableColumn<FoodDto, String> colCategory;
 
     @FXML
-    private TableColumn<FoodDto, String> colDesc;
-
-    @FXML
     private TableColumn<FoodDto, String> colId;
 
     @FXML
@@ -62,12 +59,20 @@ public class AddItemController implements Initializable {
 
     @FXML
     void deleteItemAction(ActionEvent event) {
-
+        try {
+            Parent load = FXMLLoader.load(getClass().getResource("/view/DeleteFoodItem.fxml"));
+            Stage addItemStage = new Stage();
+            addItemStage.setTitle("Add Item");
+            addItemStage.setScene(new Scene(load));
+            addItemStage.initModality(Modality.NONE);
+            addItemStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void updateItemAction(ActionEvent event) {
-
     }
 
     @Override
@@ -78,7 +83,6 @@ public class AddItemController implements Initializable {
 
         colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodId()));
         colName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodName()));
-        colDesc.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodDescription()));
         colPrice.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getFoodPrice())));
         colCategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodCategory()));
         colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodAvailability()));

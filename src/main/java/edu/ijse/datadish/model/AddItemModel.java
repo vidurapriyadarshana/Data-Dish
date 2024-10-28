@@ -16,19 +16,18 @@ public class AddItemModel {
 
         try {
             Connection connection = DBConnection.getInstance().getConnection();
-            String query = "SELECT * FROM MenuItem";
+            String query = "SELECT MenuItemID, Name, Price, Category, Availability FROM MenuItem";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 String id = resultSet.getString("MenuItemID");
                 String name = resultSet.getString("Name");
-                String description = resultSet.getString("Description");
                 double price = resultSet.getDouble("Price");
                 String category = resultSet.getString("Category");
                 String availability = resultSet.getString("Availability");
 
-                FoodDto foodDto = new FoodDto(id, name, description, price, category, availability, null); // Set image to null for now
+                FoodDto foodDto = new FoodDto(id, name, price, category, availability, null);
                 foodItems.add(foodDto);
             }
 

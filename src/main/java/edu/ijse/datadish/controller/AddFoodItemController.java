@@ -4,6 +4,7 @@ import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.model.AddFoodItemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,9 +16,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class AddFoodItemController{
+public class AddFoodItemController implements Initializable {
 
     @FXML
     private Button btAddItem;
@@ -60,11 +63,9 @@ public class AddFoodItemController{
         lblId.setText(id);
         foodDto.setFoodId(id);
         foodDto.setFoodName(txtName.getText());
-        foodDto.setFoodDescription(txtDesc.getText());
         foodDto.setFoodPrice(Double.parseDouble(txtPrice.getText()));
         foodDto.setFoodCategory(txtCategory.getText());
         foodDto.setFoodAvailability("Available");
-        foodDto.setFoodImage(imageView.getImage());
 
         System.out.println("initialized");
 
@@ -112,5 +113,10 @@ public class AddFoodItemController{
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblId.setText(AddFoodItemModel.generateNextID());
     }
 }

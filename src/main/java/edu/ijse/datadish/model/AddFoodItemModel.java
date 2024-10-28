@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class AddFoodItemModel {
     public boolean addItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
-        String sql = "INSERT INTO MenuItem (MenuItemID, Name, Description, Price, Category, Availability) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO MenuItem (MenuItemID, Name, Price, Category, Availability) VALUES (?,?,?,?,?)";
         System.out.println("Query prepared.");
 
         try (Connection connection = DBConnection.getInstance().getConnection();
@@ -20,10 +20,9 @@ public class AddFoodItemModel {
 
             statement.setString(1, foodDto.getFoodId());
             statement.setString(2, foodDto.getFoodName());
-            statement.setString(3, foodDto.getFoodDescription());
-            statement.setDouble(4, foodDto.getFoodPrice());
-            statement.setString(5, foodDto.getFoodCategory());
-            statement.setString(6, foodDto.getFoodAvailability());
+            statement.setDouble(3, foodDto.getFoodPrice());
+            statement.setString(4, foodDto.getFoodCategory());
+            statement.setString(5, foodDto.getFoodAvailability());
 
             System.out.println("Parameters set.");
 

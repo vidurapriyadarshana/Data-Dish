@@ -21,7 +21,6 @@ public class DBConnection {
     }
 
     public Connection getConnection() throws SQLException {
-        // Check if the connection is closed and reconnect if necessary
         if (connection == null || connection.isClosed()) {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurantdb", "root", "Vidura999@");
         }
