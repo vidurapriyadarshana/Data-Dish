@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -22,6 +19,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddItemController implements Initializable {
@@ -50,6 +48,8 @@ public class AddItemController implements Initializable {
     @FXML
     private TableView<FoodDto> itemMenuTable;
 
+    private AddItemModel addItemModel;
+
     @FXML
     void addItemAction(ActionEvent event) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/view/AddFoodItem.fxml"));
@@ -62,7 +62,8 @@ public class AddItemController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<FoodDto> foodItems = new AddItemModel().loadTable();
+        addItemModel = new AddItemModel();
+        ObservableList<FoodDto> foodItems = addItemModel.loadTable();
         itemMenuTable.setItems(foodItems);
 
         colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFoodId()));
@@ -117,7 +118,33 @@ public class AddItemController implements Initializable {
     }
 
     private void deleteFoodItem(FoodDto food) {
+        Alert confirmDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDelete.setTitle("Delete Confirmation");
+        confirmDelete.setHeaderText("Are you sure you want to delete this item?");
+        confirmDelete.setContentText("Item: " + food.getFoodName());
 
-        System.out.println("Deleting item: " + food.getFoodName());
+        Optional<ButtonType> result = confirmDelete.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            boolean deleteResult = addItemModel.delete(food.getFoodId());
+
+            if (deleteResult) {
+                showAlert("Delete Item", "Item Deleted Successfully");
+                itemMenuTable.setItems(addItemModel.loadTable());
+            } else {
+                showAlert("Delete Item", "Item Not Deleted");
+            }
+            System.out.println("Deleting item: " + food.getFoodName());
+        } else {
+            System.out.println("Deletion canceled.");
+        }
+    }
+
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

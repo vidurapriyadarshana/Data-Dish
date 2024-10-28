@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddItemModel {
+
     public ObservableList<FoodDto> loadTable() {
         ObservableList<FoodDto> foodItems = FXCollections.observableArrayList();
 
@@ -30,10 +31,6 @@ public class AddItemModel {
                 FoodDto foodDto = new FoodDto(id, name, price, category, availability, null);
                 foodItems.add(foodDto);
             }
-
-            resultSet.close();
-            statement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -42,4 +39,20 @@ public class AddItemModel {
 
         return foodItems;
     }
+
+    public boolean delete(String id) {
+        String sql = "DELETE FROM menuitem WHERE MenuItemID = ?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, id);
+            return statement.executeUpdate() > 0;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;  // Return false on failure
+        }
+    }
+
+
 }

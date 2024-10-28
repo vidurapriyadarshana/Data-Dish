@@ -14,7 +14,7 @@
             <TableColumn fx:id="colPrice" prefWidth="127.99993896484375" text="Price" />
             <TableColumn fx:id="colCategory" prefWidth="131.33340454101562" text="Category" />
             <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="107.3333740234375" text="Availability" />
-            <TableColumn fx:id="colDesc" prefWidth="170.0" text="Description" />
+            <TableColumn fx:id="colDesc" prefWidth="146.6666259765625" text="Action" />
         </columns>
       </TableView>
       <Button fx:id="btnAddItem" layoutX="664.0" layoutY="537.0" mnemonicParsing="false" onAction="#addItemAction" prefHeight="35.0" prefWidth="85.0" text="Add Item" />
