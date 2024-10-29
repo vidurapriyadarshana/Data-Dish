@@ -1,7 +1,7 @@
-package edu.ijse.datadish.controller;
+package edu.ijse.datadish.controller.addItemControllers;
 
 import edu.ijse.datadish.dto.FoodDto;
-import edu.ijse.datadish.model.AddItemModel;
+import edu.ijse.datadish.model.addItemModels.AddItemModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

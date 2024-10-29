@@ -1,6 +1,5 @@
-package edu.ijse.datadish.controller;
+package edu.ijse.datadish.controller.addItemControllers;
 
-import edu.ijse.datadish.dto.FoodDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
