@@ -44,9 +44,6 @@ public class AddFoodItemModel {
         }
     }
 
-
-
-
     public static String generateNextID() {
         String nextID = null;
 
@@ -81,7 +78,6 @@ public class AddFoodItemModel {
             System.out.println("Exception: " + e.getMessage());
             e.printStackTrace();
         }
-
         return nextID;
     }
 

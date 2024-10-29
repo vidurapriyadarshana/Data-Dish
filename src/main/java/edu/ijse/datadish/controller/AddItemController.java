@@ -88,7 +88,11 @@ public class AddItemController implements Initializable {
 
                         editButton.setOnAction(event -> {
                             FoodDto food = getTableView().getItems().get(getIndex());
-                            editFoodItem(food);
+                            try {
+                                editFoodItem(food);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         });
 
                         deleteButton.setOnAction(event -> {
@@ -114,8 +118,13 @@ public class AddItemController implements Initializable {
     }
 
 
-    private void editFoodItem(FoodDto food) {
-
+    private void editFoodItem(FoodDto food) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/view/EditFoodItem.fxml"));
+        Stage addItemStage = new Stage();
+        addItemStage.setTitle("Add Item");
+        addItemStage.setScene(new Scene(load));
+        addItemStage.initModality(Modality.NONE);
+        addItemStage.show();
         System.out.println("Editing item: " + food.getFoodName());
     }
 
