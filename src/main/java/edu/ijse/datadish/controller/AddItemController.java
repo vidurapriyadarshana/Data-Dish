@@ -119,9 +119,13 @@ public class AddItemController implements Initializable {
 
 
     private void editFoodItem(FoodDto food) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/view/EditFoodItem.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditFoodItem.fxml"));
+        Parent load = loader.load();
+        EditFoodItemController controller = loader.getController();
+        controller.setFoodDto(food);
+
         Stage addItemStage = new Stage();
-        addItemStage.setTitle("Add Item");
+        addItemStage.setTitle("Edit Item");
         addItemStage.setScene(new Scene(load));
         addItemStage.initModality(Modality.NONE);
         addItemStage.show();

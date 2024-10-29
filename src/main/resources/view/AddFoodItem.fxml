@@ -20,7 +20,6 @@
                </font>
             </Label>
             <TextField fx:id="txtName" promptText="Name" />
-            <TextField fx:id="txtDesc" promptText="Description" />
             <TextField fx:id="txtPrice" promptText="Price" />
             <TextField fx:id="txtCategory" promptText="Catrgory" />
          </children>
