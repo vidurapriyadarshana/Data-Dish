@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.EditFoodItemController">
+<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.EditFoodItemController">
    <children>
       <Button fx:id="btAddItem" layoutX="371.0" layoutY="295.0" mnemonicParsing="false" onAction="#editItemAction" prefHeight="31.0" prefWidth="149.0" text="Confirm Changes" />
       <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="58.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
@@ -23,7 +23,7 @@
             <TextField fx:id="txtName" promptText="Name" />
             <TextField fx:id="txtPrice" promptText="Price" />
             <TextField fx:id="txtCategory" promptText="Catrgory" />
-            <CheckBox fx:id="btAvailable" mnemonicParsing="false" onAction="#availableAction" text="Available">
+            <CheckBox fx:id="btAvailable" mnemonicParsing="false" text="Available">
                <font>
                   <Font size="15.0" />
                </font>

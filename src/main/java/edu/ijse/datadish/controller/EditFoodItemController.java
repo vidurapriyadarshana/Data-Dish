@@ -7,12 +7,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.SimpleTimeZone;
 
 public class EditFoodItemController implements Initializable {
 
@@ -43,18 +48,31 @@ public class EditFoodItemController implements Initializable {
     @FXML
     private TextField txtPrice;
 
-    private FoodDto foodDto = new FoodDto();
-
-    private EditFoodItemModel editFoodItemModel = new EditFoodItemModel();
-
     @FXML
-    void availableAction(ActionEvent event) {
+    private AnchorPane mainAnchor;
 
-    }
+    private FoodDto foodDto = new FoodDto();
+    private EditFoodItemModel editFoodItemModel = new EditFoodItemModel();
+    private AddItemController addItemController = new AddItemController();
+
 
     @FXML
     void changeImageAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
 
+        File selectedFile = fileChooser.showOpenDialog(mainAnchor.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                String imagePath = AddFoodItemModel.saveImage(selectedFile, txtName.getText());
+                foodDto.setFoodImagePath(imagePath);
+
+                Image image = new Image(selectedFile.toURI().toString());
+                imageView.setImage(image);
+            } catch (IOException e) {
+                showAlert("Error", "Error saving image: " + e.getMessage());
+            }
+        }
     }
 
     @FXML
@@ -70,14 +88,16 @@ public class EditFoodItemController implements Initializable {
         foodDto.setFoodPrice(price);
         foodDto.setFoodCategory(category);
         foodDto.setFoodAvailability(availability);
-        
-        boolean isAdded = editFoodItemModel.editFoodItem(foodDto);
 
+        boolean isAdded = editFoodItemModel.editFoodItem(foodDto);
         if (isAdded) {
             showAlert("Edit Item", "Item Edited Successfully");
         } else {
             showAlert("Edit Item", "Item Edited Unsuccessfully");
         }
+
+        Stage stage = (Stage) mainAnchor.getScene().getWindow();
+        stage.close();
     }
 
 
@@ -86,7 +106,7 @@ public class EditFoodItemController implements Initializable {
         try {
             foodDto = editFoodItemModel.editFoodItem();
             lblId.setText(foodDto.getFoodId());
-
+            availableAction();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -107,6 +127,10 @@ public class EditFoodItemController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void availableAction() {
+        btAvailable.setSelected(foodDto.getFoodAvailability().equals("Available"));
     }
 
 }
