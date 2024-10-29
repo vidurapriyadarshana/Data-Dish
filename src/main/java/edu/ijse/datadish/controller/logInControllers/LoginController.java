@@ -1,4 +1,4 @@
-package edu.ijse.datadish.controller;
+package edu.ijse.datadish.controller.logInControllers;
 
 import edu.ijse.datadish.dto.LogInDto;
 import javafx.event.ActionEvent;
@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import edu.ijse.datadish.model.LogInModel;
+import edu.ijse.datadish.model.logInModes.LogInModel;
 
 public class LoginController {
 
