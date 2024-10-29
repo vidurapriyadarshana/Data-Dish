@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class EditFoodItemModel {
 
-    public FoodDto editFoodItem() throws SQLException, ClassNotFoundException {
+    public FoodDto updateFoodItem() throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM menuitem";
         Connection connection = DBConnection.getInstance().getConnection();

@@ -104,21 +104,32 @@ public class EditFoodItemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            foodDto = editFoodItemModel.editFoodItem();
+            foodDto = editFoodItemModel.updateFoodItem();
             lblId.setText(foodDto.getFoodId());
+            txtName.setText(foodDto.getFoodName());
+            txtCategory.setText(foodDto.getFoodCategory());
+            txtPrice.setText(String.valueOf(foodDto.getFoodPrice()));
+
             availableAction();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+
+            btAvailable.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                foodDto.setFoodAvailability(newValue ? "Available" : "Not Available");
+            });
+
+        } catch (SQLException | ClassNotFoundException e) {
+            showAlert("Error", "Error loading food item: " + e.getMessage());
         }
     }
+
     public void setFoodDto(FoodDto food) {
         this.foodDto = food;
         lblId.setText(food.getFoodId());
         txtName.setText(food.getFoodName());
         txtCategory.setText(food.getFoodCategory());
         txtPrice.setText(String.valueOf(food.getFoodPrice()));
+
+        // Update the checkbox based on the availability status.
+        availableAction();
     }
 
     private void showAlert(String title, String message) {
@@ -130,7 +141,8 @@ public class EditFoodItemController implements Initializable {
     }
 
     private void availableAction() {
-        btAvailable.setSelected(foodDto.getFoodAvailability().equals("Available"));
+        // Set the checkbox based on whether the food item is available.
+        btAvailable.setSelected("Available".equals(foodDto.getFoodAvailability()));
     }
 
 }
