@@ -3,37 +3,44 @@ package edu.ijse.datadish.model;
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddFoodItemModel {
+
+    private static final String IMAGES_DIR = "src/main/resources/assests/food/";
+
+    static {
+        try {
+            Files.createDirectories(Paths.get(IMAGES_DIR));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean addItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
-        String sql = "INSERT INTO MenuItem (MenuItemID, Name, Price, Category, Availability) VALUES (?,?,?,?,?)";
-        System.out.println("Query prepared.");
+        String sql = "INSERT INTO MenuItem (MenuItemID, Name, Price, Category, Availability, ImageData) VALUES (?,?,?,?,?,?)";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            System.out.println("Connected to the database.");
 
             statement.setString(1, foodDto.getFoodId());
             statement.setString(2, foodDto.getFoodName());
             statement.setDouble(3, foodDto.getFoodPrice());
             statement.setString(4, foodDto.getFoodCategory());
             statement.setString(5, foodDto.getFoodAvailability());
-
-            System.out.println("Parameters set.");
+            statement.setString(6, foodDto.getFoodImagePath());
 
             int rowsAffected = statement.executeUpdate();
-            System.out.println("Insert operation executed.");
-
             return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            System.out.println("SQL Exception: " + e.getMessage());
-            return false;
         }
     }
 
@@ -77,6 +84,19 @@ public class AddFoodItemModel {
 
         return nextID;
     }
+
+    public static String saveImage(File sourceFile, String itemName) throws IOException {
+        String fileExtension = getFileExtension(sourceFile.getName());
+        String uniqueFilename = itemName + "_" + System.currentTimeMillis() + fileExtension;
+        Path destinationPath = Paths.get(IMAGES_DIR, uniqueFilename);
+        Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        return destinationPath.toString();
+    }
+
+    private static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf('.'));
+    }
+
 
 
 }

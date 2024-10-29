@@ -8,3 +8,10 @@
     -fx-border-color: black;
     -fx-text-fill: black;
 }
+
+#itemMenuTable{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+}

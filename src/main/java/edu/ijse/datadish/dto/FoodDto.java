@@ -10,12 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class FoodDto {
     private String foodId;
     private String foodName;
     private double foodPrice;
     private String foodCategory;
     private String foodAvailability;
-    private Image foodImage;
+    private String foodImagePath;
 }

@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -54,41 +55,28 @@ public class AddFoodItemController implements Initializable {
 
     @FXML
     void addItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        System.out.println("add item action");
-
         String id = AddFoodItemModel.generateNextID();
-
-        System.out.println("id genarated" + id);
-
         lblId.setText(id);
+
         foodDto.setFoodId(id);
         foodDto.setFoodName(txtName.getText());
         foodDto.setFoodPrice(Double.parseDouble(txtPrice.getText()));
         foodDto.setFoodCategory(txtCategory.getText());
         foodDto.setFoodAvailability("Available");
 
-        System.out.println("initialized");
-
-        System.out.println("Food Item Added: " + foodDto.getFoodName());
-
         try {
             boolean isAdded = addFoodItemModel.addItem(foodDto);
             if (isAdded) {
-                System.out.println("Successful");
                 showAlert("Add Item", "Item Added Successfully");
             } else {
-                System.out.println("Unsuccessful");
                 showAlert("Add Item", "Item Added Unsuccessfully");
             }
         } catch (Exception e) {
             showAlert("Error", "An error occurred: " + e.getMessage());
         }
 
-        System.out.println("Food Item Added: " + foodDto.getFoodName());
-
         Stage stage = (Stage) mainAnchor.getScene().getWindow();
         stage.close();
-
     }
 
     @FXML
@@ -97,13 +85,16 @@ public class AddFoodItemController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
 
         File selectedFile = fileChooser.showOpenDialog(mainAnchor.getScene().getWindow());
-        System.out.println("choose file");
         if (selectedFile != null) {
-            Image image = new Image(((File) selectedFile).toURI().toString());
-            imageView.setImage(image);
-            System.out.println("image choosed");
-            foodDto.setFoodImage(image);
-            System.out.println("image set");
+            try {
+                String imagePath = AddFoodItemModel.saveImage(selectedFile, txtName.getText());
+                foodDto.setFoodImagePath(imagePath);
+
+                Image image = new Image(selectedFile.toURI().toString());
+                imageView.setImage(image);
+            } catch (IOException e) {
+                showAlert("Error", "Error saving image: " + e.getMessage());
+            }
         }
     }
 
