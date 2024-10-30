@@ -2,7 +2,6 @@ package edu.ijse.datadish.model.addItemModels;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
-import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,17 +11,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static edu.ijse.datadish.model.addItemModels.AddFoodItemModel.getFileExtension;
 
 public class EditFoodItemModel {
 
     private static final String PROFILE_IMAGES_DIR = "src/main/resources/assests/food/";
-
+    private FoodDto foodDto = new FoodDto();
     static {
         try {
             Files.createDirectories(Paths.get(PROFILE_IMAGES_DIR));
@@ -39,42 +35,7 @@ public class EditFoodItemModel {
         return destinationPath.toString();
     }
 
-
-    public FoodDto updateFoodItem() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM menuitem";
-        Connection connection = DBConnection.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        ResultSet result = statement.executeQuery();
-
-        if (!result.next()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No data found");
-            alert.showAndWait();
-            return null;
-        }
-
-        String id = result.getString("MenuItemID");
-        String name = result.getString("Name");
-        double price = result.getDouble("Price");
-        String category = result.getString("Category");
-        String availability = result.getString("Availability");
-        String imagePath = result.getString("ImageData");
-
-        System.out.println(id);
-        System.out.println(name);
-        System.out.println(price);
-        System.out.println(category);
-        System.out.println(availability);
-        System.out.println(imagePath);
-
-        return new FoodDto(id, name, price, category, availability, imagePath);
-    }
-
-
-    public boolean editFoodItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
+    public boolean updateFoodItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE menuitem SET Name = ?, Price = ?, Category = ?, Availability = ?, ImageData = ? WHERE MenuItemID = ?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -91,4 +52,35 @@ public class EditFoodItemModel {
         return rowsAffected > 0;
     }
 
+    public boolean saveImagePath(String foodId , String imagePath) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE menuitem SET ImageData = ? WHERE MenuItemID = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, imagePath);
+        statement.setString(2, foodId);
+
+        int rowsAffected = statement.executeUpdate();
+
+        return rowsAffected > 0;
+    }
+
+    public boolean getImagePath(String itemId) throws SQLException, ClassNotFoundException {
+        String query = "SELECT ImageData FROM items WHERE MenuItemID = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setString(1, itemId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        String imagePath = resultSet.getString("ImageData");
+        foodDto.setFoodImagePath(imagePath);
+
+        if (!resultSet.next()) {
+            return false;
+        }
+
+        return true;
+    }
 }

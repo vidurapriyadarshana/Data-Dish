@@ -19,6 +19,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -90,7 +91,7 @@ public class AddItemController implements Initializable {
                             FoodDto food = getTableView().getItems().get(getIndex());
                             try {
                                 editFoodItem(food);
-                            } catch (IOException e) {
+                            } catch (IOException | SQLException | ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
                         });
@@ -118,7 +119,7 @@ public class AddItemController implements Initializable {
     }
 
 
-    private void editFoodItem(FoodDto food) throws IOException {
+    private void editFoodItem(FoodDto food) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addItemView/EditFoodItem.fxml"));
         Parent load = loader.load();
         EditFoodItemController controller = loader.getController();
