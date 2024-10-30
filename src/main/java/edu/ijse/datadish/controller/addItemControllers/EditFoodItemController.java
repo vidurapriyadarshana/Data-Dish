@@ -105,6 +105,7 @@ public class EditFoodItemController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             foodDto = editFoodItemModel.updateFoodItem();
+
             lblId.setText(foodDto.getFoodId());
             txtName.setText(foodDto.getFoodName());
             txtCategory.setText(foodDto.getFoodCategory());
@@ -126,6 +127,7 @@ public class EditFoodItemController implements Initializable {
     private void loadImageIntoView(String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             File imageFile = new File(imagePath);
+            System.out.println(imagePath);
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toString());
                 imageView.setImage(image);

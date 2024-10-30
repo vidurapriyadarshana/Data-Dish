@@ -44,6 +44,7 @@ public class EditFoodItemModel {
         String sql = "SELECT * FROM menuitem";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
+
         ResultSet result = statement.executeQuery();
 
         if (!result.next()) {
@@ -61,6 +62,13 @@ public class EditFoodItemModel {
         String category = result.getString("Category");
         String availability = result.getString("Availability");
         String imagePath = result.getString("ImageData");
+
+        System.out.println(id);
+        System.out.println(name);
+        System.out.println(price);
+        System.out.println(category);
+        System.out.println(availability);
+        System.out.println(imagePath);
 
         return new FoodDto(id, name, price, category, availability, imagePath);
     }
