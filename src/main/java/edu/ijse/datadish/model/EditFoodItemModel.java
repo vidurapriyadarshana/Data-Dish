@@ -1,4 +1,4 @@
-package edu.ijse.datadish.model.addItemModels;
+package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 
 import java.sql.*;
 
-import static edu.ijse.datadish.model.addItemModels.AddFoodItemModel.getFileExtension;
+import static edu.ijse.datadish.model.AddFoodItemModel.getFileExtension;
 
 public class EditFoodItemModel {
 

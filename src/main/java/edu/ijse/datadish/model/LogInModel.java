@@ -1,4 +1,4 @@
-package edu.ijse.datadish.model.logInModes;
+package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.LogInDto;

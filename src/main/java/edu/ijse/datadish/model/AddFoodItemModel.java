@@ -1,4 +1,4 @@
-package edu.ijse.datadish.model.addItemModels;
+package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;

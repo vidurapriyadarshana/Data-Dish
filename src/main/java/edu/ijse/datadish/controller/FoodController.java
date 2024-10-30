@@ -1,4 +1,4 @@
-package edu.ijse.datadish.controller.addItemControllers;
+package edu.ijse.datadish.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

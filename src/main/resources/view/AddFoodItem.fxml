@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/addFoodItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.addItemControllers.AddFoodItemController">
+<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/addFoodItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AddFoodItemController">
    <children>
       <Button fx:id="btAddItem" layoutX="381.0" layoutY="299.0" mnemonicParsing="false" onAction="#addItemAction" prefHeight="31.0" prefWidth="149.0" text="Add Item" />
       <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="80.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />

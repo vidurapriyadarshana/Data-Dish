@@ -1,7 +1,7 @@
-package edu.ijse.datadish.controller.addItemControllers;
+package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.FoodDto;
-import edu.ijse.datadish.model.addItemModels.AddItemModel;
+import edu.ijse.datadish.model.AddItemModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,7 +53,7 @@ public class AddItemController implements Initializable {
 
     @FXML
     void addItemAction(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/view/addItemView/AddFoodItem.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/view/AddFoodItem.fxml"));
         Stage addItemStage = new Stage();
         addItemStage.setTitle("Add Item");
         addItemStage.setScene(new Scene(load));
@@ -120,7 +120,7 @@ public class AddItemController implements Initializable {
 
 
     private void editFoodItem(FoodDto food) throws IOException, SQLException, ClassNotFoundException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addItemView/EditFoodItem.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditFoodItem.fxml"));
         Parent load = loader.load();
         EditFoodItemController controller = loader.getController();
         controller.setFoodDto(food);
