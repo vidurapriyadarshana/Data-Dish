@@ -10,12 +10,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/loginStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.logInControllers.LoginController">
+<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/loginStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.logInControllers.LoginController">
    <children>
       <Line endX="-6.103515625E-5" endY="258.111083984375" layoutX="544.0" layoutY="270.0" startX="-6.103515625E-5" startY="-199.6666717529297" stroke="#b4b4b8" />
       <ImageView fitHeight="600.0" fitWidth="500.0" layoutX="51.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assests/logo.png" />
+            <Image url="@../../assests/logo.png" />
          </image>
       </ImageView>
       <Label layoutX="591.0" layoutY="101.0" text="Welcome">

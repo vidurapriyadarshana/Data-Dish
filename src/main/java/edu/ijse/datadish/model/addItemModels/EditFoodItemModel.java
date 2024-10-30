@@ -4,19 +4,46 @@ import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
 import javafx.scene.control.Alert;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static edu.ijse.datadish.model.addItemModels.AddFoodItemModel.getFileExtension;
+
 public class EditFoodItemModel {
 
-    public FoodDto updateFoodItem() throws SQLException, ClassNotFoundException {
+    private static final String PROFILE_IMAGES_DIR = "src/main/resources/assests/food/";
 
+    static {
+        try {
+            Files.createDirectories(Paths.get(PROFILE_IMAGES_DIR));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String saveImage(File sourceFile, String itemName) throws IOException {
+        String fileExtension = getFileExtension(sourceFile.getName());
+        String uniqueFilename = itemName + "_" + System.currentTimeMillis() + fileExtension;
+        Path destinationPath = Paths.get(PROFILE_IMAGES_DIR, uniqueFilename);
+        Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        return destinationPath.toString();
+    }
+
+
+    public FoodDto updateFoodItem() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM menuitem";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-
         ResultSet result = statement.executeQuery();
 
         if (!result.next()) {
@@ -35,10 +62,9 @@ public class EditFoodItemModel {
         String availability = result.getString("Availability");
         String imagePath = result.getString("ImageData");
 
-        FoodDto foodDto = new FoodDto(id, name, price, category, availability, imagePath);
-
-        return foodDto;
+        return new FoodDto(id, name, price, category, availability, imagePath);
     }
+
 
     public boolean editFoodItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE menuitem SET Name = ?, Price = ?, Category = ?, Availability = ?, ImageData = ? WHERE MenuItemID = ?";

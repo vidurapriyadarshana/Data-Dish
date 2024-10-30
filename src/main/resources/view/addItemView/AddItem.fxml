@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="addItemAnchor" prefHeight="600.0" prefWidth="789.0" stylesheets="@../css/addItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.addItemControllers.AddItemController">
+<AnchorPane fx:id="addItemAnchor" prefHeight="600.0" prefWidth="789.0" stylesheets="@../../css/addItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.addItemControllers.AddItemController">
    <children>
       <TableView fx:id="itemMenuTable" prefHeight="520.0" prefWidth="789.0">
         <columns>

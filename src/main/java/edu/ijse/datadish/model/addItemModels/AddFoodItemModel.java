@@ -89,7 +89,7 @@ public class AddFoodItemModel {
         return destinationPath.toString();
     }
 
-    private static String getFileExtension(String fileName) {
+    static String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf('.'));
     }
 }

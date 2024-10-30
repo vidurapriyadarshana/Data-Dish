@@ -110,6 +110,8 @@ public class EditFoodItemController implements Initializable {
             txtCategory.setText(foodDto.getFoodCategory());
             txtPrice.setText(String.valueOf(foodDto.getFoodPrice()));
 
+            loadImageIntoView(foodDto.getFoodImagePath());
+
             availableAction();
 
             btAvailable.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -121,6 +123,19 @@ public class EditFoodItemController implements Initializable {
         }
     }
 
+    private void loadImageIntoView(String imagePath) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                imageView.setImage(image);
+            } else {
+                showAlert("Image Load Error", "Image file not found at: " + imagePath);
+            }
+        }
+    }
+
+
     public void setFoodDto(FoodDto food) {
         this.foodDto = food;
         lblId.setText(food.getFoodId());
@@ -128,7 +143,6 @@ public class EditFoodItemController implements Initializable {
         txtCategory.setText(food.getFoodCategory());
         txtPrice.setText(String.valueOf(food.getFoodPrice()));
 
-        // Update the checkbox based on the availability status.
         availableAction();
     }
 
@@ -141,7 +155,6 @@ public class EditFoodItemController implements Initializable {
     }
 
     private void availableAction() {
-        // Set the checkbox based on whether the food item is available.
         btAvailable.setSelected("Available".equals(foodDto.getFoodAvailability()));
     }
 

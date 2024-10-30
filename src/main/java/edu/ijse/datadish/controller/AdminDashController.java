@@ -19,7 +19,7 @@ public class AdminDashController {
     @FXML
     void navigateToAddItemPage(ActionEvent event) throws IOException {
         loadPageAnchor.getChildren().clear();
-        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/AddItem.fxml")));
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/addItemView/AddItem.fxml")));
     }
 
     @FXML
@@ -41,7 +41,7 @@ public class AdminDashController {
     @FXML
     void navigateToLogInPage(ActionEvent event) throws IOException {
         mainAnchor.getChildren().clear();
-        mainAnchor.getChildren().add(FXMLLoader.    load(getClass().getResource("/view/LogIn.fxml")));
+        mainAnchor.getChildren().add(FXMLLoader.    load(getClass().getResource("/view/loginView/Login.fxml")));
     }
 
     @FXML

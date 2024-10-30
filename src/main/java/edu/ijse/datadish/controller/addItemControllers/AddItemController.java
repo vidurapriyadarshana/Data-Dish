@@ -52,7 +52,7 @@ public class AddItemController implements Initializable {
 
     @FXML
     void addItemAction(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/view/AddFoodItem.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/view/addItemView/AddFoodItem.fxml"));
         Stage addItemStage = new Stage();
         addItemStage.setTitle("Add Item");
         addItemStage.setScene(new Scene(load));
@@ -119,7 +119,7 @@ public class AddItemController implements Initializable {
 
 
     private void editFoodItem(FoodDto food) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditFoodItem.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addItemView/EditFoodItem.fxml"));
         Parent load = loader.load();
         EditFoodItemController controller = loader.getController();
         controller.setFoodDto(food);
