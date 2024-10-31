@@ -36,4 +36,15 @@ public class EmployeeViewModel {
         }
         return employeeView;
     }
+
+    public boolean deleteEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE employee SET Status = 'Inactive' WHERE EmployeeID = ?;";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, employeeDto.getEmployeeID());
+
+        int result = statement.executeUpdate();
+
+        return result > 0;
+    }
 }

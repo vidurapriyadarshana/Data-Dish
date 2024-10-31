@@ -76,20 +76,20 @@ public class EmployeeViewController implements Initializable  {
             @Override
             public TableCell<EmployeeDto, String> call(TableColumn<EmployeeDto, String> param) {
                 return new TableCell<>() {
-                    private final Button editButton = new Button("Edit");
+                    private final Button showInfo = new Button("Info");
                     private final Button deleteButton = new Button("Delete");
 
                     {
-                        editButton.setId("btnEdit");
+                        showInfo.setId("btnEdit");
                         deleteButton.setId("btnDelete");
 
-                        editButton.setStyle("-fx-background-color: transparent; -fx-border-color: #00FF9C; -fx-text-fill: black;");
+                        showInfo.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
                         deleteButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
 
-                        editButton.setOnAction(event -> {
+                        showInfo.setOnAction(event -> {
                             EmployeeDto employeeDto = getTableView().getItems().get(getIndex());
                             try {
-                                editFoodItem(employeeDto);
+                                getInfo(employeeDto);
                             } catch (IOException | SQLException | ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
@@ -97,7 +97,13 @@ public class EmployeeViewController implements Initializable  {
 
                         deleteButton.setOnAction(event -> {
                             EmployeeDto employeeDto = getTableView().getItems().get(getIndex());
-                            deleteFoodItem(employeeDto);
+                            try {
+                                deleteEmployee(employeeDto);
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
                         });
 
                     }
@@ -108,7 +114,7 @@ public class EmployeeViewController implements Initializable  {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox hbox = new HBox(10, editButton, deleteButton);
+                            HBox hbox = new HBox(10, showInfo, deleteButton);
                             setGraphic(hbox);
                         }
                     }
@@ -117,11 +123,25 @@ public class EmployeeViewController implements Initializable  {
         });
     }
 
-    private void editFoodItem(EmployeeDto employeeDto) throws IOException, SQLException, ClassNotFoundException {
+    private void getInfo(EmployeeDto employeeDto) throws IOException, SQLException, ClassNotFoundException {
 
     }
 
-    private void deleteFoodItem(EmployeeDto employeeDto) {
+    private void deleteEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
+        boolean isDeleted = employeeViewModel.deleteEmployee(employeeDto);
 
+        if (isDeleted) {
+            showAlert("Success", "Employee Deleted Successfully");
+        } else {
+            showAlert("Error", "Employee Deletion Failed");
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
