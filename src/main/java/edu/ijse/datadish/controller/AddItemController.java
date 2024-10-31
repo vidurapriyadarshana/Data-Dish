@@ -118,7 +118,6 @@ public class AddItemController implements Initializable {
         });
     }
 
-
     private void editFoodItem(FoodDto food) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditFoodItem.fxml"));
         Parent load = loader.load();

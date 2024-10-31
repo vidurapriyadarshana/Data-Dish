@@ -17,4 +17,5 @@ public class EmployeeDto {
     private String hireDate;
     private String userName;
     private String employeeStatus;
+    private String address;
 }
