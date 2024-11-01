@@ -77,9 +77,7 @@ public class EditFoodItemController implements Initializable {
                 imageView.setImage(image);
             } catch (IOException e) {
                 showAlert("Error", "Error saving image: " + e.getMessage());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -122,11 +120,32 @@ public class EditFoodItemController implements Initializable {
         this.foodDto = food;
 
         lblId.setText(food.getFoodId());
+        System.out.println("Id: " + food.getFoodId());
         txtName.setText(food.getFoodName());
+        System.out.println("Name: " + food.getFoodName());
         txtPrice.setText(String.valueOf(food.getFoodPrice()));
+        System.out.println("Price: " + food.getFoodPrice());
         txtCategory.setText(food.getFoodCategory());
+        System.out.println("Category: " + food.getFoodCategory());
 
-        //boolean isAdded = editFoodItemModel.getImagePath(food.getFoodId());
+
+        String imagePath = String.valueOf(getClass().getResource("/assests/food/Pizza_1730472393230.jpg"));
+
+        System.out.println("Image path: " + imagePath);
+
+        if (imagePath != null) {
+            try {
+                Image image = new Image("file:/D:/IJSE/OOP/OOP%20Final%20Course%20Work/restaurant/target/classes/assests/food/Pizza_1730472393230.jpg");
+                imageView.setImage(image);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Image not found at path: " + imagePath);
+                e.printStackTrace();  // Optional: Print the stack trace for debugging
+            }
+        }
+
+
+
+
 
         availableAction();
     }

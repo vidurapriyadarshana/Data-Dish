@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class AddFoodItemModel {
 
-    private static final String IMAGES_DIR = "src/main/resources/assests/food/";
+    private static final String IMAGES_DIR = "/assests/food/";
 
     static {
         try {
@@ -31,6 +31,8 @@ public class AddFoodItemModel {
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            //String path = getClass().getResource();
 
             statement.setString(1, foodDto.getFoodId());
             statement.setString(2, foodDto.getFoodName());

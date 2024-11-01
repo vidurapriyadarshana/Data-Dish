@@ -65,8 +65,8 @@ public class EditFoodItemModel {
         return rowsAffected > 0;
     }
 
-    public boolean getImagePath(String itemId) throws SQLException, ClassNotFoundException {
-        String query = "SELECT ImageData FROM items WHERE MenuItemID = ?";
+    public String getImagePath(String itemId) throws SQLException, ClassNotFoundException {
+        String query = "SELECT ImageData FROM menuItem WHERE MenuItemID = ?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
@@ -74,13 +74,17 @@ public class EditFoodItemModel {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        String imagePath = resultSet.getString("ImageData");
-        foodDto.setFoodImagePath(imagePath);
-
-        if (!resultSet.next()) {
-            return false;
+        String imagePath = null;
+        if (resultSet.next()) { // Move to the first row
+            imagePath = resultSet.getString("ImageData");
+            foodDto.setFoodImagePath(imagePath); // Assuming foodDto is properly initialized
         }
 
-        return true;
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+
+        return imagePath;
     }
+
 }
