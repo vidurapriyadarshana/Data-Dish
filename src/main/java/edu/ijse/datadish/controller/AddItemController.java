@@ -154,11 +154,6 @@ public class AddItemController implements Initializable {
         }
     }
 
-    private void loadTable() {
-        ObservableList<FoodDto> foodItems = addItemModel.loadTable();
-        itemMenuTable.setItems(foodItems);
-    }
-
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

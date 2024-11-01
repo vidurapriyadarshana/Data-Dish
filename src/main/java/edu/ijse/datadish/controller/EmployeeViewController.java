@@ -52,7 +52,17 @@ public class EmployeeViewController implements Initializable  {
     private EmployeeViewModel employeeViewModel;
     @FXML
     void addEmployeeAction(ActionEvent event) {
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddEmployee.fxml"));
+            Parent load = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Add Employee");
+            stage.setScene(new Scene(load));
+            stage.initModality(Modality.NONE);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -124,7 +134,13 @@ public class EmployeeViewController implements Initializable  {
     }
 
     private void getInfo(EmployeeDto employeeDto) throws IOException, SQLException, ClassNotFoundException {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeInfo.fxml"));
+        Parent load = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Employee Information");
+        stage.setScene(new Scene(load));
+        stage.initModality(Modality.NONE);
+        stage.show();
     }
 
     private void deleteEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {

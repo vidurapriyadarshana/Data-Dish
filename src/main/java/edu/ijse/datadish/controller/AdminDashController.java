@@ -1,5 +1,6 @@
 package edu.ijse.datadish.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ public class AdminDashController {
         loadPageAnchor.getChildren().clear();
         loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/AddItem.fxml")));
     }
+
 
     @FXML
     void navigateToEmployeePage(ActionEvent event) throws IOException {

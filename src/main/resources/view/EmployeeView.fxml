@@ -12,8 +12,8 @@
           <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colName" prefWidth="142.0000228881836" text="Name " />
             <TableColumn fx:id="colContact" prefWidth="161.3333282470703" text="Contact" />
-            <TableColumn fx:id="colStatus" prefWidth="108.66668701171875" text="Status" />
             <TableColumn fx:id="colAddress" prefWidth="142.66665649414062" text="Address" />
+            <TableColumn fx:id="colStatus" prefWidth="108.66668701171875" text="Status" />
             <TableColumn fx:id="colActions" prefWidth="146.66668701171875" text="Actions" />
         </columns>
       </TableView>
