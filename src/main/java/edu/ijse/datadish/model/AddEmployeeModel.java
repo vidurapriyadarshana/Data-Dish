@@ -32,7 +32,7 @@ public class AddEmployeeModel {
                 nextID = String.format("E%03d", number + 1);
                 System.out.println("New ID generated: " + nextID);
             } else {
-                nextID = "M001";
+                nextID = "E001";
                 System.out.println("No entries found, starting with ID: " + nextID);
             }
 
