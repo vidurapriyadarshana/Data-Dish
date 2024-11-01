@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AddEmployeeController">
+<AnchorPane fx:id="mainAnchor" prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/addEmployee.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AddEmployeeController">
    <children>
-      <Button fx:id="btAddEmployee" layoutX="294.0" layoutY="452.0" mnemonicParsing="false" onAction="#addEmployeeAction" text="Add Employee" />
+      <Button fx:id="btAddEmployee" layoutX="245.0" layoutY="446.0" mnemonicParsing="false" onAction="#addEmployeeAction" text="Add Employee" />
       <Label layoutX="61.0" layoutY="52.0" text="ID" />
       <Label layoutX="61.0" layoutY="89.0" text="Name" />
       <Label layoutX="61.0" layoutY="126.0" text="Contact" />
@@ -24,7 +24,7 @@
       <TextField fx:id="txtUserName" layoutX="192.0" layoutY="303.0" promptText="UserName" />
       <TextField fx:id="txtPassword" layoutX="192.0" layoutY="343.0" promptText="Password" />
       <TextField fx:id="txtConfirmPassword" layoutX="192.0" layoutY="384.0" promptText="Confirm Password" />
-      <Label layoutX="50.0" layoutY="250.0" text="Log In Info">
+      <Label layoutX="39.0" layoutY="250.0" text="Log In Info">
          <font>
             <Font size="18.0" />
          </font></Label>

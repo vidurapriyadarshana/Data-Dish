@@ -1,0 +1,17 @@
+#txtName,#txtContact,#txtAddress,#txtUserName,#txtPassword,#txtConfirmPassword{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+}
+
+#btAddEmployee{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#btAddEmployee:hover {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}

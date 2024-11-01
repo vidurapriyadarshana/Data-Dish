@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -50,6 +51,10 @@ public class EmployeeViewController implements Initializable  {
     private TableView<EmployeeDto> employeeTable;
 
     private EmployeeViewModel employeeViewModel;
+
+    @FXML
+    private AnchorPane mainAnchor;
+    
     @FXML
     void addEmployeeAction(ActionEvent event) {
         try {
