@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class AddFoodItemModel {
 
-    private static final String IMAGES_DIR = "/assests/food/";
+    private static final String IMAGES_DIR = "D:/IJSE/OOP/OOP Final Course Work/restaurant/target/classes/assests/food/";
 
     static {
         try {
@@ -31,8 +31,6 @@ public class AddFoodItemModel {
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            //String path = getClass().getResource();
 
             statement.setString(1, foodDto.getFoodId());
             statement.setString(2, foodDto.getFoodName());
@@ -50,15 +48,7 @@ public class AddFoodItemModel {
         String nextID = null;
 
         try {
-            System.out.println("Generating ID...");
             Connection connection = DBConnection.getInstance().getConnection();
-
-            if (connection == null) {
-                System.out.println("Database connection failed.");
-                return null;
-            }
-
-            System.out.println("Connected to database.");
 
             String query = "SELECT MenuItemID FROM MenuItem ORDER BY MenuItemID DESC LIMIT 1";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -68,10 +58,8 @@ public class AddFoodItemModel {
                 String lastID = resultSet.getString("MenuItemID");
                 int number = Integer.parseInt(lastID.substring(1));
                 nextID = String.format("M%03d", number + 1);
-                System.out.println("New ID generated: " + nextID);
             } else {
                 nextID = "M001";
-                System.out.println("No entries found, starting with ID: " + nextID);
             }
 
         } catch (SQLException e) {
@@ -88,7 +76,9 @@ public class AddFoodItemModel {
         String uniqueFilename = itemName + "_" + System.currentTimeMillis() + fileExtension;
         Path destinationPath = Paths.get(IMAGES_DIR, uniqueFilename);
         Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-        return destinationPath.toString();
+
+        // Return the path in "file:/..." format for saving in the database
+        return "file:/" + destinationPath.toString().replace("\\", "/");
     }
 
     static String getFileExtension(String fileName) {

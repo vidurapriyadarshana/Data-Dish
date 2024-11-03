@@ -57,7 +57,6 @@ public class AddFoodItemController implements Initializable {
     void addItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = AddFoodItemModel.generateNextID();
         lblId.setText(id);
-
         foodDto.setFoodId(id);
         foodDto.setFoodName(txtName.getText());
         foodDto.setFoodPrice(Double.parseDouble(txtPrice.getText()));
@@ -88,7 +87,7 @@ public class AddFoodItemController implements Initializable {
         if (selectedFile != null) {
             try {
                 String imagePath = AddFoodItemModel.saveImage(selectedFile, txtName.getText());
-                foodDto.setFoodImagePath(imagePath);
+                foodDto.setFoodImagePath(imagePath);  // Save the formatted path
 
                 Image image = new Image(selectedFile.toURI().toString());
                 imageView.setImage(image);

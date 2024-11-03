@@ -53,7 +53,6 @@ public class EditFoodItemController implements Initializable {
     private FoodDto foodDto = new FoodDto();
     private EditFoodItemModel editFoodItemModel = new EditFoodItemModel();
 
-
     @FXML
     void changeImageAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -73,7 +72,7 @@ public class EditFoodItemController implements Initializable {
                     showAlert("Edit Item", "Image Saved Unsuccessfully");
                 }
 
-                Image image = new Image(selectedFile.toURI().toString());
+                Image image = new Image("file:" + imagePath); // Load image from saved path
                 imageView.setImage(image);
             } catch (IOException e) {
                 showAlert("Error", "Error saving image: " + e.getMessage());
@@ -86,7 +85,6 @@ public class EditFoodItemController implements Initializable {
     @FXML
     void editItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = lblId.getText();
-        System.out.println(id);
         String name = txtName.getText();
         double price = Double.parseDouble(txtPrice.getText());
         String category = txtCategory.getText();
@@ -98,8 +96,8 @@ public class EditFoodItemController implements Initializable {
         foodDto.setFoodCategory(category);
         foodDto.setFoodAvailability(availability);
 
-        boolean isAdded = editFoodItemModel.updateFoodItem(foodDto);
-        if (isAdded) {
+        boolean isUpdated = editFoodItemModel.updateFoodItem(foodDto);
+        if (isUpdated) {
             showAlert("Edit Item", "Item Edited Successfully");
         } else {
             showAlert("Edit Item", "Item Edited Unsuccessfully");
@@ -109,43 +107,30 @@ public class EditFoodItemController implements Initializable {
         stage.close();
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Initialize method if needed
     }
-
 
     public void setFoodDto(FoodDto food) throws SQLException, ClassNotFoundException {
         this.foodDto = food;
 
         lblId.setText(food.getFoodId());
-        System.out.println("Id: " + food.getFoodId());
         txtName.setText(food.getFoodName());
-        System.out.println("Name: " + food.getFoodName());
         txtPrice.setText(String.valueOf(food.getFoodPrice()));
-        System.out.println("Price: " + food.getFoodPrice());
         txtCategory.setText(food.getFoodCategory());
-        System.out.println("Category: " + food.getFoodCategory());
 
-
-        String imagePath = String.valueOf(getClass().getResource("/assests/food/Pizza_1730472393230.jpg"));
-
-        System.out.println("Image path: " + imagePath);
+        String imagePath = editFoodItemModel.getImagePath(food.getFoodId());
 
         if (imagePath != null) {
             try {
-                Image image = new Image("file:/D:/IJSE/OOP/OOP%20Final%20Course%20Work/restaurant/target/classes/assests/food/Pizza_1730472393230.jpg");
+                Image image = new Image("file:" + imagePath);
                 imageView.setImage(image);
             } catch (IllegalArgumentException e) {
                 System.out.println("Image not found at path: " + imagePath);
-                e.printStackTrace();  // Optional: Print the stack trace for debugging
+                e.printStackTrace();
             }
         }
-
-
-
-
 
         availableAction();
     }
@@ -161,5 +146,4 @@ public class EditFoodItemController implements Initializable {
     private void availableAction() {
         btAvailable.setSelected("Available".equals(foodDto.getFoodAvailability()));
     }
-
 }
