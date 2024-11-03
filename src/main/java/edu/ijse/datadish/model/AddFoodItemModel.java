@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class AddFoodItemModel {
 
-    private static final String IMAGES_DIR = "D:/IJSE/OOP/OOP Final Course Work/restaurant/target/classes/assests/food/";
+    private static final String IMAGES_DIR = "src/main/resources/assets/food/";
 
     static {
         try {
@@ -72,16 +72,21 @@ public class AddFoodItemModel {
     }
 
     public static String saveImage(File sourceFile, String itemName) throws IOException {
+        // Create a unique filename with the item name and timestamp
         String fileExtension = getFileExtension(sourceFile.getName());
-        String uniqueFilename = itemName + "_" + System.currentTimeMillis() + fileExtension;
+        String uniqueFilename = "_" + System.currentTimeMillis() + fileExtension;
+
+        // Define the destination path in the required format
         Path destinationPath = Paths.get(IMAGES_DIR, uniqueFilename);
+
+        // Copy the image file to the destination path
         Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
-        // Return the path in "file:/..." format for saving in the database
-        return "file:/" + destinationPath.toString().replace("\\", "/");
+        // Return the path in "src\main\resources\assets\food\_1730462732775.jpg" format
+        return destinationPath.toString();
     }
 
-    static String getFileExtension(String fileName) {
-        return fileName.substring(fileName.lastIndexOf('.'));
+    private static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 }
