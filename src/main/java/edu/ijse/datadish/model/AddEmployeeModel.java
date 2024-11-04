@@ -1,6 +1,7 @@
 package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
+import edu.ijse.datadish.dto.EmployeeDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,5 +44,9 @@ public class AddEmployeeModel {
             e.printStackTrace();
         }
         return nextID;
+    }
+
+    public static void addEmployee(EmployeeDto employeeDto) {
+
     }
 }

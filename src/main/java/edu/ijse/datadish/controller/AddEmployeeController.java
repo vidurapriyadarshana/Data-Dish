@@ -1,12 +1,12 @@
 package edu.ijse.datadish.controller;
 
+import edu.ijse.datadish.dto.EmployeeDto;
+import edu.ijse.datadish.dto.LogInDto;
 import edu.ijse.datadish.model.AddEmployeeModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +20,9 @@ public class AddEmployeeController implements Initializable {
 
     @FXML
     private Button btAddEmployee;
+
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
     @FXML
     private Label lblEmpId;
@@ -40,6 +43,9 @@ public class AddEmployeeController implements Initializable {
     private TextField txtContact;
 
     @FXML
+    private TextField txtEmail;
+
+    @FXML
     private TextField txtName;
 
     @FXML
@@ -48,18 +54,62 @@ public class AddEmployeeController implements Initializable {
     @FXML
     private TextField txtUserName;
 
-    @FXML
-    private Label lblHireTime;
+    private EmployeeDto employeeDto = new EmployeeDto();
+    private LogInDto logInDto = new LogInDto();
+
+    private String[] roleChoice = {"Admin","Employee"};
+//    @FXML
+//    public void initialize() {
+//        txtName.setOnAction(event -> txtContact.requestFocus());
+//        txtName.setOnAction(event -> txtAddress.requestFocus());
+//        txtAddress.setOnAction(event -> txtUserName.requestFocus());
+//        txtUserName.setOnAction(event -> txtPassword.requestFocus());
+//        txtPassword.setOnAction(event -> txtConfirmPassword.requestFocus());
+//        txtConfirmPassword.setOnAction(this::addEmployeeAction);
+//
+//    }
+
 
     @FXML
     void addEmployeeAction(ActionEvent event) {
-
+        addEmployeeDto(event);
+        System.out.println(employeeDto.toString());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblEmpId.setText(AddEmployeeModel.generateNextID());
         lblHireDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        lblHireTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        choiceBox.getItems().addAll(roleChoice);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void addEmployeeDto(ActionEvent event) {
+        employeeDto.setEmployeeID(lblEmpId.getText());
+        employeeDto.setEmployeeName(txtName.getText());
+        employeeDto.setEmployeeContact(txtContact.getText());
+        employeeDto.setHireDate(lblHireDate.getText());
+        employeeDto.setUserName(txtUserName.getText());
+        employeeDto.setEmployeeStatus("Active");
+        employeeDto.setAddress(txtAddress.getText());
+
+        String password = txtPassword.getText();
+        String confirmPassword = txtConfirmPassword.getText();
+
+        if (!password.equals(confirmPassword)) {
+            showAlert("Add Employee", "Passwords do not match");
+        }else {
+            logInDto.setUserName(txtUserName.getText());
+            logInDto.setPassword(txtPassword.getText());
+            logInDto.setEmail(txtEmail.getText());
+            logInDto.setRole(choiceBox.getValue());
+        }
     }
 }

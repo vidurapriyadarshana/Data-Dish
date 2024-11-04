@@ -72,17 +72,13 @@ public class AddFoodItemModel {
     }
 
     public static String saveImage(File sourceFile, String itemName) throws IOException {
-        // Create a unique filename with the item name and timestamp
         String fileExtension = getFileExtension(sourceFile.getName());
         String uniqueFilename = "_" + System.currentTimeMillis() + fileExtension;
 
-        // Define the destination path in the required format
         Path destinationPath = Paths.get(IMAGES_DIR, uniqueFilename);
 
-        // Copy the image file to the destination path
         Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
-        // Return the path in "src\main\resources\assets\food\_1730462732775.jpg" format
         return destinationPath.toString();
     }
 
