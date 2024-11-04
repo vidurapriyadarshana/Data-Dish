@@ -8,8 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import java.net.URL;
@@ -56,6 +57,7 @@ public class AddEmployeeController implements Initializable {
 
     private EmployeeDto employeeDto = new EmployeeDto();
     private LogInDto logInDto = new LogInDto();
+    private AddEmployeeModel addEmployeeModel = new AddEmployeeModel();
 
     private String[] roleChoice = {"Admin","Employee"};
 //    @FXML
@@ -71,9 +73,9 @@ public class AddEmployeeController implements Initializable {
 
 
     @FXML
-    void addEmployeeAction(ActionEvent event) {
+    void addEmployeeAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         addEmployeeDto(event);
-        System.out.println(employeeDto.toString());
+        addEmployeeModel.addEmployee(employeeDto, logInDto);
     }
 
     @Override
@@ -104,7 +106,7 @@ public class AddEmployeeController implements Initializable {
         String confirmPassword = txtConfirmPassword.getText();
 
         if (!password.equals(confirmPassword)) {
-            showAlert("Add Employee", "Passwords do not match");
+            showAlert("Error", "Passwords do not match");
         }else {
             logInDto.setUserName(txtUserName.getText());
             logInDto.setPassword(txtPassword.getText());

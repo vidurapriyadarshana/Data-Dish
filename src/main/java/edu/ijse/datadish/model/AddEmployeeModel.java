@@ -2,6 +2,7 @@ package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.EmployeeDto;
+import edu.ijse.datadish.dto.LogInDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +47,7 @@ public class AddEmployeeModel {
         return nextID;
     }
 
-    public static void addEmployee(EmployeeDto employeeDto) {
-
+    public void addEmployee(EmployeeDto employeeDto, LogInDto logInDto) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
     }
 }
