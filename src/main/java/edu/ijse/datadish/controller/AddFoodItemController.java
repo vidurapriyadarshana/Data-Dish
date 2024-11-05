@@ -50,8 +50,8 @@ public class AddFoodItemController implements Initializable {
     @FXML
     private TextField txtPrice;
 
-    private FoodDto foodDto = new FoodDto();
-    private AddFoodItemModel addFoodItemModel = new AddFoodItemModel();
+    private final FoodDto foodDto = new FoodDto();
+    private final AddFoodItemModel addFoodItemModel = new AddFoodItemModel();
 
     @FXML
     void addItemAction(ActionEvent event) throws SQLException, ClassNotFoundException {

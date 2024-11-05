@@ -37,8 +37,9 @@ public class AdminDashController {
     }
 
     @FXML
-    void navigateToInventoryPage(ActionEvent event) {
-
+    void navigateToInventoryPage(ActionEvent event) throws IOException {
+        loadPageAnchor.getChildren().clear();
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/InventoryView.fxml")));
     }
 
     @FXML

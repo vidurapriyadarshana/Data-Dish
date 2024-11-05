@@ -9,9 +9,55 @@
     -fx-text-fill: black;
 }
 
-#itemMenuTable{
+#itemMenuTable {
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-border-width: 0 0 2px 0;
     -fx-text-fill: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10px;
 }
+
+#employeeTable {
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+#inventoryTable{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+#itemMenuTable .column-header, #employeeTable .column-header , #inventoryTable .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER;
+}
+
+#itemMenuTable .column-header-background, #employeeTable .column-header-background  , #inventoryTable .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#itemMenuTable .table-cell, #employeeTable .table-cell , #inventoryTable .table-cell {
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+    -fx-padding: 5px;
+}
+
+#itemMenuTable .table-row-cell:selected, #employeeTable .table-row-cell:selected, #inventoryTable .table-row-cell:selected {
+    -fx-background-color: #d0d0d0;
+}
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.InventoryController">
+   <children>
+      <TableView fx:id="inventoryTable" prefHeight="440.0" prefWidth="789.0" stylesheets="@../css/addItem.css">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="74.66665935516357" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="256.00000762939453" text="Name" />
+            <TableColumn fx:id="colQty" prefWidth="169.33334350585938" text="Qty" />
+            <TableColumn fx:id="colStock" prefWidth="112.00003051757812" text="Stock Level" />
+            <TableColumn fx:id="colStock1" prefWidth="168.66668701171875" text="Actions" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
