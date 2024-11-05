@@ -12,7 +12,7 @@
           <TableColumn fx:id="colName" prefWidth="256.00000762939453" text="Name" />
             <TableColumn fx:id="colQty" prefWidth="169.33334350585938" text="Qty" />
             <TableColumn fx:id="colStock" prefWidth="112.00003051757812" text="Stock Level" />
-            <TableColumn fx:id="colStock1" prefWidth="168.66668701171875" text="Actions" />
+            <TableColumn fx:id="colAction" prefWidth="161.3333740234375" text="Actions" />
         </columns>
       </TableView>
    </children>

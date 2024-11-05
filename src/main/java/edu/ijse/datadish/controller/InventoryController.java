@@ -7,9 +7,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -31,6 +36,10 @@ public class InventoryController implements Initializable {
     @FXML
     private TableView<InventoryDto> inventoryTable;
 
+    @FXML
+    private TableColumn<InventoryDto, String> colAction;
+
+
     private InventoryModel inventoryModel = new InventoryModel();
 
     @Override
@@ -41,8 +50,67 @@ public class InventoryController implements Initializable {
         colStock.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStockLevel()).asObject());
 
         loadInventoryData();
+
+        colAction.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<InventoryDto, String> call(TableColumn<InventoryDto, String> inventoryDtoStringTableColumn) {
+                return new TableCell<>() {
+                    private final Button showInfo = new Button("Info");
+                    private final Button deleteButton = new Button("Remove");
+
+                    {
+                        showInfo.setId("btnEdit");
+                        deleteButton.setId("btnDelete");
+
+                        showInfo.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
+                        deleteButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
+
+                        showInfo.setOnAction(event -> {
+                            InventoryDto inventoryDto = getTableView().getItems().get(getIndex());
+                            try {
+                                getInfo(inventoryDto);
+                            } catch (IOException | SQLException | ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+
+                        deleteButton.setOnAction(event -> {
+                            InventoryDto inventoryDto = getTableView().getItems().get(getIndex());
+                            try {
+                                deleteEmployee(inventoryDto);
+                            } catch (SQLException | ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            HBox hbox = new HBox(10, showInfo, deleteButton);
+                            setGraphic(hbox);
+                        }
+                    }
+                };
+            }
+
+        });
+
     }
-    
+
+    private void getInfo(InventoryDto inventoryDto) throws IOException, SQLException, ClassNotFoundException {
+        System.out.println("button clicked");
+    }
+
+    private void deleteEmployee(InventoryDto inventoryDto) throws SQLException, ClassNotFoundException {
+        System.out.println("button clicked");
+    }
+
+
     private void loadInventoryData() {
         try {
             ObservableList<InventoryDto> inventoryItems = inventoryModel.getAllInventoryItems();
