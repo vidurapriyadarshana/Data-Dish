@@ -5,12 +5,10 @@ import edu.ijse.datadish.model.InventoryModel;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
@@ -20,6 +18,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class InventoryController implements Initializable {
+
+    @FXML
+    private Button btAddItem;
 
     @FXML
     private TableColumn<InventoryDto, String> colId;
@@ -41,6 +42,11 @@ public class InventoryController implements Initializable {
 
 
     private InventoryModel inventoryModel = new InventoryModel();
+
+    @FXML
+    void addItemAction(ActionEvent event) {
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,7 +83,7 @@ public class InventoryController implements Initializable {
                         deleteButton.setOnAction(event -> {
                             InventoryDto inventoryDto = getTableView().getItems().get(getIndex());
                             try {
-                                deleteEmployee(inventoryDto);
+                                removeItem(inventoryDto);
                             } catch (SQLException | ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
@@ -106,8 +112,15 @@ public class InventoryController implements Initializable {
         System.out.println("button clicked");
     }
 
-    private void deleteEmployee(InventoryDto inventoryDto) throws SQLException, ClassNotFoundException {
-        System.out.println("button clicked");
+    private void removeItem(InventoryDto inventoryDto) throws SQLException, ClassNotFoundException {
+        boolean result = inventoryModel.removeItem(inventoryDto.getId());
+
+        if(result){
+            loadInventoryData();
+            showAlert("Remove Item", "Item Removed Successfully");
+        }else{
+            showAlert("Remove Item", "Item Removal Failed");
+        }
     }
 
 
@@ -119,4 +132,13 @@ public class InventoryController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

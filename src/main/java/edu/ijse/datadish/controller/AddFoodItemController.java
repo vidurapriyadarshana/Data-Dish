@@ -87,7 +87,7 @@ public class AddFoodItemController implements Initializable {
         if (selectedFile != null) {
             try {
                 String imagePath = AddFoodItemModel.saveImage(selectedFile, txtName.getText());
-                foodDto.setFoodImagePath(imagePath);  // Save the formatted path
+                foodDto.setFoodImagePath(imagePath);
 
                 Image image = new Image(selectedFile.toURI().toString());
                 imageView.setImage(image);

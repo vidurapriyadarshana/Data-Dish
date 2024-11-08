@@ -30,4 +30,15 @@ public class InventoryModel {
         }
         return itemView;
     }
+
+    public boolean removeItem(String id) throws SQLException, ClassNotFoundException {
+        String sql = "DELETE FROM inventory WHERE inventoryID = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, id);
+
+        int rowsAffected = statement.executeUpdate();
+
+        return rowsAffected > 0;
+    }
 }
