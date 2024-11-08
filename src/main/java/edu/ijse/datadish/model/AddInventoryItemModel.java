@@ -1,6 +1,7 @@
 package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
+import edu.ijse.datadish.dto.InventoryDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,5 +35,18 @@ public class AddInventoryItemModel {
             e.printStackTrace();
         }
         return nextID;
+    }
+
+    public static boolean addItem(InventoryDto inventoryDto) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO inventory (InventoryID, ItemName, Qty, StockLevel) VALUES (?,?,?,?);";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, inventoryDto.getId());
+        statement.setString(2, inventoryDto.getName());
+        statement.setInt(3, inventoryDto.getQty());
+        statement.setInt(4, inventoryDto.getStockLevel());
+
+        return statement.executeUpdate() > 0;
     }
 }
