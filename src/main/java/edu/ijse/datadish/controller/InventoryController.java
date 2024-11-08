@@ -7,9 +7,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -44,8 +49,13 @@ public class InventoryController implements Initializable {
     private InventoryModel inventoryModel = new InventoryModel();
 
     @FXML
-    void addItemAction(ActionEvent event) {
-
+    void addItemAction(ActionEvent event) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/view/AddInventoryItemView.fxml"));
+        Stage addItemStage = new Stage();
+        addItemStage.setTitle("Add Item");
+        addItemStage.setScene(new Scene(load));
+        addItemStage.initModality(Modality.NONE);
+        addItemStage.show();
     }
 
     @Override
