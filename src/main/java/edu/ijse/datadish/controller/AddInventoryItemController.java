@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -49,9 +50,15 @@ public class AddInventoryItemController implements Initializable {
 
         if(result){
             showAlert("Add Item", "Item Added Successfully");
+            closeWindow();
         }else{
             showAlert("Add Item", "Item Added Unsuccessfully");
         }
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) btAddItem.getScene().getWindow();
+        stage.close();
     }
 
     @Override
