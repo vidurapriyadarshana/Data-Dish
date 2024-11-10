@@ -17,5 +17,4 @@ public class FoodDto {
     private String foodCategory;
     private String foodAvailability;
     private String foodImagePath;
-
 }

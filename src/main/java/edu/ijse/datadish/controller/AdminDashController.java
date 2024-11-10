@@ -1,6 +1,5 @@
 package edu.ijse.datadish.controller;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +44,7 @@ public class AdminDashController {
     @FXML
     void navigateToLogInPage(ActionEvent event) throws IOException {
         mainAnchor.getChildren().clear();
-        mainAnchor.getChildren().add(FXMLLoader.    load(getClass().getResource("/view/Login.fxml")));
+        mainAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Login.fxml")));
     }
 
     @FXML
@@ -54,8 +53,9 @@ public class AdminDashController {
     }
 
     @FXML
-    void navigateToResavtionPage(ActionEvent event) {
-
+    void navigateToResavtionPage(ActionEvent event) throws IOException {
+        loadPageAnchor.getChildren().clear();
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/TableView.fxml")));
     }
 
 }

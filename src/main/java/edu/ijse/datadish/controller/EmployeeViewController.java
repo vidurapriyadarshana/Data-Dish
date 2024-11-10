@@ -91,7 +91,7 @@ public class EmployeeViewController implements Initializable  {
             @Override
             public TableCell<EmployeeDto, String> call(TableColumn<EmployeeDto, String> param) {
                 return new TableCell<>() {
-                    private final Button showInfo = new Button("Info");
+                    private final Button showInfo = new Button("Update");
                     private final Button deleteButton = new Button("Delete");
 
                     {
@@ -104,7 +104,7 @@ public class EmployeeViewController implements Initializable  {
                         showInfo.setOnAction(event -> {
                             EmployeeDto employeeDto = getTableView().getItems().get(getIndex());
                             try {
-                                getInfo(employeeDto);
+                                updateEmployee(employeeDto);
                             } catch (IOException | SQLException | ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
@@ -138,14 +138,14 @@ public class EmployeeViewController implements Initializable  {
         });
     }
 
-    private void getInfo(EmployeeDto employeeDto) throws IOException, SQLException, ClassNotFoundException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeInfo.fxml"));
-        Parent load = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Employee Information");
-        stage.setScene(new Scene(load));
-        stage.initModality(Modality.NONE);
-        stage.show();
+    private void updateEmployee(EmployeeDto employeeDto) throws IOException, SQLException, ClassNotFoundException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeInfo.fxml"));
+//        Parent load = loader.load();
+//        Stage stage = new Stage();
+//        stage.setTitle("Employee Information");
+//        stage.setScene(new Scene(load));
+//        stage.initModality(Modality.NONE);
+//        stage.show();
     }
 
     private void deleteEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
