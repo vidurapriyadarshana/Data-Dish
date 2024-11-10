@@ -14,5 +14,5 @@ import lombok.Setter;
 public class TableDto {
     private String id;
     private String status;
-    private String capacity;
+    private int capacity;
 }

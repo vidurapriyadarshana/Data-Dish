@@ -2,6 +2,9 @@ package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.TableDto;
 import edu.ijse.datadish.model.TableViewModel;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,15 +36,19 @@ public class TableViewController implements Initializable {
 
     @FXML
     void addTableAction(ActionEvent event) {
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+        colCapacity.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getCapacity()).asObject());
 
+        loadTableData();
     }
 
     private void loadTableData() {
-
+        ObservableList<TableDto> tables = tableViewModel.getAllTables();
+        loadTable.setItems(tables);
     }
 }
