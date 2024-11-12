@@ -16,3 +16,14 @@
 #scrollPanle{
     -fx-background-color: transparent;
 }
+
+#checkoutButton {
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#checkoutButton:hover{
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}

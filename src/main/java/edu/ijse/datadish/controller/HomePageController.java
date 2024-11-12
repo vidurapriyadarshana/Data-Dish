@@ -98,16 +98,16 @@ public class HomePageController {
             totalPrice += itemTotal;
 
             HBox cartItem = new HBox(10);
-            cartItem.setStyle("-fx-padding: 5; -fx-border-color: #ccc; -fx-border-width: 1;");
+            cartItem.setStyle("-fx-padding: 5; -fx-border-color: #FF971D; -fx-border-width: 1;");
 
             Label nameLabel = new Label(food.getFoodName());
-            nameLabel.setPrefWidth(100);
+            //nameLabel.setPrefWidth(25);
 
             Label qtyLabel = new Label("Qty: " + qty);
-            qtyLabel.setPrefWidth(50);
+            //qtyLabel.setPrefWidth(50);
 
-            Label priceLabel = new Label("$" + String.format("%.2f", itemTotal));
-            priceLabel.setPrefWidth(50);
+            Label priceLabel = new Label("LKR" + String.format("%.2f", itemTotal));
+            //priceLabel.setPrefWidth(50);
 
             cartItem.getChildren().addAll(nameLabel, qtyLabel, priceLabel);
             cartContainer.getChildren().add(cartItem);

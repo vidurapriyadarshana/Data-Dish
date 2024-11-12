@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -21,13 +22,13 @@
                </font>
             </Label>
             <TextField fx:id="searchField" layoutX="395.0" layoutY="29.0" promptText="Search" />
-            <ScrollPane fx:id="scrollPanle" layoutY="70.0" prefHeight="530.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+            <ScrollPane fx:id="scrollPanle" layoutY="70.0" prefHeight="530.0" prefWidth="575.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
                <content>
-                  <GridPane fx:id="foodContainer" hgap="10" vgap="10" prefWidth="600.0">
+                  <GridPane fx:id="foodContainer" hgap="10" prefHeight="150.0" prefWidth="572.0" vgap="10">
                      <columnConstraints>
-                        <ColumnConstraints percentWidth="33.33"/>
-                        <ColumnConstraints percentWidth="33.33"/>
-                        <ColumnConstraints percentWidth="33.33"/>
+                        <ColumnConstraints percentWidth="33.33" />
+                        <ColumnConstraints percentWidth="33.33" />
+                        <ColumnConstraints percentWidth="33.33" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
@@ -38,12 +39,39 @@
          </children>
       </AnchorPane>
 
-      <AnchorPane fx:id="itemAnchor" layoutX="593.0" prefHeight="600.0" prefWidth="200.0">
+      <AnchorPane fx:id="itemAnchor" layoutX="574.0" prefHeight="600.0" prefWidth="219.0">
          <children>
-            <VBox fx:id="cartContainer" layoutX="10.0" layoutY="10.0" spacing="10.0" prefWidth="180.0">
+            <VBox layoutY="481.0" prefHeight="119.0" prefWidth="219.0" spacing="10.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
+               <children>
+                  <Label fx:id="totalPriceLabel" text="Total: $0.00">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="checkoutButton" onAction="#checkoutAction" prefHeight="31.0" prefWidth="216.0" text="Checkout" />
+               </children>
             </VBox>
-            <Label fx:id="totalPriceLabel" layoutX="10.0" layoutY="500.0" text="Total: $0.00" />
-            <Button fx:id="checkoutButton" layoutX="10.0" layoutY="530.0" text="Checkout" onAction="#checkoutAction"/>
+            <VBox prefHeight="463.0" prefWidth="218.0" spacing="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+               <children>
+                  <Label text="Order">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
+                     <children>
+                        <Label text="orderID" />
+                        <Label layoutX="10.0" layoutY="10.0" text="O001" />
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <VBox fx:id="cartContainer" prefHeight="0.0" prefWidth="197.0" spacing="10.0">
+            </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>
