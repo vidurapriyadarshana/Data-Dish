@@ -1,35 +1,50 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.FoodDto;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.Setter;
 
 public class FoodController {
 
     @FXML
-    private Label foodName;
+    private Label foodNameLabel;
 
     @FXML
-    private Label foodPrice;
+    private Label priceLabel;
+
+    @FXML
+    private Button btAddToCart;
 
     @FXML
     private ImageView imageLoad;
 
     @FXML
-    void addToCartAction(ActionEvent event) {
+    private Label foodCount;
 
-    }
+    private FoodDto foodItem;
+    @Setter
+    private Runnable addToCartAction;
 
     public void setData(FoodDto foodDto) {
-        foodName.setText(foodDto.getFoodName());
-        foodPrice.setText(String.format("Price: LKR%.2f", foodDto.getFoodPrice()));
+        this.foodItem = foodDto;
+        foodNameLabel.setText(foodDto.getFoodName());
+        priceLabel.setText("$" + String.format("%.2f", foodDto.getFoodPrice()));
+        foodCount.setText("Qty: 1"); // Default quantity
+        // Load the image
+        if (foodDto.getFoodImagePath() != null && !foodDto.getFoodImagePath().isEmpty()) {
+            imageLoad.setImage(new Image("file:" + foodDto.getFoodImagePath()));
+        }
+    }
 
-        String imagePath = foodDto.getFoodImagePath();
-        if (imagePath != null && !imagePath.isEmpty()) {
-            imageLoad.setImage(new Image("file:" + imagePath));
+
+    @FXML
+    private void addToCartAction() {
+        if (addToCartAction != null) {
+            addToCartAction.run();
         }
     }
 }
