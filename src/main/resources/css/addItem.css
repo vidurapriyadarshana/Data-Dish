@@ -1,10 +1,10 @@
-#btUpdateItem , #btAddEmployee , #btAddItem{
+#btUpdateItem , #btAddEmployee , #btAddItem ,#btAddTable{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-text-fill: black;
 }
 
-#btnAddItem:hover, #btDeleteItem:hover , #btUpdateItem:hover ,  #btAddEmployee:hover ,  #btAddItem:hover {
+#btnAddItem:hover, #btDeleteItem:hover , #btUpdateItem:hover ,  #btAddEmployee:hover ,  #btAddItem:hover , #btAddTable:hover{
     -fx-border-color: black;
     -fx-text-fill: black;
 }
@@ -27,6 +27,15 @@
     -fx-padding: 10px;
 }
 
+#loadTable{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10px;
+}
+
 #inventoryTable{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
@@ -36,7 +45,7 @@
     -fx-padding: 10px;
 }
 
-#itemMenuTable .column-header, #employeeTable .column-header , #inventoryTable .column-header {
+#itemMenuTable .column-header, #employeeTable .column-header , #inventoryTable .column-header , #loadTable .column-header {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-border-width: 0;
@@ -45,18 +54,18 @@
     -fx-alignment: CENTER;
 }
 
-#itemMenuTable .column-header-background, #employeeTable .column-header-background  , #inventoryTable .column-header-background {
+#itemMenuTable .column-header-background, #employeeTable .column-header-background  , #inventoryTable .column-header-background , #loadTable .column-header-background {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-#itemMenuTable .table-cell, #employeeTable .table-cell , #inventoryTable .table-cell {
+#itemMenuTable .table-cell, #employeeTable .table-cell , #inventoryTable .table-cell , #loadTable .table-cell {
     -fx-alignment: CENTER;
     -fx-text-fill: black;
     -fx-padding: 5px;
 }
 
-#itemMenuTable .table-row-cell:selected, #employeeTable .table-row-cell:selected, #inventoryTable .table-row-cell:selected {
+#itemMenuTable .table-row-cell:selected, #employeeTable .table-row-cell:selected, #inventoryTable .table-row-cell:selected , #loadTable .table-row-cell:selected {
     -fx-background-color: #d0d0d0;
 }
 

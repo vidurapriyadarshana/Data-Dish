@@ -36,6 +36,7 @@ public class TableViewController implements Initializable {
 
     @FXML
     void addTableAction(ActionEvent event) {
+
     }
 
     @Override

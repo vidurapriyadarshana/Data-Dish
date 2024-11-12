@@ -4,6 +4,7 @@ module edu.ijse.restaurant {
     requires java.sql;
     requires static lombok;
     requires mysql.connector.j;
+    requires java.desktop;
 
 
     opens edu.ijse.datadish.controller to javafx.fxml;

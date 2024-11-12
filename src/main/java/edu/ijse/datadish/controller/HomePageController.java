@@ -1,34 +1,49 @@
 package edu.ijse.datadish.controller;
 
+import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.model.HomePageModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+
 
 public class HomePageController {
 
     @FXML
     private GridPane foodContainer;
 
-    @FXML
-    private AnchorPane itemAnchor;
+    public void initialize() {
+        loadMenuItems();
+    }
 
-    @FXML
-    private AnchorPane mainAnchor;
+    private void loadMenuItems() {
+        List<FoodDto> foodItems = HomePageModel.getAllMenuItems();
 
-    @FXML
-    private AnchorPane menuAnchor;
+        int row = 0;
+        int col = 0;
 
-    @FXML
-    private ScrollPane scrollPanle;
+        try {
+            for (FoodDto foodItem : foodItems) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Food.fxml"));
+                AnchorPane foodPane = loader.load();
 
-    @FXML
-    private TextField searchField;
+                FoodController controller = loader.getController();
+                controller.setData(foodItem);
 
-    List<FoodController> foodControllers = new ArrayList<>();
+                foodContainer.add(foodPane, col, row);
 
+                col++;
+                if (col > 3) {
+                    col = 0;
+                    row++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
