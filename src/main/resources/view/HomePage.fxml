@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -22,17 +21,14 @@
                </font>
             </Label>
             <TextField fx:id="searchField" layoutX="395.0" layoutY="29.0" promptText="Search" />
-            <ScrollPane fx:id="scrollPanle" layoutY="70.0" prefHeight="530.0" prefWidth="575.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
+            <ScrollPane fx:id="scrollPane" layoutY="70.0" prefHeight="530.0" prefWidth="575.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
                <content>
-                  <GridPane fx:id="foodContainer" hgap="10" prefHeight="150.0" prefWidth="572.0" vgap="10">
+                  <GridPane fx:id="foodContainer" prefHeight="200.0" prefWidth="160.0" vgap="10" hgap="10">
                      <columnConstraints>
-                        <ColumnConstraints percentWidth="33.33" />
-                        <ColumnConstraints percentWidth="33.33" />
-                        <ColumnConstraints percentWidth="33.33" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
                   </GridPane>
                </content>
             </ScrollPane>
@@ -60,16 +56,11 @@
                   </Label>
                   <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
                      <children>
-                        <Label text="orderID" />
+                        <Label text="OrderID" />
                         <Label layoutX="10.0" layoutY="10.0" text="O001" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <VBox fx:id="cartContainer" prefHeight="0.0" prefWidth="197.0" spacing="10.0">
-            </VBox>
-                     </children>
-                  </VBox>
+                  <VBox fx:id="cartContainer" prefHeight="200.0" prefWidth="197.0" spacing="10.0" />
                </children>
             </VBox>
          </children>

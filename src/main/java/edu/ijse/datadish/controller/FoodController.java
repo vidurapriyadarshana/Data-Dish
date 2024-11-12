@@ -33,8 +33,8 @@ public class FoodController {
         this.foodItem = foodDto;
         foodNameLabel.setText(foodDto.getFoodName());
         priceLabel.setText("$" + String.format("%.2f", foodDto.getFoodPrice()));
-        foodCount.setText("Qty: 1"); // Default quantity
-        // Load the image
+        foodCount.setText("Qty: 1");
+
         if (foodDto.getFoodImagePath() != null && !foodDto.getFoodImagePath().isEmpty()) {
             imageLoad.setImage(new Image("file:" + foodDto.getFoodImagePath()));
         }

@@ -21,16 +21,10 @@ import java.util.Map;
 
 public class HomePageController {
     @FXML
-    private AnchorPane itemAnchor;
+    private AnchorPane itemAnchor, mainAnchor, menuAnchor;
 
     @FXML
-    private AnchorPane mainAnchor;
-
-    @FXML
-    private AnchorPane menuAnchor;
-
-    @FXML
-    private ScrollPane scrollPanle;
+    private ScrollPane scrollPane;
 
     @FXML
     private TextField searchField;
@@ -66,7 +60,6 @@ public class HomePageController {
 
                 FoodController controller = loader.getController();
                 controller.setData(foodItem);
-
                 controller.setAddToCartAction(() -> addToCart(foodItem));
 
                 foodContainer.add(foodPane, col, row);
@@ -101,13 +94,8 @@ public class HomePageController {
             cartItem.setStyle("-fx-padding: 5; -fx-border-color: #FF971D; -fx-border-width: 1;");
 
             Label nameLabel = new Label(food.getFoodName());
-            //nameLabel.setPrefWidth(25);
-
             Label qtyLabel = new Label("Qty: " + qty);
-            //qtyLabel.setPrefWidth(50);
-
             Label priceLabel = new Label("LKR" + String.format("%.2f", itemTotal));
-            //priceLabel.setPrefWidth(50);
 
             cartItem.getChildren().addAll(nameLabel, qtyLabel, priceLabel);
             cartContainer.getChildren().add(cartItem);
@@ -118,22 +106,10 @@ public class HomePageController {
 
     @FXML
     private void checkoutAction() {
-        if (cartItems.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Checkout");
-            alert.setHeaderText(null);
-            alert.setContentText("Your cart is empty!");
-            alert.showAndWait();
-            return;
-        }
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Checkout");
         alert.setHeaderText(null);
-        alert.setContentText("Checkout successful! Thank you for your purchase.");
+        alert.setContentText("Checkout amount is: LKR" + String.format("%.2f", totalPrice));
         alert.showAndWait();
-
-        cartItems.clear();
-        updateCartDisplay();
     }
 }
