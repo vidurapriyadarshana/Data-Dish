@@ -25,7 +25,7 @@ public class FoodController {
 
     public void setData(FoodDto foodDto) {
         foodName.setText(foodDto.getFoodName());
-        foodPrice.setText(String.format("Price: $%.2f", foodDto.getFoodPrice()));
+        foodPrice.setText(String.format("Price: LKR%.2f", foodDto.getFoodPrice()));
 
         String imagePath = foodDto.getFoodImagePath();
         if (imagePath != null && !imagePath.isEmpty()) {
