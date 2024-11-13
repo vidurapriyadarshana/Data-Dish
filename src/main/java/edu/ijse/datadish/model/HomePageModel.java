@@ -37,4 +37,31 @@ public class HomePageModel {
 
         return foodItems;
     }
+
+    public static String generateNextID() {
+        String nextID = null;
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            String query = "SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String lastID = resultSet.getString("OrderID");
+                int number = Integer.parseInt(lastID.substring(1));
+                nextID = String.format("O%03d", number + 1);
+            } else {
+                nextID = "O001";
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return nextID;
+    }
 }

@@ -1,7 +1,6 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.EmployeeDto;
-import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.model.EmployeeViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -21,7 +20,6 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EmployeeViewController implements Initializable  {
@@ -54,7 +52,7 @@ public class EmployeeViewController implements Initializable  {
 
     @FXML
     private AnchorPane mainAnchor;
-    
+
     @FXML
     void addEmployeeAction(ActionEvent event) {
         try {
@@ -63,7 +61,7 @@ public class EmployeeViewController implements Initializable  {
             Stage stage = new Stage();
             stage.setTitle("Add Employee");
             stage.setScene(new Scene(load));
-            stage.initModality(Modality.NONE);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -81,9 +79,7 @@ public class EmployeeViewController implements Initializable  {
             colContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeContact()));
             colAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
             colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeStatus()));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -103,24 +99,17 @@ public class EmployeeViewController implements Initializable  {
 
                         showInfo.setOnAction(event -> {
                             EmployeeDto employeeDto = getTableView().getItems().get(getIndex());
-                            try {
-                                updateEmployee(employeeDto);
-                            } catch (IOException | SQLException | ClassNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
+                            updateEmployee(employeeDto);
                         });
 
                         deleteButton.setOnAction(event -> {
                             EmployeeDto employeeDto = getTableView().getItems().get(getIndex());
                             try {
                                 deleteEmployee(employeeDto);
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            } catch (ClassNotFoundException e) {
+                            } catch (SQLException | ClassNotFoundException e) {
                                 throw new RuntimeException(e);
                             }
                         });
-
                     }
 
                     @Override
@@ -138,14 +127,18 @@ public class EmployeeViewController implements Initializable  {
         });
     }
 
-    private void updateEmployee(EmployeeDto employeeDto) throws IOException, SQLException, ClassNotFoundException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeInfo.fxml"));
-//        Parent load = loader.load();
-//        Stage stage = new Stage();
-//        stage.setTitle("Employee Information");
-//        stage.setScene(new Scene(load));
-//        stage.initModality(Modality.NONE);
-//        stage.show();
+    private void updateEmployee(EmployeeDto employeeDto) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateEmployee.fxml"));
+            Parent root = loader.load();
+            UpdateEmployeeController controller = loader.getController();
+            controller.setEmployeeData(employeeDto);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
@@ -159,7 +152,8 @@ public class EmployeeViewController implements Initializable  {
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert.AlertType alertType = "Error".equals(title) ? Alert.AlertType.ERROR : Alert.AlertType.INFORMATION;
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

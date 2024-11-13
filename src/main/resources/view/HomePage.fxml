@@ -23,7 +23,7 @@
             <TextField fx:id="searchField" layoutX="395.0" layoutY="29.0" promptText="Search" />
             <ScrollPane fx:id="scrollPane" layoutY="70.0" prefHeight="530.0" prefWidth="575.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
                <content>
-                  <GridPane fx:id="foodContainer" prefHeight="200.0" prefWidth="160.0" vgap="10" hgap="10">
+                  <GridPane fx:id="foodContainer" hgap="10" prefHeight="200.0" prefWidth="160.0" vgap="10">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,7 +39,7 @@
          <children>
             <VBox layoutY="481.0" prefHeight="119.0" prefWidth="219.0" spacing="10.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
                <children>
-                  <Label fx:id="totalPriceLabel" text="Total: $0.00">
+                  <Label fx:id="totalPriceLabel" text="Total: LKR 0.00">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -49,15 +49,21 @@
             </VBox>
             <VBox prefHeight="463.0" prefWidth="218.0" spacing="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                <children>
-                  <Label text="Order">
+                  <Label text="Order Details">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
                   <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
                      <children>
-                        <Label text="OrderID" />
-                        <Label layoutX="10.0" layoutY="10.0" text="O001" />
+                        <Label text="OrderID" textFill="#7f8c8d" />
+                        <Label fx:id="lblOrderId" layoutX="10.0" layoutY="10.0" text="O001" textFill="#7f8c8d" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="45.0" prefHeight="20.0" prefWidth="219.0" spacing="5.0">
+                     <children>
+                        <Label text="Emp ID" textFill="#7f8c8d" />
+                        <Label fx:id="lblEmpId" layoutX="10.0" layoutY="10.0" text="E001" textFill="#7f8c8d" />
                      </children>
                   </HBox>
                   <VBox fx:id="cartContainer" prefHeight="200.0" prefWidth="197.0" spacing="10.0" />

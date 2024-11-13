@@ -1,9 +1,11 @@
 package edu.ijse.datadish.controller;
 
+import edu.ijse.datadish.dto.EmployeeDto;
 import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.model.HomePageModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,11 +17,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class HomePageController {
+public class HomePageController implements Initializable {
     @FXML
     private AnchorPane itemAnchor, mainAnchor, menuAnchor;
 
@@ -41,12 +45,19 @@ public class HomePageController {
     @FXML
     private Button checkoutButton;
 
+    @FXML
+    private Label lblOrderId;
+
+    @FXML
+    private Label lblEmpId;
+
+
     private Map<FoodDto, Integer> cartItems = new HashMap<>();
     private double totalPrice = 0.0;
 
-    public void initialize() {
-        loadMenuItems();
-    }
+//    public void initialize() {
+//
+//    }
 
     private void loadMenuItems() {
         List<FoodDto> foodItems = HomePageModel.getAllMenuItems();
@@ -111,5 +122,12 @@ public class HomePageController {
         alert.setHeaderText(null);
         alert.setContentText("Checkout amount is: LKR" + String.format("%.2f", totalPrice));
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadMenuItems();
+        lblOrderId.setText(HomePageModel.generateNextID());
+        //lblEmpId.setText();
     }
 }

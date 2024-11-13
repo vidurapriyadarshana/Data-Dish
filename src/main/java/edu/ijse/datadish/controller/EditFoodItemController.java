@@ -109,7 +109,7 @@ public class EditFoodItemController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialize method if needed
+
     }
 
     public void setFoodDto(FoodDto food) throws SQLException, ClassNotFoundException {
