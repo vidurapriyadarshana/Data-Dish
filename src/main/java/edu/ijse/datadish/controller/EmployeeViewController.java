@@ -192,13 +192,13 @@ public class EmployeeViewController implements Initializable  {
             @Override
             public TableCell<SalaryDto, String> call(TableColumn<SalaryDto, String> param) {
                 return new TableCell<>() {
-                    private final Button viewInfoButton = new Button("View Info");
+                    private final Button viewInfoButton = new Button("Update");
 
                     {
                         viewInfoButton.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
                         viewInfoButton.setOnAction(event -> {
                             SalaryDto salaryDto = getTableView().getItems().get(getIndex());
-                            showSalaryInfo(salaryDto);
+                            updateSalary(salaryDto);
                         });
                     }
 
@@ -216,15 +216,8 @@ public class EmployeeViewController implements Initializable  {
         });
     }
 
-    private void showSalaryInfo(SalaryDto salaryDto) {
-        // Show additional salary information (e.g., open a new window or display a popup)
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Salary Information");
-        alert.setHeaderText("Details for Salary ID: " + salaryDto.getSalaryId());
-        alert.setContentText("Employee: " + salaryDto.getEmployeeId() + "\n" +
-                "Date: " + salaryDto.getDate() + "\n" +
-                "Amount: $" + salaryDto.getAmount());
-        alert.showAndWait();
+    private void updateSalary(SalaryDto salaryDto) {
+
     }
 
     private void showAlert(String title, String message) {
