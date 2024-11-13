@@ -23,7 +23,7 @@
 }
 
 
-#itemMenuTable {
+#itemMenuTable{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-border-width: 0 0 2px 0;
@@ -32,7 +32,16 @@
     -fx-padding: 10px;
 }
 
-#employeeTable {
+#employeeTable{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+#tableSalary{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-border-width: 0 0 2px 0;
@@ -59,7 +68,7 @@
     -fx-padding: 10px;
 }
 
-#itemMenuTable .column-header, #employeeTable .column-header , #inventoryTable .column-header , #loadTable .column-header {
+#itemMenuTable .column-header, #employeeTable .column-header , #inventoryTable .column-header , #loadTable .column-header , #tableSalary .column-header {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-border-width: 0;
@@ -68,7 +77,7 @@
     -fx-alignment: CENTER;
 }
 
-#itemMenuTable .column-header-background, #employeeTable .column-header-background  , #inventoryTable .column-header-background , #loadTable .column-header-background {
+#itemMenuTable .column-header-background, #employeeTable .column-header-background  , #inventoryTable .column-header-background , #loadTable .column-header-background , #tableSalary .column-header-background {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }

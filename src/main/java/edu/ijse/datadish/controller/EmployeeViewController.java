@@ -1,6 +1,7 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.EmployeeDto;
+import edu.ijse.datadish.dto.SalaryDto;
 import edu.ijse.datadish.model.EmployeeViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -53,21 +54,23 @@ public class EmployeeViewController implements Initializable  {
     @FXML
     private AnchorPane mainAnchor;
 
+    @FXML
+    private TableView<SalaryDto> tableSalary;
 
     @FXML
-    private TableView<?> tableSalary;
+    private TableColumn<SalaryDto, String> colsalary;
 
     @FXML
-    private TableColumn<?, ?> colsalary;
+    private TableColumn<SalaryDto, String> colSalaryDate;
 
     @FXML
-    private TableColumn<?, ?> colSalaryDate;
+    private TableColumn<SalaryDto, String> colSalaryId;
 
     @FXML
-    private TableColumn<?, ?> colSalaryId;
+    private TableColumn<SalaryDto, String> colEmployeeName;
 
     @FXML
-    private TableColumn<?, ?> colEmployeeName;
+    private TableColumn<SalaryDto, String> colSalaryAction;
 
     @FXML
     void addEmployeeAction(ActionEvent event) {
@@ -87,6 +90,7 @@ public class EmployeeViewController implements Initializable  {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         employeeViewModel = new EmployeeViewModel();
+        loadSalaryTable();
         try {
             ObservableList<EmployeeDto> employees = employeeViewModel.loadEmpTable();
             employeeTable.setItems(employees);
@@ -165,6 +169,62 @@ public class EmployeeViewController implements Initializable  {
         } else {
             showAlert("Error", "Employee Deletion Failed");
         }
+    }
+
+    private void loadSalaryTable() {
+        try {
+            ObservableList<SalaryDto> salaries = employeeViewModel.loadSalaryTable();
+            tableSalary.setItems(salaries);
+
+            colSalaryId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSalaryId()));
+            colEmployeeName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeId()));
+            colSalaryDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
+            colsalary.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getAmount())));
+
+            configureSalaryActions();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void configureSalaryActions() {
+        colSalaryAction.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<SalaryDto, String> call(TableColumn<SalaryDto, String> param) {
+                return new TableCell<>() {
+                    private final Button viewInfoButton = new Button("View Info");
+
+                    {
+                        viewInfoButton.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
+                        viewInfoButton.setOnAction(event -> {
+                            SalaryDto salaryDto = getTableView().getItems().get(getIndex());
+                            showSalaryInfo(salaryDto);
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(viewInfoButton);
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    private void showSalaryInfo(SalaryDto salaryDto) {
+        // Show additional salary information (e.g., open a new window or display a popup)
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Salary Information");
+        alert.setHeaderText("Details for Salary ID: " + salaryDto.getSalaryId());
+        alert.setContentText("Employee: " + salaryDto.getEmployeeId() + "\n" +
+                "Date: " + salaryDto.getDate() + "\n" +
+                "Amount: $" + salaryDto.getAmount());
+        alert.showAndWait();
     }
 
     private void showAlert(String title, String message) {

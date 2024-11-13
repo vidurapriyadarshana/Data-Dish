@@ -23,4 +23,5 @@ public class UpdateEmployeeModel {
 
         return result > 0;
     }
+
 }

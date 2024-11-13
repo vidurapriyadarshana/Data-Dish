@@ -13,7 +13,7 @@
             <Tab fx:id="btEmployee" closable="false" text="Employee">
                 <AnchorPane>
                     <children>
-                        <TableView fx:id="employeeTable" prefHeight="525.0" prefWidth="789.0">
+                        <TableView fx:id="employeeTable" prefHeight="481.0" prefWidth="789.0">
                             <columns>
                                 <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
                                 <TableColumn fx:id="colName" prefWidth="142.0" text="Name " />
@@ -23,7 +23,7 @@
                                 <TableColumn fx:id="colActions" prefWidth="146.7" text="Actions" />
                             </columns>
                         </TableView>
-                        <Button fx:id="btAddEmployee" layoutX="637.0" layoutY="540.0" mnemonicParsing="false" onAction="#addEmployeeAction" prefHeight="36.0" prefWidth="115.0" text="Add Employee" />
+                        <Button fx:id="btAddEmployee" layoutX="646.0" layoutY="503.0" mnemonicParsing="false" onAction="#addEmployeeAction" prefHeight="36.0" prefWidth="115.0" text="Add Employee" />
                     </children>
                 </AnchorPane>
             </Tab>
@@ -31,12 +31,13 @@
             <Tab fx:id="btSalary" closable="false" text="  Salary  ">
                 <AnchorPane>
                <children>
-                  <TableView fx:id="tableSalary" prefHeight="357.0" prefWidth="635.0">
+                  <TableView fx:id="tableSalary" prefHeight="358.0" prefWidth="789.0">
                     <columns>
                       <TableColumn fx:id="colSalaryId" minWidth="15.0" prefWidth="94.00000250339508" text="Salary ID" />
-                      <TableColumn fx:id="colEmployeeName" minWidth="15.0" prefWidth="180.00003814697266" text="Employee Name" />
-                        <TableColumn fx:id="colSalaryDate" minWidth="0.0" prefWidth="149.3333740234375" text="Date" />
-                        <TableColumn fx:id="colsalary" minWidth="0.0" prefWidth="167.99996948242188" text="Salary" />
+                      <TableColumn fx:id="colEmployeeName" minWidth="15.0" prefWidth="209.33329010009766" text="Employee Name" />
+                        <TableColumn fx:id="colSalaryDate" minWidth="0.0" prefWidth="162.00006103515625" text="Date" />
+                        <TableColumn fx:id="colsalary" minWidth="0.0" prefWidth="180.00003051757812" text="Salary" />
+                        <TableColumn fx:id="colSalaryAction" minWidth="0.0" prefWidth="124.66668701171875" text="Action" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

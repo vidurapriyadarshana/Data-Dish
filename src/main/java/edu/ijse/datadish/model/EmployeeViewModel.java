@@ -3,6 +3,7 @@ package edu.ijse.datadish.model;
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.EmployeeDto;
 import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.dto.SalaryDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -48,4 +49,25 @@ public class EmployeeViewModel {
         return result > 0;
     }
 
+    public ObservableList<SalaryDto> loadSalaryTable() throws SQLException, ClassNotFoundException {
+        ObservableList<SalaryDto> salaryView = FXCollections.observableArrayList();
+
+        String sql = "SELECT s.SalaryID, e.Name AS EmployeeName, s.PaymentDate, s.Amount FROM salary s JOIN employee e ON s.EmployeeID = e.EmployeeID";
+
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            String salaryId = resultSet.getString("SalaryID");
+            String employeeName = resultSet.getString("EmployeeName");
+            String paymentDate = resultSet.getString("PaymentDate");
+            double amount = resultSet.getDouble("Amount");
+
+            SalaryDto salaryDto = new SalaryDto(salaryId, employeeName, paymentDate, amount);
+            salaryView.add(salaryDto);
+        }
+
+        return salaryView;
+    }
 }
