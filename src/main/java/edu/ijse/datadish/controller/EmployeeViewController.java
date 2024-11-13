@@ -53,6 +53,22 @@ public class EmployeeViewController implements Initializable  {
     @FXML
     private AnchorPane mainAnchor;
 
+
+    @FXML
+    private TableView<?> tableSalary;
+
+    @FXML
+    private TableColumn<?, ?> colsalary;
+
+    @FXML
+    private TableColumn<?, ?> colSalaryDate;
+
+    @FXML
+    private TableColumn<?, ?> colSalaryId;
+
+    @FXML
+    private TableColumn<?, ?> colEmployeeName;
+
     @FXML
     void addEmployeeAction(ActionEvent event) {
         try {

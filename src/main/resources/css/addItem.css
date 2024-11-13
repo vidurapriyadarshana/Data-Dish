@@ -1,4 +1,4 @@
-#btUpdateItem , #btAddEmployee , #btAddItem ,#btAddTable{
+#btUpdateItem , #btAddEmployee , #btAddItem ,#btAddTable {
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-text-fill: black;
@@ -8,6 +8,20 @@
     -fx-border-color: black;
     -fx-text-fill: black;
 }
+
+#btEmployee , #btSalary{
+    -fx-background-color: transparent;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+    -fx-border-width: 2px 2px 0 2px;
+}
+
+#btEmployee:hover, #btSalary:hover{
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border-width: 2px 2px 0 2px;
+}
+
 
 #itemMenuTable {
     -fx-background-color: transparent;
