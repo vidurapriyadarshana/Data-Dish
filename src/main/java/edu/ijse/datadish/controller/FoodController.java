@@ -32,7 +32,7 @@ public class FoodController {
     public void setData(FoodDto foodDto) {
         this.foodItem = foodDto;
         foodNameLabel.setText(foodDto.getFoodName());
-        priceLabel.setText("$" + String.format("%.2f", foodDto.getFoodPrice()));
+        priceLabel.setText("LKR" + String.format("%.2f", foodDto.getFoodPrice()));
         foodCount.setText("Qty: 1");
 
         if (foodDto.getFoodImagePath() != null && !foodDto.getFoodImagePath().isEmpty()) {

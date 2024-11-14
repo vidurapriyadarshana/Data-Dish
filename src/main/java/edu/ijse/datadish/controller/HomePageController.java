@@ -6,6 +6,7 @@ import edu.ijse.datadish.model.HomePageModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -55,9 +56,6 @@ public class HomePageController implements Initializable {
     private Map<FoodDto, Integer> cartItems = new HashMap<>();
     private double totalPrice = 0.0;
 
-//    public void initialize() {
-//
-//    }
 
     private void loadMenuItems() {
         List<FoodDto> foodItems = HomePageModel.getAllMenuItems();
@@ -105,23 +103,53 @@ public class HomePageController implements Initializable {
             cartItem.setStyle("-fx-padding: 5; -fx-border-color: #FF971D; -fx-border-width: 1;");
 
             Label nameLabel = new Label(food.getFoodName());
+            nameLabel.setPrefWidth(60);
             Label qtyLabel = new Label("Qty: " + qty);
+            qtyLabel.setPrefWidth(40);
             Label priceLabel = new Label("LKR" + String.format("%.2f", itemTotal));
+            priceLabel.setPrefWidth(70);
 
-            cartItem.getChildren().addAll(nameLabel, qtyLabel, priceLabel);
+            Button addButton = new Button("+");
+            addButton.setOnAction(e -> addToCart(food));
+            addButton.setPrefWidth(30);
+
+            Button removeButton = new Button("-");
+            removeButton.setOnAction(e -> removeFromCart(food));
+            removeButton.setPrefWidth(30);
+
+            HBox buttonContainer = new HBox(5, addButton, removeButton);
+            buttonContainer.setAlignment(Pos.CENTER_RIGHT);
+
+            addButton.setStyle("-fx-background-color: transparent; -fx-border-color: #00FF9C; -fx-text-fill: black;");
+            removeButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
+
+            cartItem.getChildren().addAll(nameLabel, qtyLabel, priceLabel, buttonContainer);
             cartContainer.getChildren().add(cartItem);
         }
 
         totalPriceLabel.setText("Total: LKR" + String.format("%.2f", totalPrice));
     }
 
+
+    private void removeFromCart(FoodDto foodItem) {
+        int currentQty = cartItems.getOrDefault(foodItem, 0);
+        if (currentQty > 1) {
+            cartItems.put(foodItem, currentQty - 1);
+        } else {
+            cartItems.remove(foodItem);
+        }
+        updateCartDisplay();
+    }
+
     @FXML
     private void checkoutAction() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Checkout");
-        alert.setHeaderText(null);
-        alert.setContentText("Checkout amount is: LKR" + String.format("%.2f", totalPrice));
-        alert.showAndWait();
+        if (cartItems.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Cart is empty");
+            alert.showAndWait();
+            return;
+        }
     }
 
     @Override

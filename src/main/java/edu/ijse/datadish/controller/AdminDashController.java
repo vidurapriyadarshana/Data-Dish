@@ -1,20 +1,33 @@
 package edu.ijse.datadish.controller;
 
+import edu.ijse.datadish.dto.LogInDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AdminDashController {
+public class AdminDashController implements Initializable {
 
     @FXML
     private Button btnAddItem,btnResavtion,btnEmployee,btnHome,btnInventory,btnLogOut,btnReports;
 
     @FXML
     private AnchorPane loadPageAnchor,mainAnchor,menuAnchor;
+
+    @FXML
+    private Label lblSetName;
+
+    @FXML
+    private Label lblSetRole;
+
+    private LogInDto logInDto;
 
     @FXML
     void navigateToAddItemPage(ActionEvent event) throws IOException {
@@ -58,4 +71,9 @@ public class AdminDashController {
         loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/TableView.fxml")));
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        lblSetName.setText(this.logInDto.getUserName());
+//        lblSetRole.setText(this.logInDto.getRole());
+    }
 }
