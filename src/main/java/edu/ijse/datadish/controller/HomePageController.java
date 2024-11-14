@@ -3,19 +3,19 @@ package edu.ijse.datadish.controller;
 import edu.ijse.datadish.dto.EmployeeDto;
 import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.model.HomePageModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
+
     @FXML
     private AnchorPane itemAnchor, mainAnchor, menuAnchor;
 
@@ -148,14 +149,30 @@ public class HomePageController implements Initializable {
             alert.setTitle("Error");
             alert.setHeaderText("Cart is empty");
             alert.showAndWait();
-            return;
         }
+    }
+
+    @FXML
+    void checkoutAction(ActionEvent event) {
+        Alert alert;
+        if (cartItems.isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Cart is empty");
+        }else{
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Confirm checkout?");
+
+        }
+        alert.showAndWait();
+
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadMenuItems();
         lblOrderId.setText(HomePageModel.generateNextID());
-        //lblEmpId.setText();
     }
 }
