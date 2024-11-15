@@ -1,0 +1,15 @@
+#btAddToCart{
+    -fx-background-color: white;
+    -fx-border-color: #FF971D;
+    -fx-text-fill: black;
+}
+
+#btAddToCart:hover{
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+
+
+#mainAnchor{
+    -fx-background-color: #F2EFE5;
+}

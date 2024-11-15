@@ -16,7 +16,7 @@ public class Appinitializer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent load = FXMLLoader.load((getClass().getResource("/view/Login.fxml")));
+        Parent load = FXMLLoader.load((getClass().getResource("/view/AdminDash.fxml")));
         stage.setScene(new Scene(load));
         Image icon = new Image(getClass().getResourceAsStream("/assests/logo.png"));
         stage.getIcons().add(icon);
