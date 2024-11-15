@@ -51,6 +51,7 @@ public class LoginController {
             boolean isLoggedIn = logInModel.cheakLogin(logInDto);
 
             Refarance.employeeUserName = userName;
+            Refarance.employeeRole = logInDto.getRole();
 
             String role = logInDto.getRole();
             if (isLoggedIn && role.equals("Admin")) {

@@ -1,6 +1,7 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.LogInDto;
+import edu.ijse.datadish.util.Refarance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,8 @@ public class AdminDashController implements Initializable {
     @FXML
     private Label lblSetRole;
 
-    private LogInDto logInDto;
+    private String employeeUserName;
+    private String employeeRole;
 
     @FXML
     private Button btOrders;
@@ -76,8 +78,11 @@ public class AdminDashController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        lblSetName.setText(this.logInDto.getUserName());
-//        lblSetRole.setText(this.logInDto.getRole());
+        this.employeeUserName = Refarance.employeeUserName;
+        this.employeeRole = Refarance.employeeRole;
+
+        lblSetName.setText(employeeUserName);
+        lblSetRole.setText(employeeRole);
     }
 
     @FXML
