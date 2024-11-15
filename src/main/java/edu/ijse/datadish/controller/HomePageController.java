@@ -2,7 +2,9 @@ package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.EmployeeDto;
 import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.dto.LogInDto;
 import edu.ijse.datadish.model.HomePageModel;
+import edu.ijse.datadish.util.Refarance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +55,7 @@ public class HomePageController implements Initializable {
     @FXML
     private Label lblEmpId;
 
+    public String userName;
 
     private Map<FoodDto, Integer> cartItems = new HashMap<>();
     private double totalPrice = 0.0;
@@ -144,12 +147,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void checkoutAction() {
-        if (cartItems.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Cart is empty");
-            alert.showAndWait();
-        }
+
     }
 
     @FXML
@@ -166,13 +164,15 @@ public class HomePageController implements Initializable {
 
         }
         alert.showAndWait();
-
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.userName = Refarance.employeeUserName;
         loadMenuItems();
         lblOrderId.setText(HomePageModel.generateNextID());
+        lblEmpId.setText(userName);
     }
+
+
 }

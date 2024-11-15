@@ -4,7 +4,7 @@
     -fx-text-fill: black;
 }
 
-#btnAddItem:hover, #btDeleteItem:hover , #btUpdateItem:hover ,  #btAddEmployee:hover ,  #btAddItem:hover , #btAddTable:hover{
+#btnAddItem:hover, #btDeleteItem:hover , #btUpdateItem:hover ,  #btAddEmployee:hover ,  #btAddItem:hover , #btAddTable:hover {
     -fx-border-color: black;
     -fx-text-fill: black;
 }

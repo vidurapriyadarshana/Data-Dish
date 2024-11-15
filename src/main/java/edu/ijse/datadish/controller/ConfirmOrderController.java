@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import java.util.Map;
 
-public class CheckoutFormController {
+public class ConfirmOrderController {
 
     @FXML
     private TextField nameField;

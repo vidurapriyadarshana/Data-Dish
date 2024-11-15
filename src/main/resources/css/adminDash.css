@@ -10,13 +10,13 @@
     -fx-background-color: #F9F6F7;
 }
 
-#btnHome, #btnResavtion, #btnReports, #btnInventory ,#btnEmployee , #btnAddItem{
+#btnHome, #btnResavtion, #btnReports, #btnInventory ,#btnEmployee , #btnAddItem , #btOrders {
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-text-fill: black;
 }
 
-#btnHome:hover, #btnResavtion:hover, #btnReports:hover , #btnInventory:hover , #btnEmployee:hover ,#btnAddItem:hover{
+#btnHome:hover, #btnResavtion:hover, #btnReports:hover , #btnInventory:hover , #btnEmployee:hover ,#btnAddItem:hover , #btOrders:hover {
     -fx-border-color: black;
     -fx-text-fill: black;
 }

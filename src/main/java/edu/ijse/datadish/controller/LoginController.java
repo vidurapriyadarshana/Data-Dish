@@ -1,6 +1,7 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.LogInDto;
+import edu.ijse.datadish.util.Refarance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,8 +46,12 @@ public class LoginController {
         logInDto.setUserName(userName);
         logInDto.setPassword(password);
 
+
         try {
             boolean isLoggedIn = logInModel.cheakLogin(logInDto);
+
+            Refarance.employeeUserName = userName;
+
             String role = logInDto.getRole();
             if (isLoggedIn && role.equals("Admin")) {
                 System.out.println("Successful Admin");

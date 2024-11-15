@@ -30,6 +30,9 @@ public class AdminDashController implements Initializable {
     private LogInDto logInDto;
 
     @FXML
+    private Button btOrders;
+
+    @FXML
     void navigateToAddItemPage(ActionEvent event) throws IOException {
         loadPageAnchor.getChildren().clear();
         loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/AddItem.fxml")));
@@ -75,5 +78,11 @@ public class AdminDashController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        lblSetName.setText(this.logInDto.getUserName());
 //        lblSetRole.setText(this.logInDto.getRole());
+    }
+
+    @FXML
+    void navigateToOrdersPage(ActionEvent event) throws IOException {
+        loadPageAnchor.getChildren().clear();
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/CheckoutView.fxml")));
     }
 }
