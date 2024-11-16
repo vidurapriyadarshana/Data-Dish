@@ -72,7 +72,7 @@ public class EditFoodItemController implements Initializable {
                     showAlert("Edit Item", "Image Saved Unsuccessfully");
                 }
 
-                Image image = new Image("file:" + imagePath); // Load image from saved path
+                Image image = new Image("file:" + imagePath);
                 imageView.setImage(image);
             } catch (IOException e) {
                 showAlert("Error", "Error saving image: " + e.getMessage());
@@ -88,13 +88,13 @@ public class EditFoodItemController implements Initializable {
         String name = txtName.getText();
         double price = Double.parseDouble(txtPrice.getText());
         String category = txtCategory.getText();
-        String availability = btAvailable.isSelected() ? "Available" : "Not Available";
+        //String availability = btAvailable.isSelected() ? "Available" : "Not Available";
 
         foodDto.setFoodId(id);
         foodDto.setFoodName(name);
         foodDto.setFoodPrice(price);
         foodDto.setFoodCategory(category);
-        foodDto.setFoodAvailability(availability);
+        //foodDto.setFoodAvailability(availability);
 
         boolean isUpdated = editFoodItemModel.updateFoodItem(foodDto);
         if (isUpdated) {

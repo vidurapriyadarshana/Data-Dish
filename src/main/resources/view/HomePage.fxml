@@ -51,21 +51,25 @@
                <children>
                   <Label text="Order Details">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="Calibri Light" size="20.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
+                  <VBox prefHeight="84.0" prefWidth="262.0">
                      <children>
-                        <Label text="OrderID" textFill="#7f8c8d" />
-                        <Label fx:id="lblOrderId" layoutX="10.0" layoutY="10.0" text="O001" textFill="#7f8c8d" />
+                        <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
+                           <children>
+                              <Label text="OrderID" textFill="#7f8c8d" />
+                              <Label fx:id="lblOrderId" layoutX="10.0" layoutY="10.0" text="O001" textFill="#7f8c8d" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
+                           <children>
+                              <Label text="Emp ID" textFill="#7f8c8d" />
+                              <Label fx:id="lblEmpId" layoutX="10.0" layoutY="10.0" text="E001" textFill="#7f8c8d" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="45.0" prefHeight="20.0" prefWidth="219.0" spacing="5.0">
-                     <children>
-                        <Label text="Emp ID" textFill="#7f8c8d" />
-                        <Label fx:id="lblEmpId" layoutX="10.0" layoutY="10.0" text="E001" textFill="#7f8c8d" />
-                     </children>
-                  </HBox>
+                  </VBox>
                   <VBox fx:id="cartContainer" prefHeight="200.0" prefWidth="197.0" spacing="10.0" />
                </children>
             </VBox>

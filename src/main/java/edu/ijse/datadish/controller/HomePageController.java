@@ -1,8 +1,6 @@
 package edu.ijse.datadish.controller;
 
-import edu.ijse.datadish.dto.EmployeeDto;
 import edu.ijse.datadish.dto.FoodDto;
-import edu.ijse.datadish.dto.LogInDto;
 import edu.ijse.datadish.model.HomePageModel;
 import edu.ijse.datadish.util.Refarance;
 import javafx.event.ActionEvent;
@@ -10,14 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -113,18 +108,13 @@ public class HomePageController implements Initializable {
             Label priceLabel = new Label("LKR" + String.format("%.2f", itemTotal));
             priceLabel.setPrefWidth(70);
 
-            Button addButton = new Button("+");
-            addButton.setOnAction(e -> addToCart(food));
-            addButton.setPrefWidth(30);
-
             Button removeButton = new Button("-");
             removeButton.setOnAction(e -> removeFromCart(food));
             removeButton.setPrefWidth(30);
 
-            HBox buttonContainer = new HBox(5, addButton, removeButton);
+            HBox buttonContainer = new HBox(5, removeButton);
             buttonContainer.setAlignment(Pos.CENTER_RIGHT);
 
-            addButton.setStyle("-fx-background-color: transparent; -fx-border-color: #00FF9C; -fx-text-fill: black;");
             removeButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
 
             cartItem.getChildren().addAll(nameLabel, qtyLabel, priceLabel, buttonContainer);
@@ -133,7 +123,6 @@ public class HomePageController implements Initializable {
 
         totalPriceLabel.setText("Total: LKR" + String.format("%.2f", totalPrice));
     }
-
 
     private void removeFromCart(FoodDto foodItem) {
         int currentQty = cartItems.getOrDefault(foodItem, 0);
@@ -152,18 +141,9 @@ public class HomePageController implements Initializable {
 
     @FXML
     void checkoutAction(ActionEvent event) {
-        Alert alert;
-        if (cartItems.isEmpty()) {
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Cart is empty");
-        }else{
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Confirm checkout?");
+        String orderId = lblOrderId.getText();
+        String empId = lblEmpId.getText();
 
-        }
-        alert.showAndWait();
     }
 
     @Override

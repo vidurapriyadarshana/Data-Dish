@@ -38,7 +38,7 @@ public class EditFoodItemModel {
     }
 
     public boolean updateFoodItem(FoodDto foodDto) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE menuitem SET Name = ?, Price = ?, Category = ?, Availability = ?, ImageData = ? WHERE MenuItemID = ?";
+        String sql = "UPDATE menuitem SET Name = ?, Price = ?, Category = ?, Availability = ? WHERE MenuItemID = ?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -46,8 +46,7 @@ public class EditFoodItemModel {
         statement.setDouble(2, foodDto.getFoodPrice());
         statement.setString(3, foodDto.getFoodCategory());
         statement.setString(4, foodDto.getFoodAvailability());
-        statement.setString(5, foodDto.getFoodImagePath());
-        statement.setString(6, foodDto.getFoodId());
+        statement.setString(5, foodDto.getFoodId());
 
         int rowsAffected = statement.executeUpdate();
 
