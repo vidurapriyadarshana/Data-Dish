@@ -40,7 +40,7 @@ public class HomePageModel {
     }
 
     public static String generateNextOrderID() {
-        String nextID = "O001"; // Default ID if no previous entries are found.
+        String nextID = "O001";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(
@@ -87,7 +87,7 @@ public class HomePageModel {
     }
 
     public static String generateNextCustomerID() {
-        String nextID = "C001"; // Default ID if no previous entries are found.
+        String nextID = "C001";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(

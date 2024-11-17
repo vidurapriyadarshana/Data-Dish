@@ -182,6 +182,12 @@ public class HomePageController implements Initializable {
                     item.setFoodName(food.getFoodName());
                     item.setQuantity(qty);
                     item.setPrice(food.getFoodPrice());
+
+                    System.out.println(item.getFoodId());
+                    System.out.println(item.getFoodName());
+                    System.out.println(item.getQuantity());
+                    System.out.println(item.getPrice());
+
                     return item;
                 })
                 .toList();
@@ -217,7 +223,6 @@ public class HomePageController implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.userName = Refarance.employeeUserName;
@@ -242,7 +247,6 @@ public class HomePageController implements Initializable {
 
     public static String getCurrentDate() {
         LocalDate currentDate = LocalDate.now();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return currentDate.format(formatter);
     }
