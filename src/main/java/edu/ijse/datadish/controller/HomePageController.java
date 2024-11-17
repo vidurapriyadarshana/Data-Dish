@@ -1,8 +1,12 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.dto.TableDto;
 import edu.ijse.datadish.model.HomePageModel;
+import edu.ijse.datadish.model.TableViewModel;
 import edu.ijse.datadish.util.Refarance;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +53,9 @@ public class HomePageController implements Initializable {
 
     @FXML
     private Label lblEmpId;
+
+    @FXML
+    private ChoiceBox<String> selectTable;
 
     public String userName;
 
@@ -136,7 +143,15 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void checkoutAction() {
+        String orderId = lblOrderId.getText();
+        String empId = lblEmpId.getText();
+        String selectedTable = (String) selectTable.getValue();
 
+        if (selectedTable == null || selectedTable.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a table before proceeding.", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
     }
 
     @FXML
@@ -152,7 +167,21 @@ public class HomePageController implements Initializable {
         loadMenuItems();
         lblOrderId.setText(HomePageModel.generateNextID());
         lblEmpId.setText(userName);
+        loadTableIds();
     }
+
+    private void loadTableIds() {
+        TableViewModel tableViewModel = new TableViewModel();
+        ObservableList<TableDto> tableList = tableViewModel.getAllTables();
+
+        ObservableList<String> tableIds = FXCollections.observableArrayList();
+        for (TableDto table : tableList) {
+            tableIds.add(table.getId()); // Add only the table ID to the ChoiceBox
+        }
+
+        selectTable.setItems(tableIds);
+    }
+
 
 
 }

@@ -2,7 +2,6 @@ package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.EmployeeDto;
-import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.dto.SalaryDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +29,6 @@ public class EmployeeViewModel {
             String userName = resultSet.getString("UserName");
             String status = resultSet.getString("Status");
             String address = resultSet.getString("Address");
-
 
             EmployeeDto employeeDto = new EmployeeDto(id, name, contact, hireDate, userName, status, address);
             employeeView.add(employeeDto);

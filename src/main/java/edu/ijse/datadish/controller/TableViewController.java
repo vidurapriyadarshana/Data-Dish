@@ -34,6 +34,11 @@ public class TableViewController implements Initializable {
 
     private final TableViewModel tableViewModel = new TableViewModel();
 
+
+    @FXML
+    private TableColumn<TableDto, String> colAction;
+
+
     @FXML
     void addTableAction(ActionEvent event) {
 

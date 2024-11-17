@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -44,7 +45,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Button fx:id="checkoutButton" onAction="#checkoutAction" prefHeight="31.0" prefWidth="237.0" text="Checkout" />
+                  <Button fx:id="checkoutButton" onAction="#checkoutAction" prefHeight="31.0" prefWidth="237.0" text="Confirm Order" />
                </children>
             </VBox>
             <VBox prefHeight="463.0" prefWidth="218.0" spacing="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
@@ -54,23 +55,29 @@
                         <Font name="Calibri Light" size="20.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="84.0" prefWidth="262.0">
+                  <VBox prefHeight="89.0" prefWidth="262.0">
                      <children>
                         <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
                            <children>
-                              <Label text="OrderID" textFill="#7f8c8d" />
+                              <Label text="OrderID:" />
                               <Label fx:id="lblOrderId" layoutX="10.0" layoutY="10.0" text="O001" textFill="#7f8c8d" />
                            </children>
                         </HBox>
                         <HBox prefHeight="20.0" prefWidth="219.0" spacing="5.0">
                            <children>
-                              <Label text="Emp ID" textFill="#7f8c8d" />
+                              <Label text="Emp ID:" />
                               <Label fx:id="lblEmpId" layoutX="10.0" layoutY="10.0" text="E001" textFill="#7f8c8d" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="30.0" prefHeight="20.0" prefWidth="219.0" spacing="5.0">
+                           <children>
+                              <Label text="Table No:" />
+                              <ChoiceBox fx:id="selectTable" prefHeight="25.0" prefWidth="68.0" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="cartContainer" prefHeight="200.0" prefWidth="197.0" spacing="10.0" />
+                  <VBox fx:id="cartContainer" prefHeight="340.0" prefWidth="262.0" spacing="10.0" />
                </children>
             </VBox>
          </children>

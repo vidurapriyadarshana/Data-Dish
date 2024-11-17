@@ -7,11 +7,12 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="789.0" stylesheets="@../css/addItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.TableViewController">
    <children>
-      <TableView fx:id="loadTable" prefHeight="424.0" prefWidth="591.0">
+      <TableView fx:id="loadTable" prefHeight="424.0" prefWidth="647.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="113.33334600925446" text="Table ID" />
-          <TableColumn fx:id="colStatus" prefWidth="224.00000762939453" text="Status" />
-            <TableColumn fx:id="colCapacity" prefWidth="250.66665649414062" text="Capacity" />
+            <TableColumn fx:id="colCapacity" prefWidth="157.3333511352539" text="Capacity" />
+          <TableColumn fx:id="colStatus" prefWidth="171.33331298828125" text="Status" />
+            <TableColumn fx:id="colAction" prefWidth="195.33328247070312" text="Actions" />
         </columns>
       </TableView>
       <Button fx:id="btAddTable" layoutX="637.0" layoutY="522.0" mnemonicParsing="false" onAction="#addTableAction" prefHeight="40.0" prefWidth="100.0" text="Add Table" />
