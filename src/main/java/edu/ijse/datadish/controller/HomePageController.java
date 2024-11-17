@@ -61,7 +61,14 @@ public class HomePageController implements Initializable {
     @FXML
     private ChoiceBox<String> selectTable;
 
+    @FXML
+    private TextField txtCustomerContact;
+
+    @FXML
+    private TextField txtCustomerName;
+
     public String userName;
+    private String customerId;
 
     private Map<FoodDto, Integer> cartItems = new HashMap<>();
     private double totalPrice = 0.0;
@@ -152,6 +159,20 @@ public class HomePageController implements Initializable {
         String selectedTable = selectTable.getValue();
         String date = getCurrentDate();
 
+        String customerName = txtCustomerName.getText();
+        String customerContact = txtCustomerContact.getText();
+
+        if (customerName.isEmpty() || customerContact.isEmpty()) {
+            showAlert("Error", "Please enter customer name and contact.");
+            return;
+        }else if(selectedTable == null){
+            showAlert("Error", "Please select a table.");
+            return;
+        }else if(cartItems.isEmpty()){
+            showAlert("Error", "Cart is empty.");
+            return;
+        }
+
         List<OrderItemDto> orderItems = cartItems.entrySet().stream()
                 .map(entry -> {
                     FoodDto food = entry.getKey();
@@ -166,19 +187,31 @@ public class HomePageController implements Initializable {
                 .toList();
 
         OrderDto order = new OrderDto();
+        order.setCustomerId(customerId);
         order.setOrderId(orderId);
         order.setEmployeeId(empId);
         order.setTableId(selectedTable);
         order.setOrderDate(date);
         order.setTotalAmount(String.valueOf(totalPrice));
+        order.setCustomerName(customerName);
+        order.setCustomerContact(customerContact);
 
-        System.out.println("Order: " + order);
+        System.out.println(order.getOrderId());
+        System.out.println(order.getOrderDate());
+        System.out.println(order.getCustomerName());
+        System.out.println(order.getCustomerContact());
+        System.out.println(order.getTotalAmount());
+        System.out.println(order.getEmployeeId());
+        System.out.println(order.getTableId());
+        System.out.println(order.getCustomerId());
 
         boolean isOrderSaved = HomePageModel.saveOrder(order);
         if (isOrderSaved) {
             System.out.println("Order saved successfully!");
             cartItems.clear();
             updateCartDisplay();
+            txtCustomerName.clear();
+            txtCustomerContact.clear();
         } else {
             System.out.println("Failed to save the order.");
         }
@@ -189,8 +222,9 @@ public class HomePageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.userName = Refarance.employeeUserName;
         loadMenuItems();
-        lblOrderId.setText(HomePageModel.generateNextID());
+        lblOrderId.setText(HomePageModel.generateNextOrderID());
         lblEmpId.setText(userName);
+        customerId = HomePageModel.generateNextCustomerID();
         loadTableIds();
     }
 
@@ -211,6 +245,14 @@ public class HomePageController implements Initializable {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return currentDate.format(formatter);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

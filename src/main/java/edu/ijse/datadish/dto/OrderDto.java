@@ -16,4 +16,7 @@ public class OrderDto {
     private String tableId;
     private String totalAmount;
     private String orderDate;
+    private String customerId;
+    private String customerName;
+    private String customerContact;
 }
