@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -153,7 +154,7 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    void checkoutAction(ActionEvent event) {
+    void checkoutAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String orderId = lblOrderId.getText();
         String empId = lblEmpId.getText();
         String selectedTable = selectTable.getValue();
@@ -211,7 +212,7 @@ public class HomePageController implements Initializable {
         System.out.println(order.getTableId());
         System.out.println(order.getCustomerId());
 
-        boolean isOrderSaved = HomePageModel.saveOrder(order);
+        boolean isOrderSaved = HomePageModel.saveOrder(orderItems,order);
         if (isOrderSaved) {
             System.out.println("Order saved successfully!");
             cartItems.clear();

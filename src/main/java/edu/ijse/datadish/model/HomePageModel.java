@@ -3,6 +3,7 @@ package edu.ijse.datadish.model;
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.dto.OrderDto;
+import edu.ijse.datadish.dto.OrderItemDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,25 +65,21 @@ public class HomePageModel {
         return nextID;
     }
 
-    public static boolean saveOrder(OrderDto order) {
-        String sql = "INSERT INTO orders (OrderID, CustomerID, EmployeeID, TableID, OrderDate, TotalAmount) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+    public static boolean saveOrder(List<OrderItemDto> orderItems, OrderDto order) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO customer (CustomerID, Name, Contact) VALUES (?,?,?) ";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            statement.setString(1, order.getOrderId());
-            statement.setString(2, order.getCustomerId());
-            statement.setString(3, order.getEmployeeId());
-            statement.setString(4, order.getTableId());
-            statement.setString(5, order.getOrderDate());
-            statement.setDouble(6, Double.parseDouble(order.getTotalAmount()));
+        preparedStatement.setString(1, order.getCustomerId());
+        preparedStatement.setString(2, order.getCustomerName());
+        preparedStatement.setString(3, order.getCustomerContact());
 
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println("Failed to save order: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        int rowsInserted = preparedStatement.executeUpdate();
+
+        if (rowsInserted > 0) {
+            return true;
         }
+        
         return false;
     }
 
