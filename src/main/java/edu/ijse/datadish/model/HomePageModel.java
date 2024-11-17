@@ -2,6 +2,7 @@ package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.dto.OrderDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,4 +67,7 @@ public class HomePageModel {
     }
 
 
+    public static boolean saveOrder(OrderDto order) {
+        return false;
+    }
 }

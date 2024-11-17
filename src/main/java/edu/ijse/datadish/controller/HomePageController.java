@@ -1,7 +1,9 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.FoodDto;
+import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.TableDto;
+import edu.ijse.datadish.dto.OrderItemDto;
 import edu.ijse.datadish.model.HomePageModel;
 import edu.ijse.datadish.model.TableViewModel;
 import edu.ijse.datadish.util.Refarance;
@@ -20,6 +22,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,24 +146,44 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void checkoutAction() {
-        String orderId = lblOrderId.getText();
-        String empId = lblEmpId.getText();
-        String selectedTable = (String) selectTable.getValue();
-
-        if (selectedTable == null || selectedTable.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a table before proceeding.", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
-    }
-
-    @FXML
     void checkoutAction(ActionEvent event) {
         String orderId = lblOrderId.getText();
         String empId = lblEmpId.getText();
+        String selectedTable = selectTable.getValue();
+        String date = getCurrentDate();
 
+        List<OrderItemDto> orderItems = cartItems.entrySet().stream()
+                .map(entry -> {
+                    FoodDto food = entry.getKey();
+                    int qty = entry.getValue();
+                    OrderItemDto item = new OrderItemDto();
+                    item.setFoodId(food.getFoodId());
+                    item.setFoodName(food.getFoodName());
+                    item.setQuantity(qty);
+                    item.setPrice(food.getFoodPrice());
+                    return item;
+                })
+                .toList();
+
+        OrderDto order = new OrderDto();
+        order.setOrderId(orderId);
+        order.setEmployeeId(empId);
+        order.setTableId(selectedTable);
+        order.setOrderDate(date);
+        order.setTotalAmount(String.valueOf(totalPrice));
+
+        System.out.println("Order: " + order);
+
+        boolean isOrderSaved = HomePageModel.saveOrder(order);
+        if (isOrderSaved) {
+            System.out.println("Order saved successfully!");
+            cartItems.clear();
+            updateCartDisplay();
+        } else {
+            System.out.println("Failed to save the order.");
+        }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -176,12 +200,17 @@ public class HomePageController implements Initializable {
 
         ObservableList<String> tableIds = FXCollections.observableArrayList();
         for (TableDto table : tableList) {
-            tableIds.add(table.getId()); // Add only the table ID to the ChoiceBox
+            tableIds.add(table.getId());
         }
 
         selectTable.setItems(tableIds);
     }
 
+    public static String getCurrentDate() {
+        LocalDate currentDate = LocalDate.now();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return currentDate.format(formatter);
+    }
 
 }
