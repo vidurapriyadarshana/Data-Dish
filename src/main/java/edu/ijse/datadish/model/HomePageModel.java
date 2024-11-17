@@ -5,10 +5,7 @@ import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,23 +62,99 @@ public class HomePageModel {
         return nextID;
     }
 
-    public static boolean saveOrder(List<OrderItemDto> orderItems, OrderDto order) throws SQLException, ClassNotFoundException {
-        String sql = "INSERT INTO customer (CustomerID, Name, Contact) VALUES (?,?,?) ";
-        Connection connection = DBConnection.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        preparedStatement.setString(1, order.getCustomerId());
-        preparedStatement.setString(2, order.getCustomerName());
-        preparedStatement.setString(3, order.getCustomerContact());
+    public static boolean saveOrder(List<OrderItemDto> orderItemsDto, OrderDto orderDto) throws SQLException, ClassNotFoundException {
+        String customer = "INSERT INTO customer (CustomerID, Name, Contact) VALUES (?,?,?)";
+        String orders = "INSERT INTO orders (OrderID, CustomerID, TableID, Date, TotalAmount, EmployeeID) VALUES (?,?,?,?,?,?)";
+        String menuOrderItem = "INSERT INTO menuorderitem(MenuItemID, OrderID, Qty) VALUES (?,?,?)";
 
-        int rowsInserted = preparedStatement.executeUpdate();
+        Connection connection = null;
+        PreparedStatement customerStatement = null;
+        PreparedStatement ordersStatement = null;
+        PreparedStatement menuOrderItemStatement = null;
 
-        if (rowsInserted > 0) {
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false); // Start transaction
+
+            // Insert customer
+            customerStatement = connection.prepareStatement(customer);
+            customerStatement.setString(1, orderDto.getCustomerId());
+            customerStatement.setString(2, orderDto.getCustomerName());
+            customerStatement.setString(3, orderDto.getCustomerContact());
+            int customerRowsInserted = customerStatement.executeUpdate();
+
+            if (customerRowsInserted <= 0) {
+                connection.rollback();
+                return false;
+            }
+
+            // Insert order
+            ordersStatement = connection.prepareStatement(orders);
+            ordersStatement.setString(1, orderDto.getOrderId());
+            ordersStatement.setString(2, orderDto.getCustomerId());
+            ordersStatement.setString(3, orderDto.getTableId());
+            ordersStatement.setDate(4, Date.valueOf(orderDto.getOrderDate()));
+            ordersStatement.setString(5, orderDto.getTotalAmount());
+            ordersStatement.setString(6, "E001");
+            int orderRowsInserted = ordersStatement.executeUpdate();
+
+            if (orderRowsInserted <= 0) {
+                connection.rollback();
+                return false;
+            }
+
+            // Insert menu order items
+            menuOrderItemStatement = connection.prepareStatement(menuOrderItem);
+            for (OrderItemDto item : orderItemsDto) {
+                menuOrderItemStatement.setString(1, item.getFoodId());
+                menuOrderItemStatement.setString(2, orderDto.getOrderId()); // Use the OrderID from the order
+                menuOrderItemStatement.setInt(3, item.getQuantity());
+                int itemRowsInserted = menuOrderItemStatement.executeUpdate();
+
+                if (itemRowsInserted <= 0) {
+                    connection.rollback();
+                    return false;
+                }
+            }
+
+            connection.commit();
             return true;
+        } catch (SQLException e) {
+            if (connection != null) {
+                connection.rollback();
+            }
+            throw e;
+        } finally {
+            if (customerStatement != null) customerStatement.close();
+            if (ordersStatement != null) ordersStatement.close();
+            if (menuOrderItemStatement != null) menuOrderItemStatement.close();
+            if (connection != null) connection.setAutoCommit(true);
         }
-        
-        return false;
     }
+
+
+//    public static boolean saveOrder(List<OrderItemDto> orderItems, OrderDto order) throws SQLException, ClassNotFoundException {
+//        String customer = "INSERT INTO customer (CustomerID, Name, Contact) VALUES (?,?,?) ";
+//        String orders = "INSERT INTO orders VALUES (?,?,?,?,?,?)";
+//        String menuOrderItem = " INSERT INTO menuorderitem(MenuItemID,OrderID,Qty) VALUES (?,?,?)";
+//
+//
+//        Connection connection = DBConnection.getInstance().getConnection();
+//        PreparedStatement preparedStatement = connection.prepareStatement(customer);
+//
+//        preparedStatement.setString(1, order.getCustomerId());
+//        preparedStatement.setString(2, order.getCustomerName());
+//        preparedStatement.setString(3, order.getCustomerContact());
+//
+//        int rowsInserted = preparedStatement.executeUpdate();
+//
+//        if (rowsInserted > 0) {
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
     public static String generateNextCustomerID() {
         String nextID = "C001";
