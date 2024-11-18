@@ -1,17 +1,17 @@
 package edu.ijse.datadish.controller;
 
-import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderTableDto;
 import edu.ijse.datadish.model.CheckoutModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CheckoutController {
@@ -20,22 +20,7 @@ public class CheckoutController {
     private Button btnSearch;
 
     @FXML
-    private TableView<OrderTableDto> cheackoutTable;
-
-    @FXML
-    private TableColumn<OrderTableDto, String> colAction;
-
-    @FXML
-    private TableColumn<OrderTableDto, String> colEmployeeId;
-
-    @FXML
-    private TableColumn<OrderTableDto, String> colOrderId;
-
-    @FXML
-    private TableColumn<OrderTableDto, String> colTableId;
-
-    @FXML
-    private TableColumn<OrderTableDto, String> colTotalAmount;
+    private GridPane ordersGrid;
 
     @FXML
     private TextField searchBar;
@@ -44,53 +29,76 @@ public class CheckoutController {
 
     @FXML
     public void initialize() {
-        colTableId.setCellValueFactory(new PropertyValueFactory<>("tableId"));
-        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
-        colTotalAmount.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+        try {
+            // Load incomplete orders from the database
+            List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
 
-        colAction.setCellFactory(param -> new TableCell<>() {
-            private final Button completeButton = new Button("Complete");
+            // Dynamically populate the GridPane with order details
+            int row = 0;
+            int column = 0;
+            for (OrderTableDto order : orders) {
+                VBox orderDetails = createOrderDetailsVBox(order);
 
-            {
-                completeButton.setOnAction(event -> {
-                    OrderTableDto order = getTableView().getItems().get(getIndex());
-                    handleCompleteOrder(order);
-                });
-            }
+                // Add the VBox with order details to the GridPane at the correct row and column
+                ordersGrid.add(orderDetails, column, row);
 
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(completeButton);
+                // Increment column to move to the next column
+                column++;
+                if (column == 3) {
+                    column = 0; // Reset to first column and move to the next row
+                    row++;
                 }
             }
-        });
-
-        try {
-            loadTableOrders();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (Exception e) {
             showError("Failed to load orders: " + e.getMessage());
         }
     }
 
-    private void loadTableOrders() throws SQLException, ClassNotFoundException {
-        ObservableList<OrderTableDto> orderList = FXCollections.observableArrayList();
-        List<OrderTableDto> orders = checkoutModel.loadOrders();
-        orderList.addAll(orders);
-        cheackoutTable.setItems(orderList);
+    private VBox createOrderDetailsVBox(OrderTableDto order) {
+        // Create VBox to hold the order details
+        VBox vbox = new VBox(5);  // 5px spacing between labels
+
+        // Add labels for each order detail
+        vbox.getChildren().add(new Label("Order ID: " + order.getOrderId()));
+        vbox.getChildren().add(new Label("Employee ID: " + order.getEmployeeId()));
+        vbox.getChildren().add(new Label("Total Amount: " + order.getTotalAmount()));
+        vbox.getChildren().add(new Label("Status: " + order.getStatus()));
+
+        // Add a complete button for each order (you can modify this based on your business logic)
+        Button completeOrderButton = new Button("Complete Order");
+        completeOrderButton.setOnAction(event -> handleCompleteOrder(order));
+        vbox.getChildren().add(completeOrderButton);
+
+        return vbox;
     }
 
     @FXML
     void handleSearch(ActionEvent event) {
         String query = searchBar.getText().trim().toLowerCase();
-        ObservableList<OrderTableDto> filteredList = cheackoutTable.getItems().filtered(order ->
-                order.getOrderId().toLowerCase().contains(query) ||
-                        order.getTableId().toLowerCase().contains(query));
-        cheackoutTable.setItems(filteredList);
+
+        // Filter orders by Order ID or Table ID
+        ordersGrid.getChildren().clear();  // Clear the existing grid
+
+        try {
+            List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
+
+            // Dynamically repopulate the GridPane based on the search query
+            int row = 0;
+            int column = 0;
+            for (OrderTableDto order : orders) {
+                if (order.getOrderId().toLowerCase().contains(query) || order.getTableId().toLowerCase().contains(query)) {
+                    VBox orderDetails = createOrderDetailsVBox(order);
+                    ordersGrid.add(orderDetails, column, row);
+                    column++;
+                    if (column == 3) {
+                        column = 0;
+                        row++;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            showError("Failed to load orders: " + e.getMessage());
+        }
     }
 
     private void handleCompleteOrder(OrderTableDto order) {
@@ -99,12 +107,13 @@ public class CheckoutController {
         alert.setHeaderText("Are you sure you want to complete this order?");
         alert.setContentText("Order ID: " + order.getOrderId());
 
-        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+        if (alert.showAndWait().isPresent()) {
+            // Proceed with completing the order
             try {
                 checkoutModel.completeOrder(order.getOrderId());
-                cheackoutTable.getItems().remove(order);
                 showInfo("Order completed successfully!");
-            } catch (SQLException | ClassNotFoundException e) {
+                // Optionally, update the order's status in the UI after completion
+            } catch (Exception e) {
                 showError("Failed to complete the order: " + e.getMessage());
             }
         }

@@ -15,4 +15,5 @@ public class OrderTableDto {
     private String employeeId;
     private String tableId;
     private String totalAmount;
+    private String status;
 }
