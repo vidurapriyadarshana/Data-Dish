@@ -44,7 +44,7 @@ public class CheckoutController {
 
                 // Increment column to move to the next column
                 column++;
-                if (column == 3) {
+                if (column == 5) {
                     column = 0; // Reset to first column and move to the next row
                     row++;
                 }
@@ -62,6 +62,7 @@ public class CheckoutController {
         vbox.getChildren().add(new Label("Order ID: " + order.getOrderId()));
         vbox.getChildren().add(new Label("Employee ID: " + order.getEmployeeId()));
         vbox.getChildren().add(new Label("Total Amount: " + order.getTotalAmount()));
+        vbox.getChildren().add(new Label("Table ID: " + order.getTableId()));
         vbox.getChildren().add(new Label("Status: " + order.getStatus()));
 
         // Add a complete button for each order (you can modify this based on your business logic)
@@ -90,7 +91,7 @@ public class CheckoutController {
                     VBox orderDetails = createOrderDetailsVBox(order);
                     ordersGrid.add(orderDetails, column, row);
                     column++;
-                    if (column == 3) {
+                    if (column == 5) {
                         column = 0;
                         row++;
                     }

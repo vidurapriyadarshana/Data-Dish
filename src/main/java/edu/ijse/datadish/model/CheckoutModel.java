@@ -13,10 +13,16 @@ import java.util.List;
 public class CheckoutModel {
 
     public List<OrderTableDto> loadIncompleteOrders() throws Exception {
-        String sql = " SELECT o.OrderID, o.TableID, o.TotalAmount, o.CustomerID, m.status\n" +
-                "FROM orders o\n" +
-                "JOIN menuorderitem m ON o.OrderID = m.OrderID\n" +
-                "WHERE m.status = 'incomplete';";
+        String sql = "SELECT o.OrderID, o.TableID, o.TotalAmount, o.CustomerID, m.status " +
+                "FROM orders o " +
+                "JOIN menuorderitem m ON o.OrderID = m.OrderID " +
+                "WHERE m.status = 'incomplete' " +
+                "ORDER BY m.OrderID;";
+
+//        String sql = " SELECT o.OrderID, o.TableID, o.TotalAmount, o.CustomerID, m.status\n" +
+//                "FROM orders o\n" +
+//                "JOIN menuorderitem m ON o.OrderID = m.OrderID\n" +
+//                "WHERE m.status = 'incomplete';";
 
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
