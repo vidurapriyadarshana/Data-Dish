@@ -75,9 +75,8 @@ public class HomePageModel {
 
         try {
             connection = DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false); // Start transaction
+            connection.setAutoCommit(false); 
 
-            // Insert customer
             customerStatement = connection.prepareStatement(customer);
             customerStatement.setString(1, orderDto.getCustomerId());
             customerStatement.setString(2, orderDto.getCustomerName());
@@ -89,7 +88,6 @@ public class HomePageModel {
                 return false;
             }
 
-            // Insert order
             ordersStatement = connection.prepareStatement(orders);
             ordersStatement.setString(1, orderDto.getOrderId());
             ordersStatement.setString(2, orderDto.getCustomerId());
@@ -104,7 +102,6 @@ public class HomePageModel {
                 return false;
             }
 
-            // Insert menu order items
             menuOrderItemStatement = connection.prepareStatement(menuOrderItem);
             for (OrderItemDto item : orderItemsDto) {
                 menuOrderItemStatement.setString(1, item.getFoodId());
