@@ -68,7 +68,7 @@ public class HomePageController implements Initializable {
     @FXML
     private TextField txtCustomerName;
 
-    public String userName;
+    public String empId;
     private String customerId;
 
     private Map<FoodDto, Integer> cartItems = new HashMap<>();
@@ -226,10 +226,10 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.userName = Refarance.employeeUserName;
+        this.empId = Refarance.employeeID;
         loadMenuItems();
         lblOrderId.setText(HomePageModel.generateNextOrderID());
-        lblEmpId.setText(userName);
+        lblEmpId.setText(empId);
         customerId = HomePageModel.generateNextCustomerID();
         loadTableIds();
     }

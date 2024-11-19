@@ -2,6 +2,7 @@ package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.LogInDto;
+import edu.ijse.datadish.util.Refarance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,33 +13,89 @@ public class LogInModel {
 
     public boolean cheakLogin(LogInDto logInDto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM user WHERE UserName = ? AND Password = ?";
+        connection.setAutoCommit(false);
 
-        PreparedStatement statement = connection.prepareStatement(sql);
+        try {
+            String userQuery = "SELECT * FROM user WHERE UserName = ? AND Password = ?";
+            PreparedStatement userStatement = connection.prepareStatement(userQuery);
+            userStatement.setString(1, logInDto.getUserName());
+            userStatement.setString(2, logInDto.getPassword());
 
-        statement.setString(1,logInDto.getUserName() );
-        statement.setString(2, logInDto.getPassword());
+            System.out.println("Checking user credentials...");
 
-        System.out.println("initialized");
+            ResultSet userResult = userStatement.executeQuery();
 
-        ResultSet result = statement.executeQuery();
+            if (!userResult.next()) {
+                connection.rollback();
+                return false;
+            }
 
-        System.out.println("got result set");
+            String role = userResult.getString("Role");
+            String email = userResult.getString("Email");
+            logInDto.setRole(role);
+            logInDto.setEmail(email);
 
-        if (!result.next()) {
-            return false;
+            System.out.println("User credentials verified.");
+            System.out.println("Role: " + role + ", Email: " + email);
+
+            String empIdQuery = "SELECT employee.EmployeeID FROM employee WHERE UserName = ?";
+            PreparedStatement empStatement = connection.prepareStatement(empIdQuery);
+            empStatement.setString(1, logInDto.getUserName());
+
+            System.out.println("Fetching Employee ID...");
+
+            ResultSet empResult = empStatement.executeQuery();
+
+            if (empResult.next()) {
+                String employeeId = empResult.getString("EmployeeID");
+                Refarance.employeeID = employeeId;
+                System.out.println("Employee ID: " + employeeId);
+            } else {
+                connection.rollback();
+                return false;
+            }
+
+            connection.commit();
+            return true;
+
+        } catch (SQLException e) {
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
         }
-
-        String role = result.getString("Role");
-        String email = result.getString("Email");
-        logInDto.setEmail(email);
-        logInDto.setRole(role);
-
-        System.out.println(logInDto.getUserName());
-        System.out.println(logInDto.getPassword());
-        System.out.println(logInDto.getRole());
-        System.out.println(logInDto.getEmail());
-
-        return true;
     }
+
+
+//    public boolean cheakLogin(LogInDto logInDto) throws SQLException, ClassNotFoundException {
+//        Connection connection = DBConnection.getInstance().getConnection();
+//        String sql = "SELECT * FROM user WHERE UserName = ? AND Password = ?";
+//        String empId = "Select employee.EmployeeID from employee where UserName = ?";
+//        PreparedStatement statement = connection.prepareStatement(sql);
+//
+//        statement.setString(1,logInDto.getUserName() );
+//        statement.setString(2, logInDto.getPassword());
+//
+//        System.out.println("initialized");
+//
+//        ResultSet result = statement.executeQuery();
+//
+//        System.out.println("got result set");
+//
+//        if (!result.next()) {
+//            return false;
+//        }
+//
+//        String role = result.getString("Role");
+//        String email = result.getString("Email");
+//        logInDto.setEmail(email);
+//        logInDto.setRole(role);
+//
+//        System.out.println(logInDto.getUserName());
+//        System.out.println(logInDto.getPassword());
+//        System.out.println(logInDto.getRole());
+//        System.out.println(logInDto.getEmail());
+//
+//        return true;
+//    }
 }

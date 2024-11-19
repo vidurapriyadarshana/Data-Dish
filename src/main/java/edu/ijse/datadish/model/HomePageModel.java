@@ -94,7 +94,7 @@ public class HomePageModel {
             ordersStatement.setString(3, orderDto.getTableId());
             ordersStatement.setDate(4, Date.valueOf(orderDto.getOrderDate()));
             ordersStatement.setString(5, orderDto.getTotalAmount());
-            ordersStatement.setString(6, "E001");
+            ordersStatement.setString(6, orderDto.getEmployeeId());
             int orderRowsInserted = ordersStatement.executeUpdate();
 
             if (orderRowsInserted <= 0) {
@@ -105,7 +105,7 @@ public class HomePageModel {
             menuOrderItemStatement = connection.prepareStatement(menuOrderItem);
             for (OrderItemDto item : orderItemsDto) {
                 menuOrderItemStatement.setString(1, item.getFoodId());
-                menuOrderItemStatement.setString(2, orderDto.getOrderId()); // Use the OrderID from the order
+                menuOrderItemStatement.setString(2, orderDto.getOrderId());
                 menuOrderItemStatement.setInt(3, item.getQuantity());
                 int itemRowsInserted = menuOrderItemStatement.executeUpdate();
 
