@@ -53,7 +53,7 @@ public class CheckoutController {
     private VBox createOrderDetailsVBox(OrderTableDto order) {
 
         VBox vbox = new VBox(5);
-        
+        vbox.setStyle("-fx-padding: 5; -fx-border-color: #FF971D; -fx-border-width: 1");
         vbox.getChildren().add(new Label("Order ID: " + order.getOrderId()));
         vbox.getChildren().add(new Label("Employee ID: " + order.getEmployeeId()));
         vbox.getChildren().add(new Label("Total Amount: " + order.getTotalAmount()));
@@ -61,6 +61,7 @@ public class CheckoutController {
         vbox.getChildren().add(new Label("Status: " + order.getStatus()));
 
         Button completeOrderButton = new Button("Complete Order");
+        completeOrderButton.setStyle("-fx-background-color: transparent; -fx-border-color: #00FF9C; -fx-text-fill: black;");
         completeOrderButton.setOnAction(event -> handleCompleteOrder(order));
         vbox.getChildren().add(completeOrderButton);
 

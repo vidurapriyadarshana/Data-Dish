@@ -12,19 +12,16 @@
 <AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.CheckoutController">
     <children>
         <VBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
-            <!-- Header with Search Bar -->
             <HBox alignment="CENTER_LEFT" spacing="15">
                 <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Orders" />
                 <TextField fx:id="searchBar" promptText="Search orders..." style="-fx-font-size: 16px; -fx-background-color: #f0f0f0; -fx-padding: 5;" />
                 <Button fx:id="btnSearch" onAction="#handleSearch" style="-fx-font-size: 14px;" text="Search" />
             </HBox>
 
-            <!-- ScrollPane to hold the GridPane -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" prefHeight="550">
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="550">
                 <content>
-                    <!-- GridPane to display orders -->
-                    <GridPane fx:id="ordersGrid" vgap="10" hgap="15" style="-fx-padding: 10;">
-                        <!-- The GridPane will be dynamically populated with 3 columns -->
+                    <GridPane fx:id="ordersGrid" hgap="15" style="-fx-padding: 10;" vgap="10">
+
                     </GridPane>
                 </content>
             </ScrollPane>
