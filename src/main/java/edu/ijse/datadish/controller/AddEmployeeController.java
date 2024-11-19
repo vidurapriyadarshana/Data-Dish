@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -84,7 +85,7 @@ public class AddEmployeeController implements Initializable {
 //    }
 
     @FXML
-    void signUpOnAction(ActionEvent event) {
+    void signUpOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String name = txtName.getText();
         String contact = txtContact.getText();
         String address = txtAddress.getText();
@@ -126,7 +127,16 @@ public class AddEmployeeController implements Initializable {
         employeeDto.setUserName(userName);
         employeeDto.setPassword(password);
 
-        addEmployeeModel.saveEmployee(employeeDto);
+        boolean isSaved = addEmployeeModel.saveEmployee(employeeDto);
+
+        if(isSaved) {
+            showAlert("Success", "Employee saved successfully.");
+            Stage stage = (Stage) mainAnchor.getScene().getWindow();
+            stage.close();
+        } else {
+            showAlert("Error", "Employee saving failed.");
+        }
+
     }
 
 
