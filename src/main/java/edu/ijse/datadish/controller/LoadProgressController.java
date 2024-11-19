@@ -17,7 +17,6 @@ public class LoadProgressController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         Platform.runLater(() -> {
             loadImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/loading.gif"))));
         });

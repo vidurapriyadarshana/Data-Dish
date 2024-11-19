@@ -30,22 +30,18 @@ public class CheckoutController {
     @FXML
     public void initialize() {
         try {
-            // Load incomplete orders from the database
             List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
 
-            // Dynamically populate the GridPane with order details
             int row = 0;
             int column = 0;
             for (OrderTableDto order : orders) {
                 VBox orderDetails = createOrderDetailsVBox(order);
 
-                // Add the VBox with order details to the GridPane at the correct row and column
                 ordersGrid.add(orderDetails, column, row);
 
-                // Increment column to move to the next column
                 column++;
                 if (column == 5) {
-                    column = 0; // Reset to first column and move to the next row
+                    column = 0;
                     row++;
                 }
             }
@@ -55,17 +51,15 @@ public class CheckoutController {
     }
 
     private VBox createOrderDetailsVBox(OrderTableDto order) {
-        // Create VBox to hold the order details
-        VBox vbox = new VBox(5);  // 5px spacing between labels
 
-        // Add labels for each order detail
+        VBox vbox = new VBox(5);
+        
         vbox.getChildren().add(new Label("Order ID: " + order.getOrderId()));
         vbox.getChildren().add(new Label("Employee ID: " + order.getEmployeeId()));
         vbox.getChildren().add(new Label("Total Amount: " + order.getTotalAmount()));
         vbox.getChildren().add(new Label("Table ID: " + order.getTableId()));
         vbox.getChildren().add(new Label("Status: " + order.getStatus()));
 
-        // Add a complete button for each order (you can modify this based on your business logic)
         Button completeOrderButton = new Button("Complete Order");
         completeOrderButton.setOnAction(event -> handleCompleteOrder(order));
         vbox.getChildren().add(completeOrderButton);
@@ -77,13 +71,11 @@ public class CheckoutController {
     void handleSearch(ActionEvent event) {
         String query = searchBar.getText().trim().toLowerCase();
 
-        // Filter orders by Order ID or Table ID
-        ordersGrid.getChildren().clear();  // Clear the existing grid
+        ordersGrid.getChildren().clear();
 
         try {
             List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
 
-            // Dynamically repopulate the GridPane based on the search query
             int row = 0;
             int column = 0;
             for (OrderTableDto order : orders) {

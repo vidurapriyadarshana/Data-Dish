@@ -36,10 +36,6 @@ public class TableViewController implements Initializable {
 
 
     @FXML
-    private TableColumn<TableDto, String> colAction;
-
-
-    @FXML
     void addTableAction(ActionEvent event) {
 
     }

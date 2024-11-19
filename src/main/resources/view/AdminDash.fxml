@@ -36,7 +36,7 @@
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../assests/cheeseburger.png" />
+                              <Image url="@../assests/icons8-purchase-order-50.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -95,7 +95,10 @@
                <children>
                   <HBox prefHeight="43.0" prefWidth="121.0">
                      <children>
-                        <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assests/icons8-male-user-64.png" />
+                           </image></ImageView>
                         <VBox prefHeight="43.0" prefWidth="76.0">
                            <children>
                               <Label fx:id="lblSetName" text="Name">
