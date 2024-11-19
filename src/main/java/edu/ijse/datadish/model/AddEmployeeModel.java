@@ -47,7 +47,8 @@ public class AddEmployeeModel {
         return nextID;
     }
 
-    public void addEmployee(EmployeeDto employeeDto, LogInDto logInDto) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
+    public boolean saveEmployee(EmployeeDto employeeDto) {
+        String sql = "";
+        return false;
     }
 }

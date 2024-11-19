@@ -30,7 +30,15 @@ public class EmployeeViewModel {
             String status = resultSet.getString("Status");
             String address = resultSet.getString("Address");
 
-            EmployeeDto employeeDto = new EmployeeDto(id, name, contact, hireDate, userName, status, address);
+            EmployeeDto employeeDto = new EmployeeDto();
+            employeeDto.setEmployeeID(id);
+            employeeDto.setEmployeeName(name);
+            employeeDto.setEmployeeContact(contact);
+            employeeDto.setHireDate(hireDate);
+            employeeDto.setUserName(userName);
+            employeeDto.setEmployeeStatus(status);
+            employeeDto.setAddress(address);
+
             employeeView.add(employeeDto);
         }
         return employeeView;

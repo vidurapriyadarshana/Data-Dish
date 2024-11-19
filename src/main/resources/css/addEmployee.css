@@ -5,13 +5,14 @@
     -fx-text-fill: black;
 }
 
-#btAddEmployee{
+#btNextPage , #btDetails , #btLogInInfo ,#btSignUp{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-text-fill: black;
 }
 
-#btAddEmployee:hover {
+#btNextPage:hover  ,  #btDetails:hover , #btLogInInfo:hover , #btSignUp:hover{
+    -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-text-fill: black;
 }

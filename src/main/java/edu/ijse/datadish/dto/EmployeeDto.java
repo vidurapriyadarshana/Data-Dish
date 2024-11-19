@@ -18,4 +18,7 @@ public class EmployeeDto {
     private String userName;
     private String employeeStatus;
     private String address;
+    private String email;
+    private String role;
+    private String password;
 }

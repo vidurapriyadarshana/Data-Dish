@@ -19,12 +19,17 @@ import java.util.ResourceBundle;
 
 public class AddEmployeeController implements Initializable {
 
+    @FXML
+    private Tab btDetails;
 
     @FXML
-    private Button btAddEmployee;
+    private Tab btLogInInfo;
 
     @FXML
-    private ChoiceBox<String> choiceBox;
+    private Button btNextPage;
+
+    @FXML
+    private Button btSignUp;
 
     @FXML
     private Label lblEmpId;
@@ -34,6 +39,9 @@ public class AddEmployeeController implements Initializable {
 
     @FXML
     private AnchorPane mainAnchor;
+
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private TextField txtAddress;
@@ -56,12 +64,15 @@ public class AddEmployeeController implements Initializable {
     @FXML
     private TextField txtUserName;
 
+    @FXML
+    private ChoiceBox<String> choiceBox;
+
     private EmployeeDto employeeDto = new EmployeeDto();
-    private LogInDto logInDto = new LogInDto();
     private AddEmployeeModel addEmployeeModel = new AddEmployeeModel();
 
     private String[] roleChoice = {"Admin","Employee"};
-//    @FXML
+
+    //    @FXML
 //    public void initialize() {
 //        txtName.setOnAction(event -> txtContact.requestFocus());
 //        txtName.setOnAction(event -> txtAddress.requestFocus());
@@ -72,11 +83,57 @@ public class AddEmployeeController implements Initializable {
 //
 //    }
 
+    @FXML
+    void signUpOnAction(ActionEvent event) {
+        String name = txtName.getText();
+        String contact = txtContact.getText();
+        String address = txtAddress.getText();
+        String email = txtEmail.getText();
+
+        if(name.isEmpty() || contact.isEmpty() || address.isEmpty() || email.isEmpty() || choiceBox.getValue() == null) {
+            showAlert("Error", "Please fill in all fields.");
+            return;
+        }
+
+        employeeDto.setEmployeeID(lblEmpId.getText());
+        employeeDto.setEmployeeName(name);
+        employeeDto.setEmployeeContact(contact);
+        employeeDto.setHireDate(lblHireDate.getText());
+        employeeDto.setAddress(address);
+        employeeDto.setEmail(email);
+        employeeDto.setRole(choiceBox.getValue());
+        employeeDto.setEmployeeStatus("Active");
+
+        String userName = txtUserName.getText();
+        String password = txtPassword.getText();
+        String confirmPassword = txtConfirmPassword.getText();
+
+        if(userName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            showAlert("Error", "Please fill in all fields.");
+            return;
+        }
+
+        if(password.length() != 8) {
+            showAlert("Error", "Password must be at least 8 characters long.");
+            return;
+        }
+
+        if(!password.equals(confirmPassword)) {
+            showAlert("Error", "Passwords do not match.");
+            return;
+        }
+
+        employeeDto.setUserName(userName);
+        employeeDto.setPassword(password);
+
+        addEmployeeModel.saveEmployee(employeeDto);
+    }
+
 
     @FXML
-    void addEmployeeAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        addEmployeeDto(event);
-        addEmployeeModel.addEmployee(employeeDto, logInDto);
+    void navigateToSignUp(ActionEvent event) {
+
+
     }
 
     @Override
@@ -84,6 +141,14 @@ public class AddEmployeeController implements Initializable {
         lblEmpId.setText(AddEmployeeModel.generateNextID());
         lblHireDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         choiceBox.getItems().addAll(roleChoice);
+
+        btNextPage.setOnAction(event -> {
+            int currentIndex = tabPane.getSelectionModel().getSelectedIndex();
+            if (currentIndex < tabPane.getTabs().size() - 1) {
+                tabPane.getSelectionModel().select(currentIndex + 1);
+            }
+        });
+
     }
 
     private void showAlert(String title, String message) {
@@ -92,27 +157,5 @@ public class AddEmployeeController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    public void addEmployeeDto(ActionEvent event) {
-        employeeDto.setEmployeeID(lblEmpId.getText());
-        employeeDto.setEmployeeName(txtName.getText());
-        employeeDto.setEmployeeContact(txtContact.getText());
-        employeeDto.setHireDate(lblHireDate.getText());
-        employeeDto.setUserName(txtUserName.getText());
-        employeeDto.setEmployeeStatus("Active");
-        employeeDto.setAddress(txtAddress.getText());
-
-        String password = txtPassword.getText();
-        String confirmPassword = txtConfirmPassword.getText();
-
-        if (!password.equals(confirmPassword)) {
-            showAlert("Error", "Passwords do not match");
-        }else {
-            logInDto.setUserName(txtUserName.getText());
-            logInDto.setPassword(txtPassword.getText());
-            logInDto.setEmail(txtEmail.getText());
-            logInDto.setRole(choiceBox.getValue());
-        }
     }
 }

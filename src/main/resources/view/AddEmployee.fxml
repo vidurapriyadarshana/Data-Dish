@@ -3,42 +3,124 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="375.0" prefWidth="455.0" stylesheets="@../css/addEmployee.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AddEmployeeController">
+<AnchorPane fx:id="mainAnchor" prefHeight="500.0" prefWidth="700.0" stylesheets="@../css/addEmployee.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AddEmployeeController">
    <children>
-      <Button fx:id="btAddEmployee" layoutX="319.0" layoutY="331.0" mnemonicParsing="false" onAction="#addEmployeeAction" text="Add Employee" />
-      <VBox layoutX="47.0" layoutY="60.0" prefHeight="235.0" prefWidth="100.0" spacing="17.0">
-         <children>
-            <Label text="ID" />
-            <Label text="Name" />
-            <Label text="Contact" />
-            <Label text="Hire Date" />
-            <Label text="Address" />
-            <Label layoutX="10.0" layoutY="149.0" text="Email" />
-            <Label layoutX="10.0" layoutY="183.0" text="Role" />
-         </children>
-      </VBox>
-      <VBox layoutX="164.0" layoutY="60.0" prefHeight="235.0" prefWidth="251.0" spacing="10.0">
-         <children>
-            <Label fx:id="lblEmpId" text="Employee ID" />
-            <TextField fx:id="txtName" promptText="Name" />
-            <TextField fx:id="txtContact" promptText="Contact" />
-            <Label fx:id="lblHireDate" text="Hire Date" />
-            <TextField fx:id="txtAddress" promptText="Address" />
-            <TextField fx:id="txtEmail" layoutX="10.0" layoutY="139.0" promptText="Email" />
-            <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="91.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-         </children>
-      </VBox>
-      <Label layoutX="47.0" layoutY="15.0" text="Add Employee Details">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <TabPane fx:id="tabPane" prefHeight="500.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="btDetails" text="Details">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="101.0" layoutY="107.0" prefHeight="235.0" prefWidth="100.0" spacing="17.0">
+                           <children>
+                              <Label text="ID">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <Label text="Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <Label text="Contact">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <Label text="Hire Date">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <Label text="Address">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <Label text="Email">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <Label text="Role">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="233.0" layoutY="107.0" prefHeight="239.0" prefWidth="379.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="lblEmpId" text="Employee ID">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <TextField fx:id="txtName" promptText="Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <TextField fx:id="txtContact" promptText="Contact">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <Label fx:id="lblHireDate" text="Hire Date">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <TextField fx:id="txtAddress" promptText="Address">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <TextField fx:id="txtEmail" layoutX="10.0" layoutY="139.0" promptText="Email">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="91.0" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <Label layoutX="45.0" layoutY="30.0" text="Add Employee Details">
+                           <font>
+                              <Font name="Corbel Light" size="30.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btNextPage" layoutX="565.0" layoutY="411.0" mnemonicParsing="false" onAction="#navigateToSignUp" prefHeight="33.0" prefWidth="96.0" text="Next" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="btLogInInfo" text="Log In Info">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="350.0" layoutY="95.0" text="Sign Up">
+                           <font>
+                              <Font name="Corbel Light" size="32.0" />
+                           </font>
+                        </Label>
+                        <Line endX="99.99998474121094" endY="99.0" layoutX="206.0" layoutY="334.0" startX="100.0" startY="-298.0" stroke="#b4b4b8" />
+                        <ImageView fitHeight="186.0" fitWidth="292.0" layoutX="14.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assests/logo.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="350.0" layoutY="171.0" prefHeight="127.0" prefWidth="271.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="txtUserName" prefHeight="25.0" prefWidth="239.0" promptText="User Name" />
+                              <TextField fx:id="txtPassword" prefHeight="27.0" prefWidth="240.0" promptText="Password" />
+                              <TextField fx:id="txtConfirmPassword" promptText="Confirm Password" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="btSignUp" layoutX="511.0" layoutY="351.0" mnemonicParsing="false" onAction="#signUpOnAction" prefHeight="28.0" prefWidth="109.0" text="Sign Up" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
