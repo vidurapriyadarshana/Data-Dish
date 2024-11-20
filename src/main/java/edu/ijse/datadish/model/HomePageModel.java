@@ -67,11 +67,13 @@ public class HomePageModel {
         String customer = "INSERT INTO customer (CustomerID, Name, Contact) VALUES (?,?,?)";
         String orders = "INSERT INTO orders (OrderID, CustomerID, TableID, Date, TotalAmount, EmployeeID) VALUES (?,?,?,?,?,?)";
         String menuOrderItem = "INSERT INTO menuorderitem(MenuItemID, OrderID, Qty) VALUES (?,?,?)";
+        String tableInfo = "UPDATE tableinfo SET Status = 'Reserved' WHERE TableID = ?";
 
         Connection connection = null;
         PreparedStatement customerStatement = null;
         PreparedStatement ordersStatement = null;
         PreparedStatement menuOrderItemStatement = null;
+        PreparedStatement tableInfoStatement = null;
 
         try {
             connection = DBConnection.getInstance().getConnection();
@@ -115,6 +117,15 @@ public class HomePageModel {
                 }
             }
 
+            tableInfoStatement = connection.prepareStatement(tableInfo);
+            tableInfoStatement.setString(1, orderDto.getTableId());
+            int tableInfoRowsInserted = tableInfoStatement.executeUpdate();
+
+            if (tableInfoRowsInserted <= 0) {
+                connection.rollback();
+                return false;
+            }
+            
             connection.commit();
             return true;
         } catch (SQLException e) {
