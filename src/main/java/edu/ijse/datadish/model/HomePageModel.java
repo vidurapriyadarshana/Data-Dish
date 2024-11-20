@@ -4,6 +4,7 @@ import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
+import edu.ijse.datadish.util.Refarance;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class HomePageModel {
 
 
     public static boolean saveOrder(List<OrderItemDto> orderItemsDto, OrderDto orderDto) throws SQLException, ClassNotFoundException {
+
         String customer = "INSERT INTO customer (CustomerID, Name, Contact) VALUES (?,?,?)";
         String orders = "INSERT INTO orders (OrderID, CustomerID, TableID, Date, TotalAmount, EmployeeID) VALUES (?,?,?,?,?,?)";
         String menuOrderItem = "INSERT INTO menuorderitem(MenuItemID, OrderID, Qty) VALUES (?,?,?)";
@@ -125,7 +127,7 @@ public class HomePageModel {
                 connection.rollback();
                 return false;
             }
-            
+
             connection.commit();
             return true;
         } catch (SQLException e) {

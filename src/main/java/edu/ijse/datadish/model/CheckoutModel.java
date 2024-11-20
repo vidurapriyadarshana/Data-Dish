@@ -47,5 +47,10 @@ public class CheckoutModel {
     }
 
     public void completeOrder(String orderId) {
+
+    }
+
+    public void completeOrder(OrderTableDto order, double discount, double finalTotal) {
+
     }
 }

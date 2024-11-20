@@ -4,6 +4,9 @@ import edu.ijse.datadish.dto.OrderTableDto;
 import edu.ijse.datadish.model.CheckoutModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -96,20 +100,20 @@ public class CheckoutController {
     }
 
     private void handleCompleteOrder(OrderTableDto order) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Complete Order");
-        alert.setHeaderText("Are you sure you want to complete this order?");
-        alert.setContentText("Order ID: " + order.getOrderId());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentForm.fxml"));
+            Parent root = loader.load();
 
-        if (alert.showAndWait().isPresent()) {
-            // Proceed with completing the order
-            try {
-                checkoutModel.completeOrder(order.getOrderId());
-                showInfo("Order completed successfully!");
-                // Optionally, update the order's status in the UI after completion
-            } catch (Exception e) {
-                showError("Failed to complete the order: " + e.getMessage());
-            }
+            PaymentFormController controller = loader.getController();
+            controller.setOrderId(order);
+            Stage stage = new Stage();
+            stage.setTitle("Complete Payment");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            initialize();
+        } catch (Exception e) {
+            showError("Failed to open payment form: " + e.getMessage());
         }
     }
 
