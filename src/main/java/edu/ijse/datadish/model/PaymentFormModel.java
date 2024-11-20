@@ -183,7 +183,7 @@ public class PaymentFormModel {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String lastID = resultSet.getString("EmployeeID");
+                String lastID = resultSet.getString("PaymentID");
                 int number = Integer.parseInt(lastID.substring(1));
                 nextID = String.format("P%03d", number + 1);
                 System.out.println("New ID generated: " + nextID);

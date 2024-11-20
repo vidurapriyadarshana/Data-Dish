@@ -75,9 +75,7 @@ public class CheckoutController {
     @FXML
     void handleSearch(ActionEvent event) {
         String query = searchBar.getText().trim().toLowerCase();
-
         ordersGrid.getChildren().clear();
-
         try {
             List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
 

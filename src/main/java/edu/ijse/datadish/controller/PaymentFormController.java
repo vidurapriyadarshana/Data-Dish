@@ -1,5 +1,6 @@
 package edu.ijse.datadish.controller;
 
+import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
 import edu.ijse.datadish.dto.OrderTableDto;
@@ -8,23 +9,26 @@ import edu.ijse.datadish.model.PaymentFormModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class PaymentFormController implements Initializable {
@@ -81,30 +85,29 @@ public class PaymentFormController implements Initializable {
         paymentDto.setDate(setDate.getText());
         paymentDto.setAmount(orderDto.getTotalAmount());
 
-        boolean result = PaymentFormModel.completeOrder(orderDto,paymentDto);
+        boolean result = PaymentFormModel.completeOrder(orderDto, paymentDto);
 
-        if(result){
-            showAlert("Order Completed","Order Completed Successfully");
+        if (result) {
+            showAlert("Order Completed", "Order Completed Successfully");
+            printBill();
+
             Stage stage = (Stage) mainAnchor.getScene().getWindow();
             stage.close();
-        }else {
-            showAlert("Order Failed","Order Failed");
+        } else {
+            showAlert("Order Failed", "Order Failed");
         }
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblpaymentID.setText(PaymentFormModel.generateNextPayID());
-        paymentId = lblpaymentID.getText();
-
+        this.paymentId = lblpaymentID.getText();
 
         setDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         setTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
     public void setOrderId(OrderTableDto order) throws SQLException, ClassNotFoundException {
-
         setOrderId.setText(order.getOrderId());
 
         orderItems = PaymentFormModel.getItemDetails(order.getOrderId());
@@ -159,6 +162,42 @@ public class PaymentFormController implements Initializable {
         orderdItemLoad.getChildren().add(gridPane);
     }
 
+    public void printBill() {
+        String orderId = setOrderId.getText();
+        System.out.println("orderId: " + orderId);
+
+        if(orderId == null || orderId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please select an order first!").show();
+            return;
+        }
+
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/report/FoodBill.jrxml")
+            );
+
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("OrderID",orderId);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate the report!").show();
+            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error!").show();
+            e.printStackTrace();
+        }
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -166,5 +205,4 @@ public class PaymentFormController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }
