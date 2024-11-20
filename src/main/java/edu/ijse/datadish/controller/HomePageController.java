@@ -236,7 +236,7 @@ public class HomePageController implements Initializable {
 
     private void loadTableIds() {
         TableViewModel tableViewModel = new TableViewModel();
-        ObservableList<TableDto> tableList = tableViewModel.getAllTables();
+        ObservableList<TableDto> tableList = tableViewModel.getAvailableTables();
 
         ObservableList<String> tableIds = FXCollections.observableArrayList();
         for (TableDto table : tableList) {
