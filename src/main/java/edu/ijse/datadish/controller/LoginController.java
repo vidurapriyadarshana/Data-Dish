@@ -59,6 +59,7 @@ public class LoginController {
                 mainAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/AdminDash.fxml")));
             }else if(isLoggedIn && role.equals("Employee")){
                 System.out.println("Successful Employee");
+                mainAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/EmployeeDash.fxml")));
             }else {
                 System.out.println("Unsuccessful");
                 showAlert("Login Failed", "Invalid username or password.");
