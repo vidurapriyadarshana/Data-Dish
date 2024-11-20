@@ -3,17 +3,21 @@ package edu.ijse.datadish.controller;
 import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
 import edu.ijse.datadish.dto.OrderTableDto;
+import edu.ijse.datadish.dto.PaymentDto;
 import edu.ijse.datadish.model.PaymentFormModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,10 +30,13 @@ import java.util.ResourceBundle;
 public class PaymentFormController implements Initializable {
 
     @FXML
+    private Label lblpaymentID;
+
+    @FXML
     private Button btCompleteOrder;
 
     @FXML
-    private VBox orderdItemLoad;  // VBox where items will be loaded
+    private VBox orderdItemLoad;
 
     @FXML
     private Label setCustomerContact;
@@ -39,6 +46,9 @@ public class PaymentFormController implements Initializable {
 
     @FXML
     private Label setDate;
+
+    @FXML
+    private AnchorPane mainAnchor;
 
     @FXML
     private Label setEmployeeName;
@@ -60,13 +70,35 @@ public class PaymentFormController implements Initializable {
 
     private List<OrderItemDto> orderItems;
     private OrderDto orderDto;
+    private String paymentId;
+
+    private PaymentDto paymentDto = new PaymentDto();
 
     @FXML
-    void completeOrderOnAction(ActionEvent event) {
+    void completeOrderOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        paymentDto.setOrderId(orderDto.getOrderId());
+        paymentDto.setPayId(paymentId);
+        paymentDto.setDate(setDate.getText());
+        paymentDto.setAmount(orderDto.getTotalAmount());
+
+        boolean result = PaymentFormModel.completeOrder(orderDto,paymentDto);
+
+        if(result){
+            showAlert("Order Completed","Order Completed Successfully");
+            Stage stage = (Stage) mainAnchor.getScene().getWindow();
+            stage.close();
+        }else {
+            showAlert("Order Failed","Order Failed");
+        }
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblpaymentID.setText(PaymentFormModel.generateNextPayID());
+        paymentId = lblpaymentID.getText();
+
+
         setDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         setTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
     }
@@ -78,6 +110,7 @@ public class PaymentFormController implements Initializable {
         orderItems = PaymentFormModel.getItemDetails(order.getOrderId());
         orderDto = PaymentFormModel.getCustomerDetails(order.getOrderId());
 
+        setTotalAfterDiscount.setText(orderDto.getTotalAmount());
         setEmployeeName.setText(order.getEmployeeId());
         setCustomerName.setText(orderDto.getCustomerName());
         setCustomerContact.setText(orderDto.getCustomerContact());
@@ -126,5 +159,12 @@ public class PaymentFormController implements Initializable {
         orderdItemLoad.getChildren().add(gridPane);
     }
 
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 }

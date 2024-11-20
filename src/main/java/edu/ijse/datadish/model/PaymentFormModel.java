@@ -1,9 +1,9 @@
 package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
-import edu.ijse.datadish.dto.FoodDto;
 import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
+import edu.ijse.datadish.dto.PaymentDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -112,4 +112,92 @@ public class PaymentFormModel {
         return orderDto;
     }
 
+    public static boolean completeOrder(OrderDto orderDto, PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
+        String tableInfo = "UPDATE TableInfo SET Status = 'Available' WHERE TableID = ?";
+        String menuOrderItem = "UPDATE menuorderItem SET status = 'completed' WHERE OrderID = ?";
+        String payment = "INSERT INTO payment (PaymentID, OrderID, Amount, Date) VALUES (?,?,?,?)";
+
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        PreparedStatement statementTableInfo = connection.prepareStatement(tableInfo);
+        PreparedStatement statementMenuOrderItem = connection.prepareStatement(menuOrderItem);
+        PreparedStatement statementPayment = connection.prepareStatement(payment);
+
+        try {
+            statementTableInfo.setString(1, orderDto.getTableId());
+
+            statementMenuOrderItem.setString(1, orderDto.getOrderId());
+
+            int rowsUpdatedTableInfo = statementTableInfo.executeUpdate();
+            int rowsUpdatedMenuOrderItem = statementMenuOrderItem.executeUpdate();
+
+            statementPayment.setString(1, paymentDto.getPayId());
+            statementPayment.setString(2, paymentDto.getOrderId());
+            statementPayment.setString(3, paymentDto.getAmount());
+            statementPayment.setString(4, paymentDto.getDate());
+
+            int rowsInsertedPayment = statementPayment.executeUpdate();
+
+            if (rowsUpdatedTableInfo > 0 && rowsUpdatedMenuOrderItem > 0 && rowsInsertedPayment > 0) {
+                connection.commit();
+                System.out.println("Order completed successfully.");
+                return true;
+            } else {
+                connection.rollback();
+                System.out.println("Failed to complete the order. Rolling back.");
+                return false;
+            }
+        } catch (SQLException e) {
+            connection.rollback();
+            System.out.println("An error occurred while completing the order. Rolling back.");
+            e.printStackTrace();
+            return false;
+        } finally {
+            connection.setAutoCommit(true);
+            statementTableInfo.close();
+            statementMenuOrderItem.close();
+            statementPayment.close();
+            connection.close();
+        }
+    }
+
+
+
+    public static String generateNextPayID() {
+        String nextID = null;
+
+        try {
+            System.out.println("Generating ID...");
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            if (connection == null) {
+                System.out.println("Database connection failed.");
+                return null;
+            }
+
+            System.out.println("Connected to database.");
+
+            String query = "SELECT PaymentID FROM payment ORDER BY PaymentID DESC LIMIT 1";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String lastID = resultSet.getString("EmployeeID");
+                int number = Integer.parseInt(lastID.substring(1));
+                nextID = String.format("P%03d", number + 1);
+                System.out.println("New ID generated: " + nextID);
+            } else {
+                nextID = "P001";
+                System.out.println("No entries found, starting with ID: " + nextID);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return nextID;
+    }
 }
