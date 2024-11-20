@@ -6,17 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="409.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.PaymentFormController">
+<AnchorPane prefHeight="522.0" prefWidth="321.0" stylesheets="@../css/addEmployee.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.PaymentFormController">
    <children>
+      <!-- Title -->
       <Label layoutX="14.0" layoutY="14.0" text="Complete Order">
          <font>
             <Font name="Corbel Light" size="28.0" />
          </font>
       </Label>
-      <VBox layoutX="14.0" layoutY="70.0" prefHeight="73.0" prefWidth="191.0">
+
+      <!-- Customer Information Section -->
+      <VBox layoutX="14.0" layoutY="70.0" prefHeight="114.0" prefWidth="289.0" spacing="5.0">
          <children>
             <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
                <children>
@@ -24,92 +26,71 @@
                   <Label fx:id="setCustomerName" layoutX="10.0" layoutY="10.0" text="Customer Name" />
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="24.0" prefWidth="191.0" spacing="7.0">
+            <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
                <children>
                   <Label text="Contact" />
                   <Label fx:id="setCustomerContact" layoutX="10.0" layoutY="10.0" text="Contact" />
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="34.0" prefHeight="24.0" prefWidth="191.0" spacing="20.0">
+            <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="42.0" text="Email" />
-                  <TextField fx:id="txtEmail" />
+                  <Label prefHeight="17.0" prefWidth="52.0" text="Email" />
+                  <TextField fx:id="txtEmail" prefHeight="27.0" prefWidth="149.0" promptText="Enter Email" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <VBox fx:id="orderdItemLoad" layoutX="14.0" layoutY="143.0" prefHeight="227.0" prefWidth="289.0" />
-      <VBox layoutX="345.0" layoutY="162.0" prefHeight="105.0" prefWidth="234.0" spacing="3.0">
-         <children>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="234.0" spacing="15.0">
-               <children>
-                  <Label layoutX="10.0" layoutY="10.0" text="Servise Charge:">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label text="Show Charge">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="45.0" prefHeight="35.0" prefWidth="234.0" spacing="15.0">
-               <children>
-                  <Label layoutX="10.0" layoutY="10.0" text="Discount:">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtDiscount" prefHeight="25.0" prefWidth="122.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="35.0" prefWidth="234.0" spacing="15.0">
-               <children>
-                  <Label text="Total:">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="setTotalAfterDiscount" layoutX="10.0" layoutY="10.0" text="Total Price">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <Button fx:id="btCompleteOrder" layoutX="389.0" layoutY="340.0" mnemonicParsing="false" onAction="#completeOrderOnAction" prefHeight="30.0" prefWidth="145.0" text="Complete Order" />
-      <VBox layoutX="345.0" layoutY="70.0" prefHeight="55.0" prefWidth="191.0">
+
+      <!-- Order Item Section -->
+      <VBox fx:id="orderdItemLoad" layoutX="16.0" layoutY="171.0" prefHeight="185.0" prefWidth="289.0" />
+
+      <!-- Order Details Section -->
+      <VBox layoutX="14.0" layoutY="374.0" prefHeight="49.0" prefWidth="289.0">
          <children>
             <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
                <children>
-                  <Label text="Employee Name" />
-                  <Label fx:id="setEmployeeName" layoutX="10.0" layoutY="10.0" text="Emp Name" />
+                  <Label text="Employee Id" />
+                  <Label fx:id="setEmployeeName" text="Emp Name" />
+                  <HBox prefHeight="24.0" prefWidth="131.0" spacing="16.0">
+                     <children>
+                        <Label text="Order Id" />
+                        <Label fx:id="setOrderId" text="Order Id" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="24.0" prefWidth="191.0" spacing="7.0">
+            <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
                <children>
-                  <Label text="Order Id" />
-                  <Label fx:id="setOrderId" layoutX="10.0" layoutY="10.0" text="Contact" />
+                  <Label text="Date" />
+                  <Label fx:id="setDate" text="Show Date" />
+                  <HBox prefHeight="24.0" prefWidth="155.0" spacing="16.0">
+                     <children>
+                        <Label text="Time" />
+                        <Label fx:id="setTime" text="Show Time" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Line endX="100.0" endY="-34.0" layoutX="214.0" layoutY="404.0" startX="100.0" startY="-358.0" />
-      <HBox layoutX="462.0" layoutY="14.0" prefHeight="24.0" prefWidth="162.0" spacing="7.0">
+
+                  <!-- Total Price Section -->
+      <HBox layoutX="14.0" layoutY="424.0" prefHeight="35.0" prefWidth="234.0" spacing="15.0">
          <children>
-            <Label text="Date" />
-            <Label fx:id="setDate" layoutX="10.0" layoutY="10.0" text="Show Date" />
+            <Label text="Total:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="setTotalAfterDiscount" text="Total Price">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
-      <HBox layoutX="462.0" layoutY="38.0" prefHeight="24.0" prefWidth="162.0" spacing="7.0">
-         <children>
-            <Label text="Time" />
-            <Label fx:id="setTime" layoutX="10.0" layoutY="10.0" text="Show Time" />
-         </children>
-      </HBox>
+
+      <!-- Complete Order Button -->
+      <Button fx:id="btCompleteOrder" layoutX="14.0" layoutY="469.0" mnemonicParsing="false" onAction="#completeOrderOnAction" prefHeight="30.0" prefWidth="145.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px;" text="Complete Order" />
    </children>
 </AnchorPane>

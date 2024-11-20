@@ -1,4 +1,4 @@
-#txtName,#txtContact,#txtAddress,#txtUserName,#txtPassword,#txtConfirmPassword , #txtEmail{
+#txtName,#txtContact,#txtAddress,#txtUserName,#txtPassword,#txtConfirmPassword , #txtEmail , #txtEmail{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-border-width: 0 0 2px 0;

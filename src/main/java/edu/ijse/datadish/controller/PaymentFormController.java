@@ -1,5 +1,6 @@
 package edu.ijse.datadish.controller;
 
+import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
 import edu.ijse.datadish.dto.OrderTableDto;
 import edu.ijse.datadish.model.PaymentFormModel;
@@ -10,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -57,6 +59,7 @@ public class PaymentFormController implements Initializable {
     private TextField txtEmail;
 
     private List<OrderItemDto> orderItems;
+    private OrderDto orderDto;
 
     @FXML
     void completeOrderOnAction(ActionEvent event) {
@@ -73,26 +76,55 @@ public class PaymentFormController implements Initializable {
         setOrderId.setText(order.getOrderId());
 
         orderItems = PaymentFormModel.getItemDetails(order.getOrderId());
+        orderDto = PaymentFormModel.getCustomerDetails(order.getOrderId());
+
+        setEmployeeName.setText(order.getEmployeeId());
+        setCustomerName.setText(orderDto.getCustomerName());
+        setCustomerContact.setText(orderDto.getCustomerContact());
 
         orderdItemLoad.getChildren().clear();
 
+        Label headerFoodName = new Label("Name");
+        Label headerQuantity = new Label("Qty");
+        Label headerPrice = new Label("Price");
+        Label headerTotalPrice = new Label("Total Price");
+
+        headerFoodName.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+        headerQuantity.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+        headerPrice.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+        headerTotalPrice.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(5);
+
+        gridPane.add(headerFoodName, 0, 0);
+        gridPane.add(headerQuantity, 1, 0);
+        gridPane.add(headerPrice, 2, 0);
+        gridPane.add(headerTotalPrice, 3, 0);
+
+        int row = 1;
         for (OrderItemDto item : orderItems) {
-            HBox itemHBox = new HBox(10);
-            itemHBox.setAlignment(Pos.CENTER_LEFT);
-
             Label foodNameLabel = new Label(item.getFoodName());
-            Label quantityLabel = new Label("Qty: " + item.getQuantity());
-            Label priceLabel = new Label("Price: " + item.getPrice());
-
+            Label quantityLabel = new Label(String.valueOf(item.getQuantity()));
+            Label priceLabel = new Label("LKR " + String.format("%.2f", item.getPrice()));
+            Label totalPriceLabel = new Label("LKR " + String.format("%.2f", item.getQuantity() * item.getPrice()));
 
             foodNameLabel.setStyle("-fx-font-weight: bold;");
             quantityLabel.setStyle("-fx-font-style: italic;");
-            priceLabel.setStyle("-fx-text-fill: white;");
+            priceLabel.setStyle("-fx-text-fill: black;");
+            totalPriceLabel.setStyle("-fx-text-fill: black;");
 
-            itemHBox.getChildren().addAll(foodNameLabel, quantityLabel, priceLabel);
+            gridPane.add(foodNameLabel, 0, row);
+            gridPane.add(quantityLabel, 1, row);
+            gridPane.add(priceLabel, 2, row);
+            gridPane.add(totalPriceLabel, 3, row);
 
-            orderdItemLoad.getChildren().add(itemHBox);
+            row++;
         }
+
+        orderdItemLoad.getChildren().add(gridPane);
     }
+
 
 }
