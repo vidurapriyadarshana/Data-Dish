@@ -78,8 +78,9 @@ public class InventoryController implements Initializable {
                         showInfo.setId("btnEdit");
                         deleteButton.setId("btnDelete");
 
-                        showInfo.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
-                        deleteButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
+                        showInfo.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+                        deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+
 
                         showInfo.setOnAction(event -> {
                             InventoryDto inventoryDto = getTableView().getItems().get(getIndex());

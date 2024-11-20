@@ -41,7 +41,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnResavtion" mnemonicParsing="false" onAction="#navigateToResavtionPage" prefHeight="36.0" prefWidth="112.0" text="  Resavation">
+                  <Button fx:id="btnResavtion" mnemonicParsing="false" onAction="#navigateToResavtionPage" prefHeight="36.0" prefWidth="112.0" text="  Tables">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -124,6 +124,13 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="loadPageAnchor" layoutX="211.33333333333334" prefHeight="600.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="loadPageAnchor" layoutX="211.33333333333334" prefHeight="600.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="789.0" layoutX="1.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/logo.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

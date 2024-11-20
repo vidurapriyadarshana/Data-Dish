@@ -1,17 +1,17 @@
-#txtName , #txtDesc ,#txtPrice , #txtCategory , #txtItemName , #txtItemQty , #txtStockLevel{
+#txtName , #txtDesc ,#txtPrice , #txtCategory , #txtItemName , #txtItemQty , #txtStockLevel , #txtContact , #txtAddress , #searchBar{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-border-width: 0 0 2px 0;
     -fx-text-fill: black;
 }
 
-#btAddItem , #btImageChoose {
+#btAddItem , #btImageChoose  , #btnSearch{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-text-fill: black;
 }
 
-#btAddItem:hover , #btImageChoose:hover {
+#btAddItem:hover , #btImageChoose:hover  , #btnSearch:hover{
     -fx-border-color: black;
     -fx-text-fill: black;
 }

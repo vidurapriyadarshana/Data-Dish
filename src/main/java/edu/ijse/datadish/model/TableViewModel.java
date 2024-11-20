@@ -38,7 +38,7 @@ public class TableViewModel {
 
     public ObservableList<TableDto> getAvailableTables() {
         ObservableList<TableDto> tableList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM tableinfo where Status = 'Available'";
+        String sql = "SELECT * FROM tableinfo WHERE Status = 'Available'";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -58,5 +58,42 @@ public class TableViewModel {
         }
 
         return tableList;
+    }
+
+    public boolean deleteTable(String tableId) {
+        String sql = "DELETE FROM tableinfo WHERE TableID = ?";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, tableId);
+            int affectedRows = statement.executeUpdate();
+
+            return affectedRows > 0;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean updateTableStatus(String tableId, String status) {
+        String sql = "UPDATE tableinfo SET Status = ? WHERE TableID = ?";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, status);
+            statement.setString(2, tableId);
+            int affectedRows = statement.executeUpdate();
+
+            return affectedRows > 0;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

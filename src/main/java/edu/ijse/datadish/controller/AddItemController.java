@@ -84,8 +84,8 @@ public class AddItemController implements Initializable {
                         editButton.setId("btnEdit");
                         deleteButton.setId("btnDelete");
 
-                        editButton.setStyle("-fx-background-color: transparent; -fx-border-color: #00FF9C; -fx-text-fill: black;");
-                        deleteButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
+                        editButton.setStyle("-fx-background-color: #00FF9C; -fx-text-fill: white;");
+                        deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 
                         editButton.setOnAction(event -> {
                             FoodDto food = getTableView().getItems().get(getIndex());

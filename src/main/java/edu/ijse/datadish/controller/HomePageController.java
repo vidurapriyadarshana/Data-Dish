@@ -166,10 +166,10 @@ public class HomePageController implements Initializable {
         if (customerName.isEmpty() || customerContact.isEmpty()) {
             showAlert("Error", "Please enter customer name and contact.");
             return;
-        }else if(selectedTable == null){
+        } else if (selectedTable == null) {
             showAlert("Error", "Please select a table.");
             return;
-        }else if(cartItems.isEmpty()){
+        } else if (cartItems.isEmpty()) {
             showAlert("Error", "Cart is empty.");
             return;
         }
@@ -183,12 +183,6 @@ public class HomePageController implements Initializable {
                     item.setFoodName(food.getFoodName());
                     item.setQuantity(qty);
                     item.setPrice(food.getFoodPrice());
-
-                    System.out.println(item.getFoodId());
-                    System.out.println(item.getFoodName());
-                    System.out.println(item.getQuantity());
-                    System.out.println(item.getPrice());
-
                     return item;
                 })
                 .toList();
@@ -203,26 +197,30 @@ public class HomePageController implements Initializable {
         order.setCustomerName(customerName);
         order.setCustomerContact(customerContact);
 
-        System.out.println(order.getOrderId());
-        System.out.println(order.getOrderDate());
-        System.out.println(order.getCustomerName());
-        System.out.println(order.getCustomerContact());
-        System.out.println(order.getTotalAmount());
-        System.out.println(order.getEmployeeId());
-        System.out.println(order.getTableId());
-        System.out.println(order.getCustomerId());
-
-        boolean isOrderSaved = HomePageModel.saveOrder(orderItems,order);
+        boolean isOrderSaved = HomePageModel.saveOrder(orderItems, order);
         if (isOrderSaved) {
             System.out.println("Order saved successfully!");
-            cartItems.clear();
-            updateCartDisplay();
-            txtCustomerName.clear();
-            txtCustomerContact.clear();
-        } else {
+            resetForm();
             System.out.println("Failed to save the order.");
         }
     }
+
+    private void resetForm() {
+        cartItems.clear();
+        updateCartDisplay();
+
+        txtCustomerName.clear();
+        txtCustomerContact.clear();
+
+        selectTable.setValue(null);
+
+        lblOrderId.setText(HomePageModel.generateNextOrderID());
+        customerId = HomePageModel.generateNextCustomerID();
+
+        totalPriceLabel.setText("Total: LKR0.00");
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -33,14 +32,19 @@ public class CheckoutController {
 
     @FXML
     public void initialize() {
-        try {
-            List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
+        loadOrders();
+    }
 
+    private void loadOrders() {
+        try {
+            ordersGrid.getChildren().clear();
+
+            List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
             int row = 0;
             int column = 0;
+
             for (OrderTableDto order : orders) {
                 VBox orderDetails = createOrderDetailsVBox(order);
-
                 ordersGrid.add(orderDetails, column, row);
 
                 column++;
@@ -55,7 +59,6 @@ public class CheckoutController {
     }
 
     private VBox createOrderDetailsVBox(OrderTableDto order) {
-
         VBox vbox = new VBox(5);
         vbox.setStyle("-fx-padding: 5; -fx-border-color: #FF971D; -fx-border-width: 1");
         vbox.getChildren().add(new Label("Order ID: " + order.getOrderId()));
@@ -76,6 +79,7 @@ public class CheckoutController {
     void handleSearch(ActionEvent event) {
         String query = searchBar.getText().trim().toLowerCase();
         ordersGrid.getChildren().clear();
+
         try {
             List<OrderTableDto> orders = checkoutModel.loadIncompleteOrders();
 
@@ -104,12 +108,14 @@ public class CheckoutController {
 
             PaymentFormController controller = loader.getController();
             controller.setOrderId(order);
+
             Stage stage = new Stage();
             stage.setTitle("Complete Payment");
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            initialize();
+            loadOrders();
+
         } catch (Exception e) {
             showError("Failed to open payment form: " + e.getMessage());
         }

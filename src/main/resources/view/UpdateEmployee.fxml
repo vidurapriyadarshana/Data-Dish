@@ -7,80 +7,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.UpdateEmployeeController">
+<AnchorPane fx:id="mainAnchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/addFoodItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.UpdateEmployeeController">
    <children>
-      <Label layoutX="28.0" layoutY="28.0" text="Employee Details">
-         <font>
-            <Font size="23.0" />
-         </font>
+      <Label layoutX="28.0" layoutY="28.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: black;" text="Employee Details">
       </Label>
-      <Button fx:id="btUpdate" layoutX="481.0" layoutY="342.0" mnemonicParsing="false" onAction="#updateOnAction" text="Update">
-         <font>
-            <Font size="15.0" />
-         </font>
+
+      <Button fx:id="btUpdate" layoutX="481.0" layoutY="342.0" mnemonicParsing="false" onAction="#updateOnAction" style="-fx-background-color: #FF971D; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 5px; -fx-padding: 10px 20px;" text="Update">
       </Button>
+
       <HBox layoutX="28.0" layoutY="93.0" prefHeight="213.0" prefWidth="543.0">
          <children>
             <VBox prefHeight="205.0" prefWidth="120.0" spacing="16.0">
                <children>
-                  <Label text="Employee ID">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label text="Employee Name">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label text="Contact">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label text="Address">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label text="HireDate">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label text="Status">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Employee ID" />
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Employee Name" />
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Contact" />
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Address" />
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="HireDate" />
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Status" />
                </children>
             </VBox>
+
             <VBox prefHeight="213.0" prefWidth="285.0" spacing="15.0">
                <children>
-                  <Label fx:id="lblEmployeeId" text="ID">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblName" text="Name">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtContact" prefHeight="25.0" prefWidth="360.0" />
-                  <TextField fx:id="txtAddress" prefHeight="12.0" prefWidth="375.0" />
-                  <Label fx:id="lblDate" text="Date">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <CheckBox fx:id="actionStatus" mnemonicParsing="false" text="Active">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </CheckBox>
+                  <Label fx:id="lblEmployeeId" style="-fx-font-size: 15px; -fx-font-weight: normal;" text="ID" />
+                  <Label fx:id="lblName" style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Name" />
+                  <TextField fx:id="txtContact" prefHeight="25.0" prefWidth="360.0" promptText="Contact" style="-fx-font-size: 14px; -fx-padding: 5px;" />
+                  <TextField fx:id="txtAddress" prefHeight="12.0" prefWidth="375.0" promptText="Address" style="-fx-font-size: 14px; -fx-padding: 5px;" />
+                  <Label fx:id="lblDate" style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Date" />
+                  <CheckBox fx:id="actionStatus" mnemonicParsing="false" style="-fx-font-size: 15px;" text="Active" />
                </children>
             </VBox>
          </children>

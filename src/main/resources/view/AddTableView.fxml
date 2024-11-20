@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchor" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #f5f5f5;" stylesheets="@../css/addEmployee.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.AddTableController">
+   <children>
+      <Label layoutX="30.0" layoutY="30.0" style="-fx-font-size: 28px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Add New Table">
+         <font>
+            <Font name="Corbel Light" size="12.0" />
+         </font></Label>
+
+      <VBox layoutX="40.0" layoutY="100.0" prefWidth="420.0" spacing="20.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: #34495e;" text="Table ID:" />
+                  <Label fx:id="setTableId" style="-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: #7f8c8d;" text="Auto-Generated" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: #34495e;" text="Capacity:" />
+                  <TextField fx:id="txtCapacity" prefWidth="250.0" promptText="Enter capacity" style="-fx-border-color: #FF971D; -fx-padding: 5px;" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <Button fx:id="btAddNewTable" layoutX="360.0" layoutY="220.0" mnemonicParsing="false" onAction="#addNewTableAction" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #FF971D; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'Arial'; -fx-background-radius: 5px;" text="Add Table" />
+   </children>
+</AnchorPane>

@@ -1,4 +1,3 @@
-
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.EmployeeDto;
@@ -24,7 +23,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class EmployeeViewController implements Initializable  {
+public class EmployeeViewController implements Initializable {
 
     @FXML
     private Button btAddEmployee;
@@ -82,7 +81,8 @@ public class EmployeeViewController implements Initializable  {
             stage.setTitle("Add Employee");
             stage.setScene(new Scene(load));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            stage.showAndWait();
+            reloadEmployeeTable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -92,17 +92,7 @@ public class EmployeeViewController implements Initializable  {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         employeeViewModel = new EmployeeViewModel();
         loadSalaryTable();
-        try {
-            ObservableList<EmployeeDto> employees = employeeViewModel.loadEmpTable();
-            employeeTable.setItems(employees);
-            colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeID()));
-            colName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeName()));
-            colContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeContact()));
-            colAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
-            colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeStatus()));
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        reloadEmployeeTable();
 
         colActions.setCellFactory(new Callback<>() {
             @Override
@@ -115,8 +105,8 @@ public class EmployeeViewController implements Initializable  {
                         showInfo.setId("btnEdit");
                         deleteButton.setId("btnDelete");
 
-                        showInfo.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
-                        deleteButton.setStyle("-fx-background-color: transparent; -fx-border-color: #F95454; -fx-text-fill: black;");
+                        showInfo.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+                        deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 
                         showInfo.setOnAction(event -> {
                             EmployeeDto employeeDto = getTableView().getItems().get(getIndex());
@@ -148,6 +138,20 @@ public class EmployeeViewController implements Initializable  {
         });
     }
 
+    private void reloadEmployeeTable() {
+        try {
+            ObservableList<EmployeeDto> employees = employeeViewModel.loadEmpTable();
+            employeeTable.setItems(employees);
+            colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeID()));
+            colName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeName()));
+            colContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeContact()));
+            colAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
+            colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployeeStatus()));
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void updateEmployee(EmployeeDto employeeDto) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateEmployee.fxml"));
@@ -156,7 +160,8 @@ public class EmployeeViewController implements Initializable  {
             controller.setEmployeeData(employeeDto);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
+            reloadEmployeeTable();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,6 +172,7 @@ public class EmployeeViewController implements Initializable  {
 
         if (isDeleted) {
             showAlert("Success", "Employee Deleted Successfully");
+            reloadEmployeeTable();
         } else {
             showAlert("Error", "Employee Deletion Failed");
         }
