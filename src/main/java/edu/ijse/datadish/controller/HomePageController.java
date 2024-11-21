@@ -257,5 +257,4 @@ public class HomePageController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

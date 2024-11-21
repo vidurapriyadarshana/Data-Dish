@@ -227,6 +227,16 @@ public class EmployeeViewController implements Initializable {
 
     }
 
+    @FXML
+    void addSalaryAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddEmployeeSalary.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+        reloadEmployeeTable();
+    }
+
     private void showAlert(String title, String message) {
         Alert.AlertType alertType = "Error".equals(title) ? Alert.AlertType.ERROR : Alert.AlertType.INFORMATION;
         Alert alert = new Alert(alertType);

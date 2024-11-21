@@ -1,10 +1,10 @@
-#btUpdateItem , #btAddEmployee , #btAddItem ,#btAddTable {
+#btUpdateItem , #btAddEmployee , #btAddItem ,#btAddTable, #btAddSalary {
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-text-fill: black;
 }
 
-#btnAddItem:hover, #btDeleteItem:hover , #btUpdateItem:hover ,  #btAddEmployee:hover ,  #btAddItem:hover , #btAddTable:hover {
+#btnAddItem:hover, #btDeleteItem:hover , #btUpdateItem:hover ,  #btAddEmployee:hover ,  #btAddItem:hover , #btAddTable:hover  , #btAddSalary:hover{
     -fx-border-color: black;
     -fx-text-fill: black;
 }

@@ -1,4 +1,4 @@
-#txtName , #txtDesc ,#txtPrice , #txtCategory , #txtItemName , #txtItemQty , #txtStockLevel , #txtContact , #txtAddress , #searchBar{
+#txtName , #txtDesc ,#txtPrice , #txtCategory , #txtItemName , #txtItemQty , #txtStockLevel , #txtContact , #txtAddress , #txtSalary , #searchBar{
     -fx-background-color: transparent;
     -fx-border-color: #FF971D;
     -fx-border-width: 0 0 2px 0;
