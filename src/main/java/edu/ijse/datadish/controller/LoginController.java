@@ -5,6 +5,8 @@ import edu.ijse.datadish.util.Refarance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -13,6 +15,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import edu.ijse.datadish.model.LogInModel;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -78,7 +84,14 @@ public class LoginController {
     }
 
     @FXML
-    void forgotPassAction(MouseEvent event) {
+    void forgotPassAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ForgotPassword.fxml"));
+        Parent load = loader.load();
 
+        Stage addItemStage = new Stage();
+        addItemStage.setTitle("Forgot Password");
+        addItemStage.setScene(new Scene(load));
+        addItemStage.initModality(Modality.NONE);
+        addItemStage.show();
     }
 }

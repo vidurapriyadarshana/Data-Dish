@@ -6,6 +6,7 @@ module edu.ijse.restaurant {
     requires mysql.connector.j;
     requires java.desktop;
     requires net.sf.jasperreports.core;
+    requires java.mail;
 
 
     opens edu.ijse.datadish.controller to javafx.fxml;

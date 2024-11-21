@@ -66,6 +66,29 @@ public class LogInModel {
         }
     }
 
+    public boolean checkEmail(String email) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        String query = "SELECT Email FROM user WHERE Email = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, email);
+
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.next();
+    }
+
+    public boolean updatePassword(String email, String newPassword) throws SQLException, ClassNotFoundException {
+        String query = "UPDATE user SET Password = ? WHERE Email = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setString(1, newPassword);
+        statement.setString(2, email);
+
+        return statement.executeUpdate() > 0;
+    }
+
+}
 
 //    public boolean cheakLogin(LogInDto logInDto) throws SQLException, ClassNotFoundException {
 //        Connection connection = DBConnection.getInstance().getConnection();
@@ -98,4 +121,4 @@ public class LogInModel {
 //
 //        return true;
 //    }
-}
+
