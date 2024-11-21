@@ -164,6 +164,10 @@ public class EmployeeViewController implements Initializable {
             reloadEmployeeTable();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -188,39 +192,9 @@ public class EmployeeViewController implements Initializable {
             colSalaryDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
             colsalary.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getAmount())));
 
-            configureSalaryActions();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void configureSalaryActions() {
-        colSalaryAction.setCellFactory(new Callback<>() {
-            @Override
-            public TableCell<SalaryDto, String> call(TableColumn<SalaryDto, String> param) {
-                return new TableCell<>() {
-                    private final Button viewInfoButton = new Button("Update");
-
-                    {
-                        viewInfoButton.setStyle("-fx-background-color: transparent; -fx-border-color: #3498db; -fx-text-fill: black;");
-                        viewInfoButton.setOnAction(event -> {
-                            SalaryDto salaryDto = getTableView().getItems().get(getIndex());
-                            updateSalary(salaryDto);
-                        });
-                    }
-
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(viewInfoButton);
-                        }
-                    }
-                };
-            }
-        });
     }
 
     private void updateSalary(SalaryDto salaryDto) {

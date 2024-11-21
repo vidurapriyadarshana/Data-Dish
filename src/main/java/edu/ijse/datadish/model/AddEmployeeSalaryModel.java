@@ -1,6 +1,7 @@
 package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
+import edu.ijse.datadish.dto.SalaryDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,18 +12,12 @@ import java.util.List;
 
 public class AddEmployeeSalaryModel {
     public static String generateNextID() {
-        String nextID = null;
-
         try {
-            System.out.println("Generating ID...");
             Connection connection = DBConnection.getInstance().getConnection();
-
             if (connection == null) {
                 System.out.println("Database connection failed.");
-                return null;
+                return "S001";
             }
-
-            System.out.println("Connected to database.");
 
             String query = "SELECT SalaryID FROM salary ORDER BY SalaryID DESC LIMIT 1";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -31,21 +26,19 @@ public class AddEmployeeSalaryModel {
             if (resultSet.next()) {
                 String lastID = resultSet.getString("SalaryID");
                 int number = Integer.parseInt(lastID.substring(1));
-                nextID = String.format("S%03d", number + 1);
-                System.out.println("New ID generated: " + nextID);
+                return String.format("S%03d", number + 1);
             } else {
-                nextID = "S001";
-                System.out.println("No entries found, starting with ID: " + nextID);
+                return "S001";
             }
-
         } catch (SQLException e) {
             System.out.println("SQL Exception: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
             e.printStackTrace();
         }
-        return nextID;
+        return "S001";
     }
+
 
     public static List<String> getEmployeeNames() throws SQLException, ClassNotFoundException {
         String sql = "SELECT Name FROM employee";
@@ -62,4 +55,32 @@ public class AddEmployeeSalaryModel {
         return employeeNames;
     }
 
+    public static String getEmployeeId(String employeeName) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT EmployeeID FROM employee WHERE Name = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, employeeName);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("EmployeeID");
+        } else {
+            return null;
+        }
+    }
+
+
+    public static boolean addSalary(SalaryDto salaryDto) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO salary (SalaryID, EmployeeID,Amount, PaymentDate) VALUES (?, ?, ?, ?)";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, salaryDto.getSalaryId());
+        statement.setString(2, salaryDto.getEmployeeId());
+        statement.setDouble(3, salaryDto.getAmount());
+        statement.setString(4, salaryDto.getDate());
+
+        return statement.executeUpdate() > 0;
+    }
 }

@@ -33,14 +33,13 @@
                     <children>
                         <TableView fx:id="tableSalary" prefHeight="473.0" prefWidth="789.0">
                             <columns>
-                                <TableColumn fx:id="colSalaryId" minWidth="15.0" prefWidth="94.0" style="-fx-alignment: CENTER;" text="Salary ID" />
-                                <TableColumn fx:id="colEmployeeName" minWidth="15.0" prefWidth="209.3" style="-fx-alignment: CENTER;" text="Employee Name" />
-                                <TableColumn fx:id="colSalaryDate" minWidth="0.0" prefWidth="162.0" style="-fx-alignment: CENTER;" text="Date" />
-                                <TableColumn fx:id="colsalary" minWidth="0.0" prefWidth="180.0" style="-fx-alignment: CENTER-RIGHT;" text="Salary" />
-                                <TableColumn fx:id="colSalaryAction" minWidth="0.0" prefWidth="124.7" style="-fx-alignment: CENTER;" text="Action" />
+                                <TableColumn fx:id="colSalaryId" minWidth="15.0" prefWidth="102.0" style="-fx-alignment: CENTER;" text="Salary ID" />
+                                <TableColumn fx:id="colEmployeeName" minWidth="15.0" prefWidth="264.7" style="-fx-alignment: CENTER;" text="Employee Name" />
+                                <TableColumn fx:id="colSalaryDate" minWidth="0.0" prefWidth="213.3" style="-fx-alignment: CENTER;" text="Date" />
+                                <TableColumn fx:id="colsalary" minWidth="0.0" prefWidth="200.7" style="-fx-alignment: CENTER;" text="Salary" />
                             </columns>
                         </TableView>
-                  <Button fx:id="btAddSalary" layoutX="649.0" layoutY="508.0" mnemonicParsing="false" onAction="#addSalaryAction" prefHeight="36.0" prefWidth="115.0" text="Add Salary" />
+                        <Button fx:id="btAddSalary" layoutX="649.0" layoutY="508.0" mnemonicParsing="false" onAction="#addSalaryAction" prefHeight="36.0" prefWidth="115.0" text="Add Salary" />
                     </children>
                 </AnchorPane>
             </Tab>

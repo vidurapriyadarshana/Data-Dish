@@ -22,6 +22,9 @@ public class UpdateEmployeeController implements Initializable {
     private Button btUpdate;
 
     @FXML
+    private TextField txtEmail;
+
+    @FXML
     private Label lblDate;
 
     @FXML
@@ -43,7 +46,7 @@ public class UpdateEmployeeController implements Initializable {
 
     private UpdateEmployeeModel updateEmployeeModel = new UpdateEmployeeModel();
 
-    public void setEmployeeData(EmployeeDto employeeDto) {
+    public void setEmployeeData(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {
         this.employeeDto = employeeDto;
         lblEmployeeId.setText(employeeDto.getEmployeeID());
         lblName.setText(employeeDto.getEmployeeName());
@@ -51,6 +54,7 @@ public class UpdateEmployeeController implements Initializable {
         txtContact.setText(employeeDto.getEmployeeContact());
         lblDate.setText(employeeDto.getHireDate());
         actionStatus.setSelected("Active".equals(employeeDto.getEmployeeStatus()));
+        txtEmail.setText(updateEmployeeModel.getEmployeeEmail(employeeDto.getEmployeeID()));
     }
 
     @FXML
@@ -59,16 +63,20 @@ public class UpdateEmployeeController implements Initializable {
         String address = txtAddress.getText();
         String contact = txtContact.getText();
         String status = actionStatus.isSelected() ? "Active" : "Inactive";
+        String email = txtEmail.getText();
         employeeDto.setAddress(address);
         employeeDto.setEmployeeContact(contact);
         employeeDto.setEmployeeStatus(status);
+        employeeDto.setEmail(email);
 
         boolean result = updateEmployeeModel.updateEmployee(employeeDto);
 
         if(result) {
             showAlert("Success", "Employee Updated Successfully");
+            Stage stage = (Stage) mainAnchor.getScene().getWindow();
+            stage.close();
         }else {
-            showAlert("Error", "Employee Updation Failed");
+            showAlert("Error", "Employee Update Failed");
         }
 
         Stage stage = (Stage) mainAnchor.getScene().getWindow();

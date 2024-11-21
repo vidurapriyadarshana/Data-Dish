@@ -25,6 +25,7 @@
                   <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Contact" />
                   <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Address" />
                   <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="HireDate" />
+                  <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Email" />
                   <Label style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Status" />
                </children>
             </VBox>
@@ -34,8 +35,9 @@
                   <Label fx:id="lblEmployeeId" style="-fx-font-size: 15px; -fx-font-weight: normal;" text="ID" />
                   <Label fx:id="lblName" style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Name" />
                   <TextField fx:id="txtContact" prefHeight="25.0" prefWidth="360.0" promptText="Contact" style="-fx-font-size: 14px; -fx-padding: 5px;" />
-                  <TextField fx:id="txtAddress" prefHeight="12.0" prefWidth="375.0" promptText="Address" style="-fx-font-size: 14px; -fx-padding: 5px;" />
+                  <TextField fx:id="txtAddress" prefHeight="25.0" prefWidth="360.0" promptText="Address" style="-fx-font-size: 14px; -fx-padding: 5px;" />
                   <Label fx:id="lblDate" style="-fx-font-size: 15px; -fx-font-weight: normal;" text="Date" />
+                  <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="360.0" promptText="Email" style="-fx-font-size: 14px; -fx-padding: 5px;" />
                   <CheckBox fx:id="actionStatus" mnemonicParsing="false" style="-fx-font-size: 15px;" text="Active" />
                </children>
             </VBox>
