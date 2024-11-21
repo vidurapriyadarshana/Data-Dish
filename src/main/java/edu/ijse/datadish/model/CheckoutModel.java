@@ -45,12 +45,4 @@ public class CheckoutModel {
 
         return orderList;
     }
-
-    public void completeOrder(String orderId) {
-
-    }
-
-    public void completeOrder(OrderTableDto order, double discount, double finalTotal) {
-
-    }
 }

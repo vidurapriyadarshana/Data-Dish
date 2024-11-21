@@ -66,8 +66,9 @@ public class AdminDashController implements Initializable {
     }
 
     @FXML
-    void navigateToReportsPage(ActionEvent event) {
-
+    void navigateToReportsPage(ActionEvent event) throws IOException {
+        loadPageAnchor.getChildren().clear();
+        loadPageAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Report.fxml")));
     }
 
     @FXML

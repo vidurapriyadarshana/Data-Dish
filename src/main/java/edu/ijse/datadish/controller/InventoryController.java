@@ -71,25 +71,12 @@ public class InventoryController implements Initializable {
             @Override
             public TableCell<InventoryDto, String> call(TableColumn<InventoryDto, String> inventoryDtoStringTableColumn) {
                 return new TableCell<>() {
-                    private final Button showInfo = new Button("Info");
                     private final Button deleteButton = new Button("Remove");
 
                     {
-                        showInfo.setId("btnEdit");
                         deleteButton.setId("btnDelete");
 
-                        showInfo.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
                         deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-
-
-                        showInfo.setOnAction(event -> {
-                            InventoryDto inventoryDto = getTableView().getItems().get(getIndex());
-                            try {
-                                getInfo(inventoryDto);
-                            } catch (IOException | SQLException | ClassNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
 
                         deleteButton.setOnAction(event -> {
                             InventoryDto inventoryDto = getTableView().getItems().get(getIndex());
@@ -108,7 +95,7 @@ public class InventoryController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox hbox = new HBox(10, showInfo, deleteButton);
+                            HBox hbox = new HBox(10, deleteButton);
                             setGraphic(hbox);
                         }
                     }
@@ -117,10 +104,6 @@ public class InventoryController implements Initializable {
 
         });
 
-    }
-
-    private void getInfo(InventoryDto inventoryDto) throws IOException, SQLException, ClassNotFoundException {
-        System.out.println("button clicked");
     }
 
     private void removeItem(InventoryDto inventoryDto) throws SQLException, ClassNotFoundException {

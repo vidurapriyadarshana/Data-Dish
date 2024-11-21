@@ -7,13 +7,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="789.0" stylesheets="@../css/addItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.EmployeeViewController">
+<AnchorPane fx:id="mainAnchor" prefHeight="600.0" prefWidth="789.0" style="-fx-background-color: #f9f9f9;" stylesheets="@../css/addItem.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.EmployeeViewController">
     <children>
-        <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="789.0">
-            <Tab fx:id="btEmployee" closable="false" text="Employee">
-                <AnchorPane>
+        <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="789.0" style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);">
+            <Tab fx:id="btEmployee" closable="false" style="-fx-background-color: #ffffff; -fx-text-fill: #333333; -fx-font-weight: bold; -fx-padding: 10;" text="Employee">
+                <AnchorPane style="-fx-padding: 20;">
                     <children>
-                        <TableView fx:id="employeeTable" prefHeight="481.0" prefWidth="789.0">
+                        <TableView fx:id="employeeTable" prefHeight="481.0" prefWidth="789.0" style="-fx-border-color: #e0e0e0; -fx-background-color: #ffffff; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 0);">
                             <columns>
                                 <TableColumn fx:id="colId" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
                                 <TableColumn fx:id="colName" prefWidth="142.0" style="-fx-alignment: CENTER;" text="Name" />
@@ -23,15 +23,15 @@
                                 <TableColumn fx:id="colActions" prefWidth="146.7" style="-fx-alignment: CENTER;" text="Actions" />
                             </columns>
                         </TableView>
-                        <Button fx:id="btAddEmployee" layoutX="646.0" layoutY="503.0" mnemonicParsing="false" onAction="#addEmployeeAction" prefHeight="36.0" prefWidth="115.0" text="Add Employee" />
+                        <Button fx:id="btAddEmployee" layoutX="646.0" layoutY="503.0" mnemonicParsing="false" onAction="#addEmployeeAction" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-border-radius: 5; -fx-font-size: 14px;" text="Add Employee" />
                     </children>
                 </AnchorPane>
             </Tab>
 
-            <Tab fx:id="btSalary" closable="false" text="Salary">
-                <AnchorPane>
+            <Tab fx:id="btSalary" closable="false" style="-fx-background-color: #ffffff; -fx-text-fill: #333333; -fx-font-weight: bold; -fx-padding: 10;" text="Salary">
+                <AnchorPane style="-fx-padding: 20;">
                     <children>
-                        <TableView fx:id="tableSalary" prefHeight="473.0" prefWidth="789.0">
+                        <TableView fx:id="tableSalary" prefHeight="473.0" prefWidth="789.0" style="-fx-border-color: #e0e0e0; -fx-background-color: #ffffff; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 0);">
                             <columns>
                                 <TableColumn fx:id="colSalaryId" minWidth="15.0" prefWidth="102.0" style="-fx-alignment: CENTER;" text="Salary ID" />
                                 <TableColumn fx:id="colEmployeeName" minWidth="15.0" prefWidth="264.7" style="-fx-alignment: CENTER;" text="Employee Name" />
@@ -39,7 +39,7 @@
                                 <TableColumn fx:id="colsalary" minWidth="0.0" prefWidth="200.7" style="-fx-alignment: CENTER;" text="Salary" />
                             </columns>
                         </TableView>
-                        <Button fx:id="btAddSalary" layoutX="649.0" layoutY="508.0" mnemonicParsing="false" onAction="#addSalaryAction" prefHeight="36.0" prefWidth="115.0" text="Add Salary" />
+                        <Button fx:id="btAddSalary" layoutX="649.0" layoutY="508.0" mnemonicParsing="false" onAction="#addSalaryAction" prefHeight="36.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-border-radius: 5; -fx-font-size: 14px;" text="Add Salary" />
                     </children>
                 </AnchorPane>
             </Tab>

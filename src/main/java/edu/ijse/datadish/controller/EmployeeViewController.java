@@ -197,10 +197,6 @@ public class EmployeeViewController implements Initializable {
         }
     }
 
-    private void updateSalary(SalaryDto salaryDto) {
-
-    }
-
     @FXML
     void addSalaryAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddEmployeeSalary.fxml"));
@@ -209,6 +205,7 @@ public class EmployeeViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.showAndWait();
         reloadEmployeeTable();
+        loadSalaryTable();
     }
 
     private void showAlert(String title, String message) {

@@ -17,7 +17,6 @@
          </font>
       </Label>
 
-      <!-- Customer Information Section -->
       <VBox layoutX="14.0" layoutY="70.0" prefHeight="114.0" prefWidth="289.0" spacing="5.0">
          <children>
             <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
@@ -41,10 +40,8 @@
          </children>
       </VBox>
 
-      <!-- Order Item Section -->
       <VBox fx:id="orderdItemLoad" layoutX="16.0" layoutY="171.0" prefHeight="185.0" prefWidth="289.0" />
 
-      <!-- Order Details Section -->
       <VBox layoutX="14.0" layoutY="374.0" prefHeight="49.0" prefWidth="289.0">
          <children>
             <HBox prefHeight="24.0" prefWidth="191.0" spacing="16.0">
@@ -74,7 +71,6 @@
          </children>
       </VBox>
 
-                  <!-- Total Price Section -->
       <HBox layoutX="14.0" layoutY="424.0" prefHeight="35.0" prefWidth="234.0" spacing="15.0">
          <children>
             <Label text="Total:">
@@ -90,7 +86,6 @@
          </children>
       </HBox>
 
-      <!-- Complete Order Button -->
       <Button fx:id="btCompleteOrder" layoutX="14.0" layoutY="469.0" mnemonicParsing="false" onAction="#completeOrderOnAction" prefHeight="30.0" prefWidth="145.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px;" text="Complete Order" />
       <Label fx:id="lblpaymentID" layoutX="204.0" layoutY="31.0" text="Payment Id" />
    </children>

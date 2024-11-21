@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="789.0" style="-fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.datadish.controller.ReportController">
+    <VBox layoutX="20.0" layoutY="16.0" prefHeight="562.0" prefWidth="750.0" spacing="15.0" style="-fx-padding: 20; -fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);">
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Daily Income Breakdown" />
+        <BarChart fx:id="dailyIncomeChart" prefHeight="300" prefWidth="700" style="-fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <xAxis>
+                <CategoryAxis label="Dates" style="-fx-tick-label-fill: #666666; -fx-label-padding: 10;" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Income (LKR)" style="-fx-tick-label-fill: #666666; -fx-label-padding: 10;" />
+            </yAxis>
+        </BarChart>
+
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Monthly Profit" />
+        <BarChart fx:id="profitChart" prefHeight="200.0" prefWidth="720.0" style="-fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <xAxis>
+                <CategoryAxis label="Months" style="-fx-tick-label-fill: #666666; -fx-label-padding: 10;" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Profit (LKR)" style="-fx-tick-label-fill: #666666; -fx-label-padding: 10;" />
+            </yAxis>
+        </BarChart>
+
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Summary" />
+        <Label fx:id="lblTotalSalaries" style="-fx-font-size: 16px; -fx-text-fill: #555555;" text="Total Salaries: LKR" />
+    </VBox>
+</AnchorPane>
