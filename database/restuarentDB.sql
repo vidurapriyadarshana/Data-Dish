@@ -67,16 +67,10 @@ create table notification
 (
     NotificationID varchar(10)  not null
         primary key,
-    CustomerID     varchar(10)  null,
     Description    varchar(255) null,
     Date           date         null,
-    constraint notification_ibfk_1
-        foreign key (CustomerID) references customer (CustomerID)
-            on update cascade on delete cascade
+    CustomerId     varchar(10)  null
 );
-
-create index CustomerID
-    on notification (CustomerID);
 
 create table supplier
 (
@@ -216,12 +210,12 @@ create index OrderID
 
 create table payment
 (
-    PaymentID varchar(10)    not null
+    PaymentID varchar(10)                not null
         primary key,
-    OrderID   varchar(10)    null,
-    Amount    decimal(10, 2) null,
-    Date      date           null,
-    Type      varchar(50)    null,
+    OrderID   varchar(10)                null,
+    Amount    decimal(10, 2)             null,
+    Date      date                       null,
+    Type      varchar(50) default 'Cash' null,
     constraint payment_ibfk_1
         foreign key (OrderID) references orders (OrderID)
             on delete cascade
