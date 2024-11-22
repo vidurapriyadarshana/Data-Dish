@@ -1,6 +1,7 @@
 package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
+import edu.ijse.datadish.dto.NotificationDto;
 import edu.ijse.datadish.dto.OrderDto;
 import edu.ijse.datadish.dto.OrderItemDto;
 import edu.ijse.datadish.dto.PaymentDto;
@@ -199,5 +200,63 @@ public class PaymentFormModel {
             e.printStackTrace();
         }
         return nextID;
+    }
+
+    public static String generateNotificationId() {
+        String nextID = null;
+
+        try {
+            System.out.println("Generating ID...");
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            if (connection == null) {
+                System.out.println("Database connection failed.");
+                return null;
+            }
+
+            System.out.println("Connected to database.");
+
+            String query = "SELECT NotificationID FROM notification ORDER BY NotificationID DESC LIMIT 1";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String lastID = resultSet.getString("NotificationID");
+                int number = Integer.parseInt(lastID.substring(1));
+                nextID = String.format("N%03d", number + 1);
+                System.out.println("New ID generated: " + nextID);
+            } else {
+                nextID = "N001";
+                System.out.println("No entries found, starting with ID: " + nextID);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return nextID;
+    }
+
+    public static boolean saveNotification(NotificationDto notificationDto) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO notification (NotificationID, Description, Date , CustomerID) VALUES (?, ?, ?, ?)";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        System.out.println(notificationDto.getNotificationId() );
+
+        System.out.println(notificationDto.getDesc());
+        System.out.println(notificationDto.getDate());
+        System.out.println(notificationDto.getCustomerId());
+
+        statement.setString(1,notificationDto.getNotificationId() );
+        statement.setString(2, notificationDto.getDesc());
+        statement.setString(3, notificationDto.getDate());
+        statement.setString(4, notificationDto.getCustomerId());
+
+        int rowsAffected = statement.executeUpdate();
+
+        return rowsAffected > 0;
     }
 }

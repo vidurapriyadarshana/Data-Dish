@@ -1,10 +1,7 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.db.DBConnection;
-import edu.ijse.datadish.dto.OrderDto;
-import edu.ijse.datadish.dto.OrderItemDto;
-import edu.ijse.datadish.dto.OrderTableDto;
-import edu.ijse.datadish.dto.PaymentDto;
+import edu.ijse.datadish.dto.*;
 import edu.ijse.datadish.model.PaymentFormModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,6 +32,9 @@ public class PaymentFormController implements Initializable {
 
     @FXML
     private Label lblpaymentID;
+
+    @FXML
+    private Button btSendMail;
 
     @FXML
     private Button btCompleteOrder;
@@ -75,6 +75,8 @@ public class PaymentFormController implements Initializable {
     private List<OrderItemDto> orderItems;
     private OrderDto orderDto;
     private String paymentId;
+    private String notificationId;
+    private NotificationDto notificationDto = new NotificationDto();
 
     private PaymentDto paymentDto = new PaymentDto();
 
@@ -205,4 +207,68 @@ public class PaymentFormController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    void sendMailOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String customerEmail = txtEmail.getText().trim();
+        if (customerEmail.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter a valid email address!").show();
+            return;
+        }
+
+        String orderId = setOrderId.getText();
+        String customerName = setCustomerName.getText();
+        String orderDate = setDate.getText();
+        String totalAmount = setTotalAfterDiscount.getText();
+
+        if (orderId == null || orderId.isEmpty() || customerName == null || customerName.isEmpty() || totalAmount == null || totalAmount.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Order details are incomplete!").show();
+            return;
+        }
+
+        String subject = "Your Order Details - Order ID: " + orderId;
+        StringBuilder emailBody = new StringBuilder();
+        emailBody.append("Dear ").append(customerName).append(",\n\n")
+                .append("Thank you for your order with us! Below are your order details:\n\n")
+                .append("Order ID: ").append(orderId).append("\n")
+                .append("Order Date: ").append(orderDate).append("\n")
+                .append("Total Amount: ").append(totalAmount).append("\n\n")
+                .append("Ordered Items:\n");
+
+        for (OrderItemDto item : orderItems) {
+            emailBody.append("- ")
+                    .append(item.getFoodName())
+                    .append(" (Qty: ").append(item.getQuantity())
+                    .append(", Price: LKR ").append(String.format("%.2f", item.getPrice())).append(")\n");
+        }
+
+        emailBody.append("\nWe hope you enjoy your meal!\n\n")
+                .append("Best Regards,\nData Dish Restaurant");
+
+        CustMailSenderController mailSender = new CustMailSenderController();
+        mailSender.sendEmail(customerEmail, subject, emailBody.toString());
+
+        this.notificationId = PaymentFormModel.generateNotificationId();
+
+        notificationDto.setNotificationId(notificationId);
+        notificationDto.setCustomerId(orderDto.getCustomerId());
+        notificationDto.setDesc(orderId);
+        notificationDto.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+
+        System.out.println(notificationId);
+        System.out.println(orderDto.getCustomerId());
+        System.out.println("Order ID: " + orderId);
+        System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        boolean result = PaymentFormModel.saveNotification(notificationDto);
+
+        if(result) {
+            showAlert("Notification Sent", "Notification Sent Successfully");
+        }else {
+            showAlert("Error", "Failed to send notification");
+        }
+    }
+
+
 }
