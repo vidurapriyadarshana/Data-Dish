@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
+
     private static DBConnection dBConnection;
     private Connection connection;
 
@@ -25,16 +26,5 @@ public class DBConnection {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurantdb", "root", "Vidura999@");
         }
         return connection;
-    }
-
-    public void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                System.out.println("Connection closed.");
-            } catch (SQLException e) {
-                System.out.println("Error closing connection: " + e.getMessage());
-            }
-        }
     }
 }

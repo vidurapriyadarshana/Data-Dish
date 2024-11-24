@@ -11,34 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddEmployeeSalaryModel {
-    public static String generateNextID() {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            if (connection == null) {
-                System.out.println("Database connection failed.");
-                return "S001";
-            }
-
-            String query = "SELECT SalaryID FROM salary ORDER BY SalaryID DESC LIMIT 1";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                String lastID = resultSet.getString("SalaryID");
-                int number = Integer.parseInt(lastID.substring(1));
-                return String.format("S%03d", number + 1);
-            } else {
-                return "S001";
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Exception: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return "S001";
-    }
-
 
     public static List<String> getEmployeeNames() throws SQLException, ClassNotFoundException {
         String sql = "SELECT Name FROM employee";
@@ -82,5 +54,33 @@ public class AddEmployeeSalaryModel {
         statement.setString(4, salaryDto.getDate());
 
         return statement.executeUpdate() > 0;
+    }
+
+    public static String generateNextID() {
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            if (connection == null) {
+                System.out.println("Database connection failed.");
+                return "S001";
+            }
+
+            String query = "SELECT SalaryID FROM salary ORDER BY SalaryID DESC LIMIT 1";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String lastID = resultSet.getString("SalaryID");
+                int number = Integer.parseInt(lastID.substring(1));
+                return String.format("S%03d", number + 1);
+            } else {
+                return "S001";
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return "S001";
     }
 }

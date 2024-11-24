@@ -26,7 +26,8 @@ public class ResetPasswordController implements Initializable {
 
     @FXML
     void cancelAction(ActionEvent event) {
-
+        Stage stage = (Stage) txtNewPassword.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

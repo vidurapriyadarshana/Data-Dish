@@ -255,7 +255,6 @@ public class PaymentFormController implements Initializable {
         notificationDto.setDesc(orderId);
         notificationDto.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-
         System.out.println(notificationId);
         System.out.println(orderDto.getCustomerId());
         System.out.println("Order ID: " + orderId);
@@ -269,6 +268,4 @@ public class PaymentFormController implements Initializable {
             showAlert("Error", "Failed to send notification");
         }
     }
-
-
 }

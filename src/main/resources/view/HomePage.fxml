@@ -21,7 +21,6 @@
                   <Font name="Corbel Light" size="33.0" />
                </font>
             </Label>
-            <TextField fx:id="searchField" layoutX="337.0" layoutY="28.0" promptText="Search" />
             <ScrollPane fx:id="scrollPane" layoutY="70.0" prefHeight="530.0" prefWidth="575.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
                <content>
                   <GridPane fx:id="foodContainer" hgap="10" prefHeight="530.0" prefWidth="502.0" vgap="10">

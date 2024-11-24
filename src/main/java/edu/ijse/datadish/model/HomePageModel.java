@@ -38,31 +38,6 @@ public class HomePageModel {
         return foodItems;
     }
 
-    public static String generateNextOrderID() {
-        String nextID = "O001";
-
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1"
-             );
-             ResultSet resultSet = statement.executeQuery()) {
-
-            if (resultSet.next()) {
-                String lastID = resultSet.getString("OrderID");
-                if (lastID != null && !lastID.isEmpty()) {
-                    int number = Integer.parseInt(lastID.substring(1));
-                    nextID = String.format("O%03d", number + 1);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Exception: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        return nextID;
-    }
-
 
     public static boolean saveOrder(List<OrderItemDto> orderItemsDto, OrderDto orderDto) throws SQLException, ClassNotFoundException {
 
@@ -165,6 +140,31 @@ public class HomePageModel {
 //
 //        return false;
 //    }
+
+    public static String generateNextOrderID() {
+        String nextID = "O001";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT OrderID FROM orders ORDER BY OrderID DESC LIMIT 1"
+             );
+             ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                String lastID = resultSet.getString("OrderID");
+                if (lastID != null && !lastID.isEmpty()) {
+                    int number = Integer.parseInt(lastID.substring(1));
+                    nextID = String.format("O%03d", number + 1);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return nextID;
+    }
 
     public static String generateNextCustomerID() {
         String nextID = "C001";

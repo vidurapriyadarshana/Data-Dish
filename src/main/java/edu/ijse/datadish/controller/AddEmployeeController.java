@@ -2,7 +2,6 @@
 package edu.ijse.datadish.controller;
 
 import edu.ijse.datadish.dto.EmployeeDto;
-import edu.ijse.datadish.dto.LogInDto;
 import edu.ijse.datadish.model.AddEmployeeModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static edu.ijse.datadish.util.Regex.*;
 
 public class AddEmployeeController implements Initializable {
 
@@ -84,6 +85,61 @@ public class AddEmployeeController implements Initializable {
 //
 //    }
 
+//    @FXML
+//    void signUpOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+//        String name = txtName.getText();
+//        String contact = txtContact.getText();
+//        String address = txtAddress.getText();
+//        String email = txtEmail.getText();
+//
+//        if(name.isEmpty() || contact.isEmpty() || address.isEmpty() || email.isEmpty() || choiceBox.getValue() == null) {
+//            showAlert("Error", "Please fill in all fields.");
+//            return;
+//        }
+//
+//        employeeDto.setEmployeeID(lblEmpId.getText());
+//        employeeDto.setEmployeeName(name);
+//        employeeDto.setEmployeeContact(contact);
+//        employeeDto.setHireDate(lblHireDate.getText());
+//        employeeDto.setAddress(address);
+//        employeeDto.setEmail(email);
+//        employeeDto.setRole(choiceBox.getValue());
+//        employeeDto.setEmployeeStatus("Active");
+//
+//        String userName = txtUserName.getText();
+//        String password = txtPassword.getText();
+//        String confirmPassword = txtConfirmPassword.getText();
+//
+//        if(userName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+//            showAlert("Error", "Please fill in all fields.");
+//            return;
+//        }
+//
+//        if(password.length() != 8) {
+//            showAlert("Error", "Password must be at least 8 characters long.");
+//            return;
+//        }
+//
+//        if(!password.equals(confirmPassword)) {
+//            showAlert("Error", "Passwords do not match.");
+//            return;
+//        }
+//
+//        employeeDto.setUserName(userName);
+//        employeeDto.setPassword(password);
+//
+//        boolean isSaved = addEmployeeModel.saveEmployee(employeeDto);
+//
+//        if(isSaved) {
+//            showAlert("Success", "Employee saved successfully.");
+//            Stage stage = (Stage) mainAnchor.getScene().getWindow();
+//            stage.close();
+//        } else {
+//            showAlert("Error", "Employee saving failed.");
+//        }
+//
+//    }
+
     @FXML
     void signUpOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String name = txtName.getText();
@@ -91,8 +147,28 @@ public class AddEmployeeController implements Initializable {
         String address = txtAddress.getText();
         String email = txtEmail.getText();
 
-        if(name.isEmpty() || contact.isEmpty() || address.isEmpty() || email.isEmpty() || choiceBox.getValue() == null) {
-            showAlert("Error", "Please fill in all fields.");
+        if (!validateName(name)) {
+            showAlert("Error", "Name must contain only letters and spaces.");
+            return;
+        }
+
+        if (!validateContact(contact)) {
+            showAlert("Error", "Contact number must be a valid 10-digit number.");
+            return;
+        }
+
+        if (!validateAddress(address)) {
+            showAlert("Error", "Address cannot be empty and should not contain special characters.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            showAlert("Error", "Please enter a valid email address.");
+            return;
+        }
+
+        if (choiceBox.getValue() == null) {
+            showAlert("Error", "Please select a role.");
             return;
         }
 
@@ -109,17 +185,17 @@ public class AddEmployeeController implements Initializable {
         String password = txtPassword.getText();
         String confirmPassword = txtConfirmPassword.getText();
 
-        if(userName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (userName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showAlert("Error", "Please fill in all fields.");
             return;
         }
 
-        if(password.length() != 8) {
+        if (password.length() < 8) {
             showAlert("Error", "Password must be at least 8 characters long.");
             return;
         }
 
-        if(!password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             showAlert("Error", "Passwords do not match.");
             return;
         }
@@ -129,16 +205,14 @@ public class AddEmployeeController implements Initializable {
 
         boolean isSaved = addEmployeeModel.saveEmployee(employeeDto);
 
-        if(isSaved) {
+        if (isSaved) {
             showAlert("Success", "Employee saved successfully.");
             Stage stage = (Stage) mainAnchor.getScene().getWindow();
             stage.close();
         } else {
             showAlert("Error", "Employee saving failed.");
         }
-
     }
-
 
     @FXML
     void navigateToSignUp(ActionEvent event) {

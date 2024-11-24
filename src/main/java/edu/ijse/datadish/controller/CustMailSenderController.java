@@ -45,10 +45,6 @@ public class CustMailSenderController {
 }
 
 
-
-
-
-
 //package edu.ijse.datadish.controller;
 //
 //import javafx.event.ActionEvent;
