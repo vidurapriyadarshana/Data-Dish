@@ -13,6 +13,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static edu.ijse.datadish.util.Regex.*;
+
 public class UpdateEmployeeController implements Initializable {
 
     @FXML
@@ -59,11 +61,26 @@ public class UpdateEmployeeController implements Initializable {
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-
         String address = txtAddress.getText();
         String contact = txtContact.getText();
         String status = actionStatus.isSelected() ? "Active" : "Inactive";
         String email = txtEmail.getText();
+
+        if (!validateEmail(email)) {
+            showAlert("Validation Error", "Invalid email address format.");
+            return;
+        }
+
+        if (!validateContact(contact)) {
+            showAlert("Validation Error", "Contact number must be a 10-digit numeric value.");
+            return;
+        }
+
+        if (!validateAddress(address)) {
+            showAlert("Validation Error", "Address must be alphanumeric and within 100 characters.");
+            return;
+        }
+
         employeeDto.setAddress(address);
         employeeDto.setEmployeeContact(contact);
         employeeDto.setEmployeeStatus(status);
@@ -71,17 +88,16 @@ public class UpdateEmployeeController implements Initializable {
 
         boolean result = updateEmployeeModel.updateEmployee(employeeDto);
 
-        if(result) {
+        if (result) {
             showAlert("Success", "Employee Updated Successfully");
             Stage stage = (Stage) mainAnchor.getScene().getWindow();
             stage.close();
-        }else {
+        } else {
             showAlert("Error", "Employee Update Failed");
         }
 
         Stage stage = (Stage) mainAnchor.getScene().getWindow();
         stage.close();
-
     }
 
     @Override
