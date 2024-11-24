@@ -3,6 +3,7 @@ package edu.ijse.datadish.model;
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.EmployeeDto;
 import edu.ijse.datadish.dto.LogInDto;
+import edu.ijse.datadish.util.Password;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,16 +22,20 @@ public class AddEmployeeModel {
 
         try {
             connection = DBConnection.getInstance().getConnection();
-
             connection.setAutoCommit(false);
 
+            // Hash the password before saving
+            String hashedPassword = Password.hashPassword(employeeDto.getPassword());
+
+            // Save user details
             userStatement = connection.prepareStatement(userSql);
             userStatement.setString(1, employeeDto.getUserName());
-            userStatement.setString(2, employeeDto.getPassword());
+            userStatement.setString(2, hashedPassword); // Store hashed password
             userStatement.setString(3, employeeDto.getEmail());
             userStatement.setString(4, employeeDto.getRole());
             userStatement.executeUpdate();
 
+            // Save employee details
             employeeStatement = connection.prepareStatement(employeeSql);
             employeeStatement.setString(1, employeeDto.getEmployeeID());
             employeeStatement.setString(2, employeeDto.getEmployeeName());
@@ -63,6 +68,7 @@ public class AddEmployeeModel {
             }
         }
     }
+
 
     public static String generateNextID() {
         String nextID = null;

@@ -2,6 +2,7 @@ package edu.ijse.datadish.model;
 
 import edu.ijse.datadish.db.DBConnection;
 import edu.ijse.datadish.dto.LogInDto;
+import edu.ijse.datadish.util.Password;
 import edu.ijse.datadish.util.Refarance;
 
 import java.sql.Connection;
@@ -16,16 +17,22 @@ public class LogInModel {
         connection.setAutoCommit(false);
 
         try {
-            String userQuery = "SELECT * FROM user WHERE UserName = ? AND Password = ?";
+            String userQuery = "SELECT * FROM user WHERE UserName = ?";
             PreparedStatement userStatement = connection.prepareStatement(userQuery);
             userStatement.setString(1, logInDto.getUserName());
-            userStatement.setString(2, logInDto.getPassword());
 
             System.out.println("Checking user credentials...");
 
             ResultSet userResult = userStatement.executeQuery();
 
             if (!userResult.next()) {
+                connection.rollback();
+                return false; 
+            }
+
+            String hashedPassword = userResult.getString("Password");
+
+            if (!Password.checkPassword(logInDto.getPassword(), hashedPassword)) {
                 connection.rollback();
                 return false;
             }
@@ -65,6 +72,7 @@ public class LogInModel {
             connection.setAutoCommit(true);
         }
     }
+
 
     public boolean checkEmail(String email) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
